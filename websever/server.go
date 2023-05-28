@@ -1,17 +1,21 @@
-package main
+package webserver
 
 import (
 	"net/http"
 	"log"
 )
 
-func main() {
+const addr string = ":3000"
+
+func RunServer() string {
 
 	fileHandler := http.FileServer(http.Dir("../static"))
 	http.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
 
-	log.Fatal(http.ListenAndServe(":3000", nil))	
-	
+	log.Fatal(http.ListenAndServe(addr, nil))	
+
+	return "server is running"
+
 }
 
 func noCache(h http.Handler) http.Handler {
