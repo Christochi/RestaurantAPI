@@ -6,19 +6,19 @@ import (
 )
 
 // CONSTANTS
-const addr string = ":3000"
+const Port string = ":3000"
 
 // starts server
 func RunServer() {
 
 	// the web files are processed relative to the dir of the caller 
-	fileHandler := http.FileServer(http.Dir("./static"))
+	FileHandler := http.FileServer(http.Dir("./static"))
 
 	// matches handler with incoming request (endpoint)
-	http.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
+	http.Handle("/", noCache(http.StripPrefix("/", FileHandler)))
 
 	// listens on the network address and handles requests from incoming connections
-	log.Fatal(http.ListenAndServe(addr, nil))	
+	log.Fatal(http.ListenAndServe(Port, nil))	
 
 }
 
