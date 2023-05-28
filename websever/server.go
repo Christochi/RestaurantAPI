@@ -7,14 +7,12 @@ import (
 
 const addr string = ":3000"
 
-func RunServer() string {
+func RunServer() {
 
-	fileHandler := http.FileServer(http.Dir("../static"))
+	fileHandler := http.FileServer(http.Dir("./static"))
 	http.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
 
 	log.Fatal(http.ListenAndServe(addr, nil))	
-
-	return "server is running"
 
 }
 
