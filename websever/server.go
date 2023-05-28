@@ -5,13 +5,19 @@ import (
 	"log"
 )
 
+// CONSTANTS
 const addr string = ":3000"
 
+// starts server
 func RunServer() {
 
+	// the web files are processed relative to the dir of the caller (main.go) 
 	fileHandler := http.FileServer(http.Dir("./static"))
+
+	// matches handler with incoming request (endpoint)
 	http.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
 
+	// listens on the network address and handles requests from incoming connections
 	log.Fatal(http.ListenAndServe(addr, nil))	
 
 }
