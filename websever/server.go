@@ -8,9 +8,10 @@ import (
 func main() {
 
 	fileHandler := http.FileServer(http.Dir("../static"))
-	http.Handle("/", noCache(http.StripPrefix("/static/", fileHandler)))
+	http.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
 
-	log.Fatal(http.ListenAndServe(":3000", nil))
+	log.Fatal(http.ListenAndServe(":3000", nil))	
+	
 }
 
 func noCache(h http.Handler) http.Handler {
