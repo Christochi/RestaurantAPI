@@ -8,16 +8,17 @@ import (
 // CONSTANTS
 const addr string = ":3000"
 
-// the web files are processed relative to the dir of the caller 
-var WebFilesDir string = "./static"
-var FileHandler = http.FileServer(http.Dir(WebFilesDir))
-
+var WebFilesDir string // directory of web files
+var FileHandler http.Handler // placeholder for web files
 
 // starts server
-func RunServer() {
+func RunServer(dir string) {
+
+	// stores handler that serves requests with web files
+	FileHandler = http.FileServer(http.Dir(WebFilesDir))
 
 	// matches handler with incoming request (endpoint)
-	http.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
+	http.Handle("/", noCache(http.StripPrefix("/", FileHandler)))
 
 	// listens on the network address and handles requests from incoming connections
 	log.Fatal(http.ListenAndServe(addr, nil))	
