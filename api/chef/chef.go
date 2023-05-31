@@ -9,10 +9,9 @@ import (
 
 // Data about a chef
 type Chef struct {
-
+	
 	Name string `json:"name"`
 	About string `json:"about"`
-	
 }
 
 func PostMethod(rw http.ResponseWriter, req *http.Request) {
