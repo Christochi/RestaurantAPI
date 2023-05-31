@@ -11,7 +11,7 @@ import (
 type Chef struct {
 
 	Name string `json:"name"`
-	About string `json:"about"`
+	About string `json:"about"` 	
 }
 
 var chef []Chef // list of chefs 
