@@ -9,16 +9,16 @@ import (
 
 // Data about a chef
 type Chef struct {
-	
+
 	Name string `json:"name"`
 	About string `json:"about"`
 }
 
 func PostMethod(rw http.ResponseWriter, req *http.Request) {
 
-	var p []PostBody 
+	var chef []Chef // list of chefs
 
-	err := json.NewDecoder(req.Body).Decode(&p)
+	err := json.NewDecoder(req.Body).Decode(&chef)
 
 	if err != nil {
 		log.Fatal("error decoding into struct")
