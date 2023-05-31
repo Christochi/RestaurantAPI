@@ -36,6 +36,14 @@ func PostMethod(rw http.ResponseWriter, req *http.Request) {
 // client requests for chef data using GET Method
 func GetMethod(rw http.ResponseWriter, req *http.Request) {
 
+	// inform browser to expect json
+	rw.Header().Set("Content-Type", "application/json")
 
+	// encode to json
+	err := json.NewEncoder(rw).Encode(chef)
 
+	// error handling
+	if err != nil {
+		log.Fatal("error encoding into json")
+	}
 }
