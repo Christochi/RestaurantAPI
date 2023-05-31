@@ -37,7 +37,7 @@ func GetMethod(rw http.ResponseWriter, req *http.Request) {
 	// inform browser to expect json
 	rw.Header().Set("Content-Type", "application/json")
 
-	// encode to json
+	// encode to json and rw sends the json
 	err := json.NewEncoder(rw).Encode(chef)
 
 	// error handling
