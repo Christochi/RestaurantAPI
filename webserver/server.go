@@ -27,8 +27,6 @@ func RunServer(dir string) {
 
 }
 
-
-
 // handles browser caching
 func noCache(h http.Handler) http.Handler {
 
