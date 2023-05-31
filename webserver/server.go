@@ -20,6 +20,7 @@ func RunServer(dir string) {
 	// matches handler with incoming request (endpoint)
 	http.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
 	http.HandleFunc("/postchef", chef.PostMethod)
+	http.HandleFunc("/getchef", chef.GetMethod)
 
 	// listens on the network address and handles requests from incoming connections
 	log.Fatal(http.ListenAndServe(addr, nil))	
