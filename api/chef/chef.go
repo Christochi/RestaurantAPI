@@ -26,8 +26,6 @@ func PostMethod(rw http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Fatal("error decoding into struct")
 	}
-
-	fmt.Printf("%+v\n", chef)
 	
 	// server's response to client
 	fmt.Fprintln(rw, "success")	
