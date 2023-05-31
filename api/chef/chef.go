@@ -14,10 +14,10 @@ type Chef struct {
 	About string `json:"about"`
 }
 
+var chef []Chef // list of chefs 
+
 // client send chef data using POST Method
 func PostMethod(rw http.ResponseWriter, req *http.Request) {
-
-	var chef []Chef // list of chefs
 
 	// decode json to struct
 	err := json.NewDecoder(req.Body).Decode(&chef)
@@ -27,10 +27,15 @@ func PostMethod(rw http.ResponseWriter, req *http.Request) {
 		log.Fatal("error decoding into struct")
 	}
 
-	//fmt.Printf("%+v\n", p)
+	fmt.Printf("%+v\n", chef)
 	
 	// server's response to client
-	fmt.Fprintln(rw, "success")
-		
-	
+	fmt.Fprintln(rw, "success")	
+}
+
+// client requests for chef data using GET Method
+func GetMethod(rw http.ResponseWriter, req *http.Request) {
+
+
+
 }
