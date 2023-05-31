@@ -4,24 +4,26 @@ import (
 	"net/http"
 	"encoding/json"
 	"log"
+	"fmt"
 )
 
-type postBody struct {
-	code int `json:code`
+type PostBody struct {
+	Code string `json:"code"`
 }
 
-func PostMethod(rw http.ResponseWriter, req *http.Request) int {
+func PostMethod(rw http.ResponseWriter, req *http.Request) {
 
-	var post postBody 
+	var p []PostBody 
 
-	if req.Method == "POST" {
-		err := json.NewDecoder(req.Body).Decode(&post)
+	err := json.NewDecoder(req.Body).Decode(&p)
 
-		if err != nil {
-			log.Fatal("error decoding into int")
-		}
-		return post.code
-	} else {
-		return 0
+	if err != nil {
+		log.Fatal("error decoding into struct")
 	}
+
+	fmt.Printf("%+v\n", p)
+	
+	fmt.Fprintln(rw, "success")
+		
+	
 }
