@@ -18,6 +18,15 @@ var chef []Chef // list of chefs
 // handlerfunc for chef endpoint
 func ChefHandler(rw http.ResponseWriter, req *http.Request) {
 
+	// determines the HTTP verb
+	switch req.Method {
+	case "GET":
+		GetMethod(rw, req)
+
+	case "POST":
+		PostMethod(rw, req)
+	}
+
 }
 
 // client send chef data using POST Method
@@ -33,6 +42,7 @@ func PostMethod(rw http.ResponseWriter, req *http.Request) {
 
 	// server's response to client
 	fmt.Fprintln(rw, "success")
+
 }
 
 // client requests for chef data using GET Method
@@ -48,4 +58,5 @@ func GetMethod(rw http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Fatal("error encoding into json")
 	}
+
 }
