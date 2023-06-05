@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-// Data about a chef
+// Chef Object
 type Chef struct {
 	Name  string `json:"name"`
 	About string `json:"about"`
