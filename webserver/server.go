@@ -23,8 +23,6 @@ func RunServer(dir string) {
 	// matches handler with incoming request or pattern (endpoint)
 	router.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
 	router.HandleFunc("/chef", chef.ChefHandler)
-	//http.HandleFunc("/postchef", chef.PostMethod)
-	//http.HandleFunc("/getchef", chef.GetMethod)
 
 	// listens on the network address and handles requests from incoming connections
 	log.Fatal(http.ListenAndServe(addr, router))
