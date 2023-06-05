@@ -38,10 +38,10 @@ func PostMethod(rw http.ResponseWriter, req *http.Request) {
 	// error handling
 	if err != nil {
 		log.Fatal("error decoding into struct")
+	} else {
+		// server's response to client
+		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated))
 	}
-
-	// server's response to client
-	fmt.Fprintln(rw, "success")
 
 }
 
