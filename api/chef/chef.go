@@ -15,6 +15,11 @@ type Chef struct {
 
 var chef []Chef // list of chefs
 
+// handlerfunc for chef endpoint
+func ChefHandler(rw http.ResponseWriter, req *http.Request) {
+
+}
+
 // client send chef data using POST Method
 func PostMethod(rw http.ResponseWriter, req *http.Request) {
 
