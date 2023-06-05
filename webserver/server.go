@@ -3,6 +3,7 @@ package webserver
 import (
 	"log"
 	"net/http"
+	"restaurantapi/api/chef"
 )
 
 // CONSTANTS
@@ -21,7 +22,7 @@ func RunServer(dir string) {
 
 	// matches handler with incoming request or pattern (endpoint)
 	router.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
-
+	router.HandleFunc("/chef", chef.ChefHandler)
 	//http.HandleFunc("/postchef", chef.PostMethod)
 	//http.HandleFunc("/getchef", chef.GetMethod)
 
