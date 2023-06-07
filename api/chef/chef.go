@@ -7,13 +7,13 @@ import (
 	"net/http"
 )
 
-// Chef Object
-type Chef struct {
+// Chef json Object
+type ChefJson struct {
 	Name  string `json:"name"`
 	About string `json:"about"`
 }
 
-var chef []Chef // list of chefs
+var Chef []ChefJson // list of chefs
 
 // handlerfunc for chef endpoint
 func ChefHandler(rw http.ResponseWriter, req *http.Request) {
@@ -33,7 +33,7 @@ func ChefHandler(rw http.ResponseWriter, req *http.Request) {
 func PostMethod(rw http.ResponseWriter, req *http.Request) {
 
 	// decode json to struct
-	err := json.NewDecoder(req.Body).Decode(&chef)
+	err := json.NewDecoder(req.Body).Decode(&Chef)
 
 	// error handling
 	if err != nil {
@@ -52,7 +52,7 @@ func GetMethod(rw http.ResponseWriter, req *http.Request) {
 	rw.Header().Set("Content-Type", "application/json")
 
 	// encode to json and rw sends the json
-	err := json.NewEncoder(rw).Encode(chef)
+	err := json.NewEncoder(rw).Encode(&Chef)
 
 	// error handling
 	if err != nil {
