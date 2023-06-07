@@ -46,7 +46,7 @@ func ChefHandler(rw http.ResponseWriter, req *http.Request) {
 		DeleteChefByName(rw, req)
 
 	default:
-		http.NotFound(rw, req)
+		http.NotFound(rw, req) // returns 404 page not found
 	}
 
 }
