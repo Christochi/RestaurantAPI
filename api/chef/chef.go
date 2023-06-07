@@ -46,7 +46,7 @@ func ChefHandler(rw http.ResponseWriter, req *http.Request) {
 		DeleteChefByName(rw, req)
 
 	default:
-		http.NotFound(rw, req) // returns 404 not found
+		notFound(rw, req) // returns 404 not found
 	}
 
 }
@@ -88,3 +88,11 @@ func DeleteChef(rw http.ResponseWriter, req *http.Request) {}
 
 // client deletes a specific chef
 func DeleteChefByName(rw http.ResponseWriter, req *http.Request) {}
+
+// sends message to client if request does not exist or not implemented
+func notFound(rw http.ResponseWriter, req *http.Request) {
+
+	rw.WriteHeader(http.StatusNotImplemented) // 501
+	rw.Write([]byte("Not Implemented"))
+
+}
