@@ -5,6 +5,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"regexp"
+)
+
+var (
+	allChefsRegex     = regexp.MustCompile(`^\/chef\/$`)          // /chef/
+	specificChefRegex = regexp.MustCompile(`^\/chef\/[A-Za-z]+$`) // /chef/job, /chef/Cynthia
 )
 
 // Chef json Object
