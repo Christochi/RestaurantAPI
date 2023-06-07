@@ -18,6 +18,9 @@ var Chef []ChefJson // list of chefs
 // handlerfunc for chef endpoint
 func ChefHandler(rw http.ResponseWriter, req *http.Request) {
 
+	// inform browser to expect json
+	rw.Header().Set("Content-Type", "application/json")
+
 	// determines the HTTP verb
 	switch req.Method {
 	case "GET":
@@ -47,9 +50,6 @@ func PostMethod(rw http.ResponseWriter, req *http.Request) {
 
 // client requests for chef data using GET Method
 func GetMethod(rw http.ResponseWriter, req *http.Request) {
-
-	// inform browser to expect json
-	rw.Header().Set("Content-Type", "application/json")
 
 	// encode to json and rw sends the json
 	err := json.NewEncoder(rw).Encode(&Chef)
