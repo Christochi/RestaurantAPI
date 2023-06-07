@@ -11,6 +11,19 @@ const addr string = ":3000"
 
 var WebFilesDir string // directory of web files
 
+// handler interface
+// type apiHandler struct {
+// 	c []chef.ChefJson
+// 	//menu Menu
+// }
+
+// func (api *apiHandler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
+
+// 	tmpl := template.Must(template.ParseFiles("static/index.html"))
+// 	tmpl.Execute(rw, api)
+
+// }
+
 // starts server
 func RunServer(dir string) {
 
@@ -22,6 +35,7 @@ func RunServer(dir string) {
 
 	// matches handler with incoming request or pattern (endpoint)
 	router.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
+	// router.Handle("/", noCache(&apiHandler{c: chef.Chef}))
 	router.HandleFunc("/chef", chef.ChefHandler)
 
 	// listens on the network address and handles requests from incoming connections
