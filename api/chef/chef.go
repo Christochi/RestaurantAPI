@@ -8,6 +8,7 @@ import (
 	"regexp"
 )
 
+// pathnames for subroot in url endpoint
 var (
 	allChefsRegex     = regexp.MustCompile(`^\/chef[\/]?$`)         // /chef or /chef/
 	specificChefRegex = regexp.MustCompile(`^\/chef\/([A-Za-z]+)$`) // /chef/job, /chef/Cynthia
