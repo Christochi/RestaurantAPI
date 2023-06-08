@@ -27,7 +27,7 @@ func ChefHandler(rw http.ResponseWriter, req *http.Request) {
 	// inform browser to expect json
 	rw.Header().Set("Content-Type", "application/json")
 
-	// determines the HTTP verb
+	// determines the function to call by the request
 	switch {
 
 	case req.Method == http.MethodGet && allChefsRegex.MatchString(req.URL.Path):
