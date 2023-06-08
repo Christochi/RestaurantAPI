@@ -62,7 +62,7 @@ func PostChef(rw http.ResponseWriter, req *http.Request) {
 		log.Fatal("error decoding into struct")
 	} else {
 		// server's response to client
-		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated))
+		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // Created
 	}
 
 }
@@ -92,7 +92,7 @@ func DeleteChefByName(rw http.ResponseWriter, req *http.Request) {}
 // sends message to client if request does not exist or not implemented
 func notFound(rw http.ResponseWriter, req *http.Request) {
 
-	rw.WriteHeader(http.StatusNotImplemented) // 501
-	rw.Write([]byte("Not Implemented"))
+	rw.WriteHeader(http.StatusNotImplemented)                    // 501
+	rw.Write([]byte(http.StatusText(http.StatusNotImplemented))) // Not Implemented
 
 }
