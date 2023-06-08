@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	allChefsRegex     = regexp.MustCompile(`^\/chef\/$`)          // /chef/
+	allChefsRegex     = regexp.MustCompile(`^\/chef[\/]?$`)       // /chef/
 	specificChefRegex = regexp.MustCompile(`^\/chef\/[A-Za-z]+$`) // /chef/job, /chef/Cynthia
 )
 
