@@ -9,8 +9,8 @@ import (
 )
 
 var (
-	allChefsRegex     = regexp.MustCompile(`^\/chef[\/]?$`)       // /chef or /chef/
-	specificChefRegex = regexp.MustCompile(`^\/chef\/[A-Za-z]+$`) // /chef/job, /chef/Cynthia
+	allChefsRegex     = regexp.MustCompile(`^\/chef[\/]?$`)         // /chef or /chef/
+	specificChefRegex = regexp.MustCompile(`^\/chef\/([A-Za-z]+)$`) // /chef/job, /chef/Cynthia
 )
 
 // Chef json Object
