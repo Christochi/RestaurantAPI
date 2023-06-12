@@ -36,8 +36,7 @@ func RunServer(dir string) {
 	// matches handler with incoming request or pattern (endpoint)
 	router.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
 	// router.Handle("/", noCache(&apiHandler{c: chef.Chef}))
-
-	newChef := chef.NewChef()
+	newChef := chef.NewChef() // returns a chef object
 	router.HandleFunc("/chef/", newChef.ChefHandler)
 
 	// listens on the network address and handles requests from incoming connections
