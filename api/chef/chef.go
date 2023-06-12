@@ -94,9 +94,11 @@ func GetChefByName(rw http.ResponseWriter, req *http.Request) {}
 // client deletes all chef data
 func (c *chef) DeleteChef(rw http.ResponseWriter, req *http.Request) {
 
-	// delete all element by initializing the length of the slice to 0
-	c = nil
-	fmt.Fprintf(rw, "%+v\n", &c)
+	// delete all element by re-initializing to nil
+	*c = nil
+
+	fmt.Fprintln(rw, "Data is deleted", "\n", *c)
+
 }
 
 // client deletes a specific chef
