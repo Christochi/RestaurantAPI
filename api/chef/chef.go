@@ -15,15 +15,22 @@ var (
 )
 
 // Chef json Object
-type ChefJson struct {
+type chefJson struct {
 	Name  string `json:"name"`
 	About string `json:"about"`
 }
 
-var Chef []ChefJson // list of chefs
+type chef []chefJson // list of chefs
+
+// retuns slice of chef object
+func NewChef() *chef {
+
+	return new(chef)
+
+}
 
 // handlerfunc for chef endpoint
-func ChefHandler(rw http.ResponseWriter, req *http.Request) {
+func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 
 	// inform browser to expect json
 	rw.Header().Set("Content-Type", "application/json")
@@ -32,13 +39,13 @@ func ChefHandler(rw http.ResponseWriter, req *http.Request) {
 	switch {
 
 	case req.Method == http.MethodGet && allChefsRegex.MatchString(req.URL.Path):
-		GetChef(rw, req)
+		c.GetChef(rw, req)
 
 	case req.Method == http.MethodGet && specificChefRegex.MatchString(req.URL.Path):
 		GetChefByName(rw, req)
 
 	case req.Method == http.MethodPost && allChefsRegex.MatchString(req.URL.Path):
-		PostChef(rw, req)
+		c.PostChef(rw, req)
 
 	case req.Method == http.MethodDelete && allChefsRegex.MatchString(req.URL.Path):
 		DeleteChef(rw, req)
@@ -53,10 +60,10 @@ func ChefHandler(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client send chef data using POST Method
-func PostChef(rw http.ResponseWriter, req *http.Request) {
+func (c *chef) PostChef(rw http.ResponseWriter, req *http.Request) {
 
 	// decode json to struct
-	err := json.NewDecoder(req.Body).Decode(&Chef)
+	err := json.NewDecoder(req.Body).Decode(&c)
 
 	// error handling
 	if err != nil {
@@ -69,10 +76,10 @@ func PostChef(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client requests for chef data using GET Method
-func GetChef(rw http.ResponseWriter, req *http.Request) {
+func (c *chef) GetChef(rw http.ResponseWriter, req *http.Request) {
 
 	// encode to json and rw sends the json
-	err := json.NewEncoder(rw).Encode(&Chef)
+	err := json.NewEncoder(rw).Encode(&c)
 
 	// error handling
 	if err != nil {
