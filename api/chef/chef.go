@@ -62,7 +62,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 // client send chef data using POST Method
 func (c *chef) PostChef(rw http.ResponseWriter, req *http.Request) {
 
-	// decode json to struct
+	// read response body and decode json to struct
 	err := json.NewDecoder(req.Body).Decode(&c)
 
 	// error handling
