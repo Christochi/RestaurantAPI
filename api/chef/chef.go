@@ -42,7 +42,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 		c.GetChef(rw, req)
 
 	case req.Method == http.MethodGet && specificChefRegex.MatchString(req.URL.Path):
-		GetChefByName(rw, req)
+		c.GetChefByName(rw, req)
 
 	case req.Method == http.MethodPost && allChefsRegex.MatchString(req.URL.Path):
 		c.PostChef(rw, req)
@@ -51,7 +51,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 		c.DeleteChef(rw, req)
 
 	case req.Method == http.MethodDelete && specificChefRegex.MatchString(req.URL.Path):
-		DeleteChefByName(rw, req)
+		c.DeleteChefByName(rw, req)
 
 	default:
 		notFound(rw, req) // returns 501 Not Implemented
@@ -89,7 +89,7 @@ func (c *chef) GetChef(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client requests for specific chef
-func GetChefByName(rw http.ResponseWriter, req *http.Request) {}
+func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {}
 
 // client deletes all chef data
 func (c *chef) DeleteChef(rw http.ResponseWriter, req *http.Request) {
@@ -102,7 +102,7 @@ func (c *chef) DeleteChef(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client deletes a specific chef
-func DeleteChefByName(rw http.ResponseWriter, req *http.Request) {}
+func (c *chef) DeleteChefByName(rw http.ResponseWriter, req *http.Request) {}
 
 // sends message to client if request does not exist or not implemented
 func notFound(rw http.ResponseWriter, req *http.Request) {
