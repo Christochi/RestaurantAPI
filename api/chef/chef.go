@@ -95,10 +95,25 @@ func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 	urlSubPaths := specificChefRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
-	name := urlSubPaths[2]
-	for _, k := range name {
+	// example: /user/job = ["/user/job", "job"]
+	name := urlSubPaths[1]
 
-		fmt.Fprintf(rw, "%s\n", k)
+	var chefNames []chefJson
+
+	for _, value := range *c {
+
+		if value.Name == name {
+			chefNames = append(chefNames, value)
+		}
+
+	}
+
+	// encode to json and rw sends the json
+	err := json.NewEncoder(rw).Encode(chefNames)
+
+	// error handling
+	if err != nil {
+		log.Fatal("error encoding into json")
 	}
 
 }
