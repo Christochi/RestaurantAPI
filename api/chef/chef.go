@@ -124,7 +124,7 @@ func (c *chef) DeleteChef(rw http.ResponseWriter, req *http.Request) {
 	// delete all element by re-initializing to nil
 	*c = nil
 
-	fmt.Fprintln(rw, "Data is deleted", "\n", *c)
+	fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
 
 }
 
