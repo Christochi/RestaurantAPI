@@ -91,9 +91,10 @@ func (c *chef) GetChef(rw http.ResponseWriter, req *http.Request) {
 // client requests for specific chef
 func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 
-	// returns slice of substrings that matches rightmost subexpressions in the url
+	// returns slice of substrings that matches subexpressions in the url
 	name := specificChefRegex.FindStringSubmatch(req.URL.Path)
 
+	// since the order of the slice is known
 	for _, k := range name {
 
 		fmt.Fprintf(rw, "%s\n", k)
