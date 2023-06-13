@@ -89,7 +89,17 @@ func (c *chef) GetChef(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client requests for specific chef
-func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {}
+func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
+
+	// returns slice of substrings that matches rightmost subexpressions in the url
+	name := specificChefRegex.FindStringSubmatch(req.URL.Path)
+
+	for _, k := range name {
+
+		fmt.Fprintf(rw, "%s\n", k)
+	}
+
+}
 
 // client deletes all chef data
 func (c *chef) DeleteChef(rw http.ResponseWriter, req *http.Request) {
