@@ -98,12 +98,12 @@ func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 	// example: /user/job = ["/user/job", "job"]
 	name := urlSubPaths[1]
 
-	var chefNames []chefJson
+	var chefNames []chefJson // new slice to hold the filtered data
 
 	for _, value := range *c {
 
 		if value.Name == name {
-			chefNames = append(chefNames, value)
+			chefNames = append(chefNames, value) // append to new slice
 		}
 
 	}
