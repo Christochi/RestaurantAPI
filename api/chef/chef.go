@@ -70,7 +70,7 @@ func (c *chef) PostChef(rw http.ResponseWriter, req *http.Request) {
 		log.Fatal("error decoding into struct")
 	} else {
 		// server's response to client
-		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // Created
+		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // 201 Created
 	}
 
 }
