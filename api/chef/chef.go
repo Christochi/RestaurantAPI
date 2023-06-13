@@ -92,9 +92,10 @@ func (c *chef) GetChef(rw http.ResponseWriter, req *http.Request) {
 func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
-	name := specificChefRegex.FindStringSubmatch(req.URL.Path)
+	urlSubPaths := specificChefRegex.FindStringSubmatch(req.URL.Path)
 
-	// since the order of the slice is known
+	// since the order of the slice is known, store the second index
+	name := urlSubPaths[2]
 	for _, k := range name {
 
 		fmt.Fprintf(rw, "%s\n", k)
