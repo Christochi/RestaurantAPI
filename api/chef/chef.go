@@ -20,7 +20,7 @@ type chefJson struct {
 	About string `json:"about"`
 }
 
-type chef []chefJson // new slice type to be used as a receiver for methods
+type chef []chefJson // slice type to be used as a receiver for methods
 
 // retuns slice of chef object
 func NewChef() *chef {
