@@ -46,8 +46,8 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	case req.Method == http.MethodGet && allMenuRegex.MatchString(req.URL.Path):
 		m.GetMenu(rw, req)
 
-	// case req.Method == http.MethodGet && specificChefRegex.MatchString(req.URL.Path):
-	// 	c.GetChefByName(rw, req)
+	case req.Method == http.MethodGet && allBreakfastRegex.MatchString(req.URL.Path):
+		m.GetBreakfastMenu(rw, req)
 
 	case req.Method == http.MethodDelete && allMenuRegex.MatchString(req.URL.Path):
 		m.DeleteMenu(rw, req)
@@ -82,6 +82,36 @@ func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// encode to json and rw sends the json
 	err := json.NewEncoder(rw).Encode(&m)
+
+	// error handling
+	if err != nil {
+		log.Fatal("error encoding into json")
+	}
+
+}
+
+// client requests for specific chef
+func (m *menu) GetBreakfastMenu(rw http.ResponseWriter, req *http.Request) {
+
+	// returns slice of substrings that matches subexpressions in the url
+	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
+
+	// since the order of the slice is known, store the second index
+	// example: /user/job = ["/user/job", "job"]
+	mealType := urlSubPaths[1]
+
+	var meal []menuJson // new slice to hold the filtered data
+
+	for _, value := range *m {
+
+		if value.Type == mealType {
+			meal = append(meal, value) // append to new slice
+		}
+
+	}
+
+	// encode to json and rw sends the json
+	err := json.NewEncoder(rw).Encode(meal)
 
 	// error handling
 	if err != nil {
