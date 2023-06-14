@@ -16,7 +16,7 @@ var (
 
 // Menu json Object
 type menuJson struct {
-	Type  string `json:"type"`
+	Type  string `json:"type"` // meal type
 	Name  string `json:"name"`
 	Price string `json:"price"`
 	Desc  string `json:"desc"` // description
