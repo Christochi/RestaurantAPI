@@ -57,8 +57,24 @@ func (c *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 
 }
 
+// client send chef data using POST Method
+func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
+
+	// // read response body and decode json to struct
+	// err := json.NewDecoder(req.Body).Decode(&m)
+
+	// // error handling
+	// if err != nil {
+	// 	log.Fatal("error decoding into struct")
+	// } else {
+	// 	// server's response to client
+	// 	fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // 201 Created
+	// }
+
+}
+
 // sends message to client if request does not exist or not implemented
-func (c *menu) notFound(rw http.ResponseWriter, req *http.Request) {
+func (m *menu) notFound(rw http.ResponseWriter, req *http.Request) {
 
 	rw.WriteHeader(http.StatusNotImplemented)                    // 501
 	rw.Write([]byte(http.StatusText(http.StatusNotImplemented))) // Not Implemented
