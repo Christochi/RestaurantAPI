@@ -76,6 +76,19 @@ func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
 
 }
 
+// client requests for menu data using GET Method
+func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
+
+	// encode to json and rw sends the json
+	err := json.NewEncoder(rw).Encode(&m)
+
+	// error handling
+	if err != nil {
+		log.Fatal("error encoding into json")
+	}
+
+}
+
 // sends message to client if resource does not exist or not implemented
 func (m *menu) NotFound(rw http.ResponseWriter, req *http.Request) {
 
