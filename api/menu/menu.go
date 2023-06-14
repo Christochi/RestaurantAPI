@@ -56,3 +56,11 @@ func (c *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	}
 
 }
+
+// sends message to client if request does not exist or not implemented
+func (c *menu) notFound(rw http.ResponseWriter, req *http.Request) {
+
+	rw.WriteHeader(http.StatusNotImplemented)                    // 501
+	rw.Write([]byte(http.StatusText(http.StatusNotImplemented))) // Not Implemented
+
+}
