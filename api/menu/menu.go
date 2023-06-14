@@ -121,6 +121,96 @@ func (m *menu) GetBreakfastMenu(rw http.ResponseWriter, req *http.Request) {
 
 }
 
+// client requests for lunch menu
+func (m *menu) GetLunchMenu(rw http.ResponseWriter, req *http.Request) {
+
+	// returns slice of substrings that matches subexpressions in the url
+	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
+
+	// since the order of the slice is known, store the second index
+	// example: /menu/lunch = ["/menu/lunch", "lunch"]
+	mealType := urlSubPaths[1]
+
+	var meal []menuJson // new slice to hold the filtered data
+
+	for _, value := range *m {
+
+		if strings.ToLower(value.Type) == mealType {
+			meal = append(meal, value) // append to new slice
+		}
+
+	}
+
+	// encode to json and rw sends the json
+	err := json.NewEncoder(rw).Encode(meal)
+
+	// error handling
+	if err != nil {
+		log.Fatal("error encoding into json")
+	}
+
+}
+
+// client requests for dinner menu
+func (m *menu) GetDinnerMenu(rw http.ResponseWriter, req *http.Request) {
+
+	// returns slice of substrings that matches subexpressions in the url
+	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
+
+	// since the order of the slice is known, store the second index
+	// example: /menu/dinner = ["/menu/dinner", "dinner"]
+	mealType := urlSubPaths[1]
+
+	var meal []menuJson // new slice to hold the filtered data
+
+	for _, value := range *m {
+
+		if strings.ToLower(value.Type) == mealType {
+			meal = append(meal, value) // append to new slice
+		}
+
+	}
+
+	// encode to json and rw sends the json
+	err := json.NewEncoder(rw).Encode(meal)
+
+	// error handling
+	if err != nil {
+		log.Fatal("error encoding into json")
+	}
+
+}
+
+// client requests for drinks menu
+func (m *menu) GetDrinksMenu(rw http.ResponseWriter, req *http.Request) {
+
+	// returns slice of substrings that matches subexpressions in the url
+	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
+
+	// since the order of the slice is known, store the second index
+	// example: /menu/drinks = ["/menu/drinks", "drinks"]
+	mealType := urlSubPaths[1]
+
+	var meal []menuJson // new slice to hold the filtered data
+
+	for _, value := range *m {
+
+		if strings.ToLower(value.Type) == mealType {
+			meal = append(meal, value) // append to new slice
+		}
+
+	}
+
+	// encode to json and rw sends the json
+	err := json.NewEncoder(rw).Encode(meal)
+
+	// error handling
+	if err != nil {
+		log.Fatal("error encoding into json")
+	}
+
+}
+
 // client deletes all menu data
 func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 
