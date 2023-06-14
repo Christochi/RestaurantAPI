@@ -129,7 +129,30 @@ func (c *chef) DeleteChef(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client deletes a specific chef
-func (c *chef) DeleteChefByName(rw http.ResponseWriter, req *http.Request) {}
+func (c *chef) DeleteChefByName(rw http.ResponseWriter, req *http.Request) {
+
+	// returns slice of substrings that matches subexpressions in the url
+	//urlSubPaths := specificChefRegex.FindStringSubmatch(req.URL.Path)
+
+	// since the order of the slice is known, store the second index
+	// example: /user/job = ["/user/job", "job"]
+	//name := urlSubPaths[1]
+
+	//var chefNames []chefJson // new slice to hold the filtered data
+
+	// for index, value := range *c {
+
+	// 	if value.Name == name {
+	// 		*c[index] = &c[len(*c)-1]
+	// 		c = c[:len(*c)-1]
+	// 		//chefNames = append(chefNames, value) // append to new slice
+	// 	}
+
+	//fmt.Fprintf(rw, "%d, %v", index, value)
+
+	// }
+
+}
 
 // sends message to client if request does not exist or not implemented
 func (c *chef) notFound(rw http.ResponseWriter, req *http.Request) {
