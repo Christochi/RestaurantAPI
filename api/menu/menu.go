@@ -60,7 +60,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 
 }
 
-// client send chef data using POST Method
+// client send menu data using POST Method
 func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// read response body and decode json to struct
