@@ -154,7 +154,7 @@ func (c *chef) DeleteChefByName(rw http.ResponseWriter, req *http.Request) {
 
 }
 
-// sends message to client if request does not exist or not implemented
+// sends message to client if resource does not exist or not implemented
 func (c *chef) NotFound(rw http.ResponseWriter, req *http.Request) {
 
 	rw.WriteHeader(http.StatusNotImplemented)                    // 501
