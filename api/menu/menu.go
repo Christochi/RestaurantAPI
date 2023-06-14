@@ -14,7 +14,7 @@ var (
 	allMenuRegex      = regexp.MustCompile(`^\/menu[\/]?$`)         // /menu or /menu/
 	allBreakfastRegex = regexp.MustCompile(`^\/menu\/(breakfast)$`) // /menu/breakfast
 	allLunchRegex     = regexp.MustCompile(`^\/menu\/(lunch)$`)     // /menu/lunch
-	allDinnerRegex    = regexp.MustCompile(`^\/menu\/(Dinner)$`)    // /menu/dinner
+	allDinnerRegex    = regexp.MustCompile(`^\/menu\/(dinner)$`)    // /menu/dinner
 	allDrinksRegex    = regexp.MustCompile(`^\/menu\/(drinks)$`)    // /menu/drinks
 )
 
