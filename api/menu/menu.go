@@ -1,6 +1,9 @@
 package menu
 
 import (
+	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
 	"regexp"
 )
@@ -60,16 +63,16 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 // client send chef data using POST Method
 func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
 
-	// // read response body and decode json to struct
-	// err := json.NewDecoder(req.Body).Decode(&m)
+	// read response body and decode json to struct
+	err := json.NewDecoder(req.Body).Decode(&m)
 
-	// // error handling
-	// if err != nil {
-	// 	log.Fatal("error decoding into struct")
-	// } else {
-	// 	// server's response to client
-	// 	fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // 201 Created
-	// }
+	// error handling
+	if err != nil {
+		log.Fatal("error decoding into struct")
+	} else {
+		// server's response to client
+		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // 201 Created
+	}
 
 }
 
