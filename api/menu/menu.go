@@ -59,6 +59,9 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	case req.Method == http.MethodGet && allDinnerRegex.MatchString(req.URL.Path):
 		m.GetDinnerMenu(rw, req)
 
+	case req.Method == http.MethodGet && allDrinksRegex.MatchString(req.URL.Path):
+		m.GetDrinksMenu(rw, req)
+
 	case req.Method == http.MethodDelete && allMenuRegex.MatchString(req.URL.Path):
 		m.DeleteMenu(rw, req)
 
