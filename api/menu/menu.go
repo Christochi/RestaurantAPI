@@ -13,6 +13,7 @@ import (
 var (
 	allMenuRegex      = regexp.MustCompile(`^\/menu[\/]?$`)         // /menu or /menu/
 	allBreakfastRegex = regexp.MustCompile(`^\/menu\/(breakfast)$`) // /menu/breakfast
+	allLunchRegex     = regexp.MustCompile(`^\/menu\/(lunch)$`)     // /menu/lunch
 )
 
 // Menu json Object
