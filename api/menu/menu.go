@@ -48,8 +48,8 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	// case req.Method == http.MethodGet && specificChefRegex.MatchString(req.URL.Path):
 	// 	c.GetChefByName(rw, req)
 
-	// case req.Method == http.MethodDelete && allChefsRegex.MatchString(req.URL.Path):
-	// 	c.DeleteChef(rw, req)
+	case req.Method == http.MethodDelete && allMenuRegex.MatchString(req.URL.Path):
+		m.DeleteMenu(rw, req)
 
 	// case req.Method == http.MethodDelete && specificChefRegex.MatchString(req.URL.Path):
 	// 	c.DeleteChefByName(rw, req)
