@@ -8,3 +8,13 @@ import (
 var (
 	allMenuRegex = regexp.MustCompile(`^\/menu[\/]?$`)
 )
+
+// Menu json Object
+type menuJson struct {
+	Type  string `json:"type"`
+	Name  string `json:"name"`
+	Price string `json:"price"`
+	Desc  string `json:"desc"` // description
+}
+
+type menu []menuJson // new slice type to be used as a receiver for methods
