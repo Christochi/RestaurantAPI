@@ -89,7 +89,7 @@ func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
 
 }
 
-// client deletes all chef data
+// client deletes all menu data
 func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// delete all element by re-initializing to nil
