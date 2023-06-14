@@ -89,6 +89,16 @@ func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
 
 }
 
+// client deletes all chef data
+func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
+
+	// delete all element by re-initializing to nil
+	*m = nil
+
+	fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+
+}
+
 // sends message to client if resource does not exist or not implemented
 func (m *menu) NotFound(rw http.ResponseWriter, req *http.Request) {
 
