@@ -73,7 +73,7 @@ func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
 
 }
 
-// sends message to client if request does not exist or not implemented
+// sends message to client if resource does not exist or not implemented
 func (m *menu) notFound(rw http.ResponseWriter, req *http.Request) {
 
 	rw.WriteHeader(http.StatusNotImplemented)                    // 501
