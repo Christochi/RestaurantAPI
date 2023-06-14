@@ -17,7 +17,7 @@ type menuJson struct {
 	Desc  string `json:"desc"` // description
 }
 
-type menu []menuJson // new slice type to be used as a receiver for methods
+type menu []menuJson // slice type to be used as a receiver for methods
 
 // retuns menu object
 func NewChef() *menu {
