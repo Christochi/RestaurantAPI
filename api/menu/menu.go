@@ -90,7 +90,7 @@ func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
 
 }
 
-// client requests for specific menu
+// client requests for breakfast menu
 func (m *menu) GetBreakfastMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
