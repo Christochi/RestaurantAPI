@@ -28,7 +28,7 @@ func NewChef() *menu {
 }
 
 // handlerfunc for menu endpoint
-func (c *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
+func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 
 	// inform browser to expect json
 	rw.Header().Set("Content-Type", "application/json")
@@ -37,7 +37,7 @@ func (c *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	switch {
 
 	case req.Method == http.MethodPost && allMenuRegex.MatchString(req.URL.Path):
-		c.PostMenu(rw, req)
+		m.PostMenu(rw, req)
 
 	// case req.Method == http.MethodGet && allChefsRegex.MatchString(req.URL.Path):
 	// 	c.GetChef(rw, req)
@@ -52,7 +52,7 @@ func (c *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	// 	c.DeleteChefByName(rw, req)
 
 	default:
-		c.notFound(rw, req) // returns 501 Not Implemented
+		m.NotFound(rw, req) // returns 501 Not Implemented
 	}
 
 }
@@ -74,7 +74,7 @@ func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
 }
 
 // sends message to client if resource does not exist or not implemented
-func (m *menu) notFound(rw http.ResponseWriter, req *http.Request) {
+func (m *menu) NotFound(rw http.ResponseWriter, req *http.Request) {
 
 	rw.WriteHeader(http.StatusNotImplemented)                    // 501
 	rw.Write([]byte(http.StatusText(http.StatusNotImplemented))) // Not Implemented
