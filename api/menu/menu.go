@@ -134,7 +134,7 @@ func (m *menu) GetBreakfastMenu(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) GetLunchMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
-	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
+	urlSubPaths := allLunchRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
 	// example: /menu/lunch = ["/menu/lunch", "lunch"]
@@ -164,7 +164,7 @@ func (m *menu) GetLunchMenu(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) GetDinnerMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
-	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
+	urlSubPaths := allDinnerRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
 	// example: /menu/dinner = ["/menu/dinner", "dinner"]
@@ -194,7 +194,7 @@ func (m *menu) GetDinnerMenu(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) GetDrinksMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
-	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
+	urlSubPaths := allDrinksRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
 	// example: /menu/drinks = ["/menu/drinks", "drinks"]
