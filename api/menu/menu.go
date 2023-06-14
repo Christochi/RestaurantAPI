@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"strings"
 )
 
 // pathnames for subroot in url endpoint
@@ -104,7 +105,7 @@ func (m *menu) GetBreakfastMenu(rw http.ResponseWriter, req *http.Request) {
 
 	for _, value := range *m {
 
-		if value.Type == mealType {
+		if strings.ToLower(value.Type) == mealType {
 			meal = append(meal, value) // append to new slice
 		}
 
