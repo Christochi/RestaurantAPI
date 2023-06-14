@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"restaurantapi/api/chef"
+	"restaurantapi/api/menu"
 )
 
 // CONSTANTS
@@ -38,6 +39,8 @@ func RunServer(dir string) {
 	// router.Handle("/", noCache(&apiHandler{c: chef.Chef}))
 	newChef := chef.NewChef() // returns a chef object
 	router.HandleFunc("/chef/", newChef.ChefHandler)
+	newMenu := menu.NewMenu() // returns a menu object
+	router.HandleFunc("/menu/", newMenu.MenuHandler)
 
 	// listens on the network address and handles requests from incoming connections
 	log.Fatal(http.ListenAndServe(addr, router))
