@@ -97,7 +97,7 @@ func (m *menu) GetBreakfastMenu(rw http.ResponseWriter, req *http.Request) {
 	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
-	// example: /user/job = ["/user/job", "job"]
+	// example: /menu/breakfast = ["/menu/breakfast", "breakfast"]
 	mealType := urlSubPaths[1]
 
 	var meal []menuJson // new slice to hold the filtered data
