@@ -7,7 +7,7 @@ import (
 
 // pathnames for subroot in url endpoint
 var (
-	allMenuRegex = regexp.MustCompile(`^\/menu[\/]?$`)
+	allMenuRegex = regexp.MustCompile(`^\/menu[\/]?$`) // /menu or /menu/
 )
 
 // Menu json Object
