@@ -42,8 +42,8 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	case req.Method == http.MethodPost && allMenuRegex.MatchString(req.URL.Path):
 		m.PostMenu(rw, req)
 
-	// case req.Method == http.MethodGet && allChefsRegex.MatchString(req.URL.Path):
-	// 	c.GetChef(rw, req)
+	case req.Method == http.MethodGet && allMenuRegex.MatchString(req.URL.Path):
+		m.GetMenu(rw, req)
 
 	// case req.Method == http.MethodGet && specificChefRegex.MatchString(req.URL.Path):
 	// 	c.GetChefByName(rw, req)
