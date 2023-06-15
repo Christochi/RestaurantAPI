@@ -132,25 +132,22 @@ func (c *chef) DeleteChef(rw http.ResponseWriter, req *http.Request) {
 func (c *chef) DeleteChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
-	//urlSubPaths := specificChefRegex.FindStringSubmatch(req.URL.Path)
+	urlSubPaths := specificChefRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
 	// example: /user/job = ["/user/job", "job"]
-	//name := urlSubPaths[1]
+	name := urlSubPaths[1]
 
-	//var chefNames []chefJson // new slice to hold the filtered data
+	for index, value := range *c {
 
-	// for index, value := range *c {
+		if value.Name == name {
+			(*c)[index] = (*c)[len(*c)-1]
+			*c = (*c)[:len(*c)-1]
+		}
 
-	// 	if value.Name == name {
-	// 		*c[index] = &c[len(*c)-1]
-	// 		c = c[:len(*c)-1]
-	// 		//chefNames = append(chefNames, value) // append to new slice
-	// 	}
+	}
 
-	//fmt.Fprintf(rw, "%d, %v", index, value)
-
-	// }
+	fmt.Fprintf(rw, "%+v", *c)
 
 }
 
