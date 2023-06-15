@@ -100,6 +100,7 @@ func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
 
 }
 
+// gets the list of menu for a meal type
 func GetMealType(m *menu, rw http.ResponseWriter, req *http.Request, urlSubPaths []string) {
 
 	// since the order of the slice is known, store the second index
