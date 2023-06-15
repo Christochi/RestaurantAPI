@@ -168,6 +168,7 @@ func (m *menu) GetDrinksMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// gets the list of menu for a meal type
 	GetMealType(m, rw, req, urlSubPaths)
+
 }
 
 // client deletes all menu data
