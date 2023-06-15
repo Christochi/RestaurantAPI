@@ -203,7 +203,7 @@ func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 		// delete an element
 		if value.Meal == meal {
 			(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
-			*m = (*m)[:len(*m)-1]
+			*m = (*m)[:len(*m)-1]         // reinitialize the array with all the elements excluding last element
 		}
 
 	}
