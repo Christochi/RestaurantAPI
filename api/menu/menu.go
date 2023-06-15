@@ -133,6 +133,7 @@ func (m *menu) GetBreakfastMenu(rw http.ResponseWriter, req *http.Request) {
 	// returns slice of substrings that matches subexpressions in the url
 	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
 
+	// gets the list of menu for a meal type
 	GetMealType(m, rw, req, urlSubPaths)
 
 }
