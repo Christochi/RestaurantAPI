@@ -200,6 +200,7 @@ func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 
 	for index, value := range *m {
 
+		// delete an element
 		if value.Meal == meal {
 			(*m)[index] = (*m)[len(*m)-1]
 			*m = (*m)[:len(*m)-1]
