@@ -195,7 +195,7 @@ func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the third index
-	// example: /menu/breakfast = ["/menu/lunch/burger", "breakfast", "burger"]
+	// example: /menu/breakfast = ["/menu/lunch/burger", "lunch", "burger"]
 	meal := urlSubPaths[2]
 
 	for index, value := range *m {
