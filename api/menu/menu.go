@@ -185,6 +185,8 @@ func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 
 }
 
+func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {}
+
 // sends message to client if resource does not exist or not implemented
 func (m *menu) NotFound(rw http.ResponseWriter, req *http.Request) {
 
