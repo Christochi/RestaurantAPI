@@ -155,27 +155,8 @@ func (m *menu) GetDinnerMenu(rw http.ResponseWriter, req *http.Request) {
 	// returns slice of substrings that matches subexpressions in the url
 	urlSubPaths := allDinnerRegex.FindStringSubmatch(req.URL.Path)
 
-	// since the order of the slice is known, store the second index
-	// example: /menu/dinner = ["/menu/dinner", "dinner"]
-	mealType := urlSubPaths[1]
-
-	var meal []menuJson // new slice to hold the filtered data
-
-	for _, value := range *m {
-
-		if strings.ToLower(value.Type) == mealType {
-			meal = append(meal, value) // append to new slice
-		}
-
-	}
-
-	// encode to json and rw sends the json
-	err := json.NewEncoder(rw).Encode(meal)
-
-	// error handling
-	if err != nil {
-		log.Fatal("error encoding into json")
-	}
+	// gets the list of menu for a meal type
+	GetMealType(m, rw, req, urlSubPaths)
 
 }
 
