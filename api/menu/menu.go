@@ -11,11 +11,12 @@ import (
 
 // pathnames for subroot in url endpoint
 var (
-	allMenuRegex      = regexp.MustCompile(`^\/menu[\/]?$`)         // /menu or /menu/
-	allBreakfastRegex = regexp.MustCompile(`^\/menu\/(breakfast)$`) // /menu/breakfast
-	allLunchRegex     = regexp.MustCompile(`^\/menu\/(lunch)$`)     // /menu/lunch
-	allDinnerRegex    = regexp.MustCompile(`^\/menu\/(dinner)$`)    // /menu/dinner
-	allDrinksRegex    = regexp.MustCompile(`^\/menu\/(drinks)$`)    // /menu/drinks
+	allMenuRegex      = regexp.MustCompile(`^\/menu[\/]?$`)                                       // /menu or /menu/
+	allBreakfastRegex = regexp.MustCompile(`^\/menu\/(breakfast)$`)                               // /menu/breakfast
+	allLunchRegex     = regexp.MustCompile(`^\/menu\/(lunch)$`)                                   // /menu/lunch
+	allDinnerRegex    = regexp.MustCompile(`^\/menu\/(dinner)$`)                                  // /menu/dinner
+	allDrinksRegex    = regexp.MustCompile(`^\/menu\/(drinks)$`)                                  // /menu/drinks
+	mealRegex         = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner([A-Za-z]+)$`) // /menu/<anymealtype>/burger
 )
 
 // Menu json Object
@@ -65,7 +66,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	case req.Method == http.MethodDelete && allMenuRegex.MatchString(req.URL.Path):
 		m.DeleteMenu(rw, req)
 
-	case req.Method == http.MethodDelete && allMenuRegex.MatchString(req.URL.Path):
+	case req.Method == http.MethodDelete && mealRegex.MatchString(req.URL.Path):
 		m.DeleteMeal(rw, req)
 
 	default:
