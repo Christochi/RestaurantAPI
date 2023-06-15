@@ -189,7 +189,27 @@ func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 
 }
 
-func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {}
+func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
+
+	// returns slice of substrings that matches subexpressions in the url
+	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
+
+	// since the order of the slice is known, store the third index
+	// example: /menu/breakfast = ["/menu/lunch/burger", "breakfast", "burger"]
+	meal := urlSubPaths[2]
+
+	for index, value := range *m {
+
+		if value.Meal == meal {
+			(*m)[index] = (*m)[len(*m)-1]
+			*m = (*m)[:len(*m)-1]
+		}
+
+	}
+
+	fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+
+}
 
 // sends message to client if resource does not exist or not implemented
 func (m *menu) NotFound(rw http.ResponseWriter, req *http.Request) {
