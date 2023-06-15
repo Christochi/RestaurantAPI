@@ -192,7 +192,7 @@ func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
-	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
+	urlSubPaths := mealRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the third index
 	// example: /menu/breakfast = ["/menu/lunch/burger", "lunch", "burger"]
@@ -201,7 +201,7 @@ func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 	for index, value := range *m {
 
 		// delete an element
-		if value.Meal == meal {
+		if strings.ToLower(value.Meal) == meal {
 			(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
 			*m = (*m)[:len(*m)-1]         // reinitialize the array with all the elements excluding last element
 		}
