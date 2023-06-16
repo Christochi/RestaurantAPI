@@ -105,7 +105,7 @@ func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
 }
 
 // gets the list of menu for a meal type
-func GetMealType(m *menu, rw http.ResponseWriter, req *http.Request, urlSubPaths []string) {
+func getMealType(m *menu, rw http.ResponseWriter, req *http.Request, urlSubPaths []string) {
 
 	// since the order of the slice is known, store the second index
 	// example: /menu/breakfast = ["/menu/breakfast", "breakfast"]
@@ -138,7 +138,7 @@ func (m *menu) GetBreakfastMenu(rw http.ResponseWriter, req *http.Request) {
 	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
 
 	// gets the list of menu for a meal type
-	GetMealType(m, rw, req, urlSubPaths)
+	getMealType(m, rw, req, urlSubPaths)
 
 }
 
@@ -149,7 +149,7 @@ func (m *menu) GetLunchMenu(rw http.ResponseWriter, req *http.Request) {
 	urlSubPaths := allLunchRegex.FindStringSubmatch(req.URL.Path)
 
 	// gets the list of menu for a meal type
-	GetMealType(m, rw, req, urlSubPaths)
+	getMealType(m, rw, req, urlSubPaths)
 
 }
 
@@ -160,7 +160,7 @@ func (m *menu) GetDinnerMenu(rw http.ResponseWriter, req *http.Request) {
 	urlSubPaths := allDinnerRegex.FindStringSubmatch(req.URL.Path)
 
 	// gets the list of menu for a meal type
-	GetMealType(m, rw, req, urlSubPaths)
+	getMealType(m, rw, req, urlSubPaths)
 
 }
 
@@ -171,7 +171,7 @@ func (m *menu) GetDrinksMenu(rw http.ResponseWriter, req *http.Request) {
 	urlSubPaths := allDrinksRegex.FindStringSubmatch(req.URL.Path)
 
 	// gets the list of menu for a meal type
-	GetMealType(m, rw, req, urlSubPaths)
+	getMealType(m, rw, req, urlSubPaths)
 
 }
 
