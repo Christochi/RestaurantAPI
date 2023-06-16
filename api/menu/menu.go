@@ -200,8 +200,8 @@ func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 
 	for index, value := range *m {
 
-		// delete an element
 		if strings.ToLower(strings.ReplaceAll(value.Meal, " ", "")) == meal {
+			// delete an element
 			(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
 			*m = (*m)[:len(*m)-1]         // reinitialize the array with all the elements excluding last element
 		}
