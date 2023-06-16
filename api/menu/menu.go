@@ -205,11 +205,16 @@ func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 			// delete an element
 			(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
 			*m = (*m)[:len(*m)-1]         // reinitialize the array with all the elements excluding last element
+
+			fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+
+			return
 		}
 
 	}
 
-	fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+	rw.WriteHeader(http.StatusNotFound)                    // 404
+	rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
 
 }
 
