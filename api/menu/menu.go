@@ -200,6 +200,7 @@ func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 
 	for index, value := range *m {
 
+		// remove whitespaces and returns lower case of the string
 		if strings.ToLower(strings.ReplaceAll(value.Meal, " ", "")) == meal {
 			// delete an element
 			(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
