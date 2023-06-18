@@ -106,17 +106,30 @@ func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 		// remove whitespaces and returns lower case of the string
 		if strings.ToLower(strings.ReplaceAll(value.Name, " ", "")) == name {
 			chefNames = append(chefNames, value) // append to new slice
+
+			// encode to json and rw sends the json
+			err := json.NewEncoder(rw).Encode(chefNames)
+
+			// error handling
+			if err != nil {
+				log.Fatal("error encoding into json")
+			}
+
+			return
 		}
 
 	}
 
-	// encode to json and rw sends the json
-	err := json.NewEncoder(rw).Encode(chefNames)
+	rw.WriteHeader(http.StatusNotFound)                    // 404
+	rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
 
-	// error handling
-	if err != nil {
-		log.Fatal("error encoding into json")
-	}
+	// // encode to json and rw sends the json
+	// err := json.NewEncoder(rw).Encode(chefNames)
+
+	// // error handling
+	// if err != nil {
+	// 	log.Fatal("error encoding into json")
+	// }
 
 }
 
