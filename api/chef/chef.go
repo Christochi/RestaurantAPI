@@ -103,7 +103,8 @@ func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	for _, value := range *c {
 
-		if value.Name == name {
+		// remove whitespaces and returns lower case of the string
+		if strings.ToLower(strings.ReplaceAll(value.Name, " ", "")) == name {
 			chefNames = append(chefNames, value) // append to new slice
 		}
 
