@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"strings"
 )
 
 // pathnames for subroot in url endpoint
@@ -144,15 +145,21 @@ func (c *chef) DeleteChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	for index, value := range *c {
 
-		// delete an element
-		if value.Name == name {
+		// remove whitespaces and returns lower case of the string
+		if strings.ToLower(strings.ReplaceAll(value.Name, " ", "")) == name {
+			// delete an element
 			(*c)[index] = (*c)[len(*c)-1] // replace the element with the last element
 			*c = (*c)[:len(*c)-1]         // reinitialize the array with all the elements excluding last element
+
+			fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+
+			return
 		}
 
 	}
 
-	fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+	rw.WriteHeader(http.StatusNotFound)                    // 404
+	rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
 
 }
 
