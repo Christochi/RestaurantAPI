@@ -96,7 +96,7 @@ func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 	urlSubPaths := specificChefRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
-	// example: /user/job = ["/user/job", "job"]
+	// example: /chef/<name> = ["/chef/job", "job"]
 	name := urlSubPaths[1]
 
 	var chefNames []chefJson // new slice to hold the filtered data
@@ -122,14 +122,6 @@ func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	rw.WriteHeader(http.StatusNotFound)                    // 404
 	rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
-
-	// // encode to json and rw sends the json
-	// err := json.NewEncoder(rw).Encode(chefNames)
-
-	// // error handling
-	// if err != nil {
-	// 	log.Fatal("error encoding into json")
-	// }
 
 }
 
