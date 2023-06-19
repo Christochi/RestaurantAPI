@@ -67,7 +67,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 // client send menu data using POST Method
 func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
 
-	// decode and send as json
+	// read and decode to struct
 	utils.Post[*menu](rw, req, m)
 
 }
@@ -75,14 +75,7 @@ func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
 // client requests for menu data using GET Method
 func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
 
-	// // encode to json and rw sends the json
-	// err := json.NewEncoder(rw).Encode(&m)
-
-	// // error handling
-	// if err != nil {
-	// 	log.Fatal("error encoding into json")
-	// }
-
+	// encode to json and rw sends the json
 	utils.Get[*menu](rw, req, m)
 
 }
