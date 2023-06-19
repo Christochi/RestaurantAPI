@@ -75,7 +75,7 @@ func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
 // client requests for menu data using GET Method
 func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
 
-	// encode to json and rw sends the json
+	// read and encode to json
 	utils.Get[*menu](rw, req, m)
 
 }
