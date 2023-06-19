@@ -127,50 +127,6 @@ func (m *menu) GetMealType(rw http.ResponseWriter, req *http.Request) {
 
 }
 
-// client requests for breakfast menu
-// func (m *menu) GetBreakfastMenu(rw http.ResponseWriter, req *http.Request) {
-
-// 	// returns slice of substrings that matches subexpressions in the url
-// 	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
-
-// 	// gets the list of menu for a meal type
-// 	GetMealType()(m, rw, req, urlSubPaths)
-
-// }
-
-// // client requests for lunch menu
-// func (m *menu) GetLunchMenu(rw http.ResponseWriter, req *http.Request) {
-
-// 	// returns slice of substrings that matches subexpressions in the url
-// 	urlSubPaths := allLunchRegex.FindStringSubmatch(req.URL.Path)
-
-// 	// gets the list of menu for a meal type
-// 	GetMealType()(m, rw, req, urlSubPaths)
-
-// }
-
-// // client requests for dinner menu
-// func (m *menu) GetDinnerMenu(rw http.ResponseWriter, req *http.Request) {
-
-// 	// returns slice of substrings that matches subexpressions in the url
-// 	urlSubPaths := allDinnerRegex.FindStringSubmatch(req.URL.Path)
-
-// 	// gets the list of menu for a meal type
-// 	GetMealType()(m, rw, req, urlSubPaths)
-
-// }
-
-// // client requests for drinks menu
-// func (m *menu) GetDrinksMenu(rw http.ResponseWriter, req *http.Request) {
-
-// 	// returns slice of substrings that matches subexpressions in the url
-// 	urlSubPaths := allDrinksRegex.FindStringSubmatch(req.URL.Path)
-
-// 	// gets the list of menu for a meal type
-// 	GetMealType()(m, rw, req, urlSubPaths)
-
-// }
-
 // client deletes all menu data
 func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 
