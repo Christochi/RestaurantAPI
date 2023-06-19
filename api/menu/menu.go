@@ -119,14 +119,14 @@ func (m *menu) GetMealType(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// delete all element by re-initializing to nil
-	// *m = nil
+	*m = nil
 
-	// if *m != nil {
-	// 	fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusInternalServerError)) // 500 Internal Server Error
-	// } else {
-	// 	fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
-	// }
-	utils.Delete[*menu](rw, req, m)
+	if *m != nil {
+		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusInternalServerError)) // 500 Internal Server Error
+	} else {
+		fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+	}
+	//utils.Delete[*menu](rw, req, m)
 
 }
 
@@ -159,10 +159,11 @@ func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 
 }
 
-// sends message to client if resource does not exist or not implemented
+// sends status message to client if resource does not exist or not implemented
 func (m *menu) notFound(rw http.ResponseWriter, req *http.Request) {
 
-	rw.WriteHeader(http.StatusNotImplemented)                    // 501
-	rw.Write([]byte(http.StatusText(http.StatusNotImplemented))) // Not Implemented
+	// rw.WriteHeader(http.StatusNotImplemented)                    // 501
+	// rw.Write([]byte(http.StatusText(http.StatusNotImplemented))) // Not Implemented
+	utils.NotFound[*menu](rw, req, m)
 
 }
