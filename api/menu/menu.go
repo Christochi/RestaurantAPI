@@ -44,10 +44,10 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	switch {
 
 	case req.Method == http.MethodPost && allMenuRegex.MatchString(req.URL.Path):
-		m.PostMenu(rw, req)
+		m.postMenu(rw, req)
 
 	case req.Method == http.MethodGet && allMenuRegex.MatchString(req.URL.Path):
-		m.GetMenu(rw, req)
+		m.getMenu(rw, req)
 
 	case req.Method == http.MethodGet && mealType.MatchString(req.URL.Path):
 		m.GetMealType(rw, req)
@@ -65,7 +65,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client send menu data using POST Method
-func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
+func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// read and decode to struct
 	utils.Post[*menu](rw, req, m)
@@ -73,7 +73,7 @@ func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client requests for menu data using GET Method
-func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
+func (m *menu) getMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// read and encode to json
 	utils.Get[*menu](rw, req, m)
@@ -119,13 +119,14 @@ func (m *menu) GetMealType(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// delete all element by re-initializing to nil
-	*m = nil
+	// *m = nil
 
-	if *m != nil {
-		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusInternalServerError)) // 500 Internal Server Error
-	} else {
-		fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
-	}
+	// if *m != nil {
+	// 	fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusInternalServerError)) // 500 Internal Server Error
+	// } else {
+	// 	fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+	// }
+	utils.Delete[*menu](rw, req, m)
 
 }
 
