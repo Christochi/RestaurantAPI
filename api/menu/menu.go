@@ -11,9 +11,9 @@ import (
 
 // pathnames for subroot in url endpoint
 var (
-	allMenuRegex = regexp.MustCompile(`^\/menu[\/]?$`)                                          // /menu or /menu/
-	mealRegex    = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner)\/([A-Za-z]+)$`) // /menu/<anymealtype>/burger
+	allMenuRegex = regexp.MustCompile(`^\/menu[\/]?$`) // /menu or /menu/
 	mealType     = regexp.MustCompile(`^\/menu\/([A-Za-z]+)$`)
+	mealRegex    = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner)\/([A-Za-z]+)$`) // /menu/<anymealtype>/burger
 )
 
 // Menu json Object
