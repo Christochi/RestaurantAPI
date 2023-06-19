@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"restaurantapi/utils"
 	"strings"
 )
 
@@ -63,29 +64,16 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 // client send chef data using POST Method
 func (c *chef) PostChef(rw http.ResponseWriter, req *http.Request) {
 
-	// read response body and decode json to struct
-	err := json.NewDecoder(req.Body).Decode(&c)
-
-	// error handling
-	if err != nil {
-		log.Fatal("error decoding into struct")
-	} else {
-		// server's response to client
-		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // 201 Created
-	}
+	// read and decode to struct
+	utils.Post[*chef](rw, req, c)
 
 }
 
 // client requests for chef data using GET Method
 func (c *chef) GetChef(rw http.ResponseWriter, req *http.Request) {
 
-	// encode to json and rw sends the json
-	err := json.NewEncoder(rw).Encode(&c)
-
-	// error handling
-	if err != nil {
-		log.Fatal("error encoding into json")
-	}
+	// read and encode to json
+	utils.Get[*chef](rw, req, c)
 
 }
 
