@@ -41,13 +41,13 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 	switch {
 
 	case req.Method == http.MethodGet && allChefsRegex.MatchString(req.URL.Path):
-		c.GetChef(rw, req)
+		c.getChef(rw, req)
 
 	case req.Method == http.MethodGet && specificChefRegex.MatchString(req.URL.Path):
 		c.GetChefByName(rw, req)
 
 	case req.Method == http.MethodPost && allChefsRegex.MatchString(req.URL.Path):
-		c.PostChef(rw, req)
+		c.postChef(rw, req)
 
 	case req.Method == http.MethodDelete && allChefsRegex.MatchString(req.URL.Path):
 		c.DeleteChef(rw, req)
@@ -62,7 +62,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client send chef data using POST Method
-func (c *chef) PostChef(rw http.ResponseWriter, req *http.Request) {
+func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 
 	// read and decode to struct
 	utils.Post[*chef](rw, req, c)
@@ -70,7 +70,7 @@ func (c *chef) PostChef(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client requests for chef data using GET Method
-func (c *chef) GetChef(rw http.ResponseWriter, req *http.Request) {
+func (c *chef) getChef(rw http.ResponseWriter, req *http.Request) {
 
 	// read and encode to json
 	utils.Get[*chef](rw, req, c)
