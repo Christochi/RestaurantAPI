@@ -162,8 +162,6 @@ func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 // sends status message to client if resource does not exist or not implemented
 func (m *menu) notFound(rw http.ResponseWriter, req *http.Request) {
 
-	// rw.WriteHeader(http.StatusNotImplemented)                    // 501
-	// rw.Write([]byte(http.StatusText(http.StatusNotImplemented))) // Not Implemented
 	utils.NotFound[*menu](rw, req, m)
 
 }
