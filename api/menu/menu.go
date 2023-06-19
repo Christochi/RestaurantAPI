@@ -12,8 +12,8 @@ import (
 
 // pathnames for subroot in url endpoint
 var (
-	allMenuRegex = regexp.MustCompile(`^\/menu[\/]?$`) // /menu or /menu/
-	mealType     = regexp.MustCompile(`^\/menu\/([A-Za-z]+)$`)
+	allMenuRegex = regexp.MustCompile(`^\/menu[\/]?$`)                                          // /menu or /menu/
+	mealType     = regexp.MustCompile(`^\/menu\/([A-Za-z]+)$`)                                  // /menu/<anymealtype> = /menu/dinner
 	mealRegex    = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner)\/([A-Za-z]+)$`) // /menu/<anymealtype>/burger
 )
 
