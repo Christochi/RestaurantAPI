@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-// logic for POST Method
+// logic for HTTP POST Method
 func Post[T any](rw http.ResponseWriter, req *http.Request, obj T) {
 
 	// read response body and decode json to struct
@@ -23,7 +23,7 @@ func Post[T any](rw http.ResponseWriter, req *http.Request, obj T) {
 
 }
 
-// logic for GET Method
+// logic for HTTP GET Method
 func Get[T any](rw http.ResponseWriter, req *http.Request, obj T) {
 
 	// encode to json and rw sends the json
