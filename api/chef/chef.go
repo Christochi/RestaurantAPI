@@ -65,7 +65,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 
 	// read and decode to struct
-	utils.Post[*chef](rw, req, c)
+	utils.Post(rw, req, c)
 
 }
 
@@ -73,7 +73,7 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 func (c *chef) getChef(rw http.ResponseWriter, req *http.Request) {
 
 	// read and encode to json
-	utils.Get[*chef](rw, req, c)
+	utils.Get(rw, req, c)
 
 }
 
