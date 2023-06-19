@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"restaurantapi/utils"
 	"strings"
 )
 
@@ -66,29 +67,23 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 // client send menu data using POST Method
 func (m *menu) PostMenu(rw http.ResponseWriter, req *http.Request) {
 
-	// read response body and decode json to struct
-	err := json.NewDecoder(req.Body).Decode(&m)
-
-	// error handling
-	if err != nil {
-		log.Fatal("error decoding into struct")
-	} else {
-		// server's response to client
-		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // 201 Created
-	}
+	// decode and send as json
+	utils.Post[*menu](rw, req, m)
 
 }
 
 // client requests for menu data using GET Method
 func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
 
-	// encode to json and rw sends the json
-	err := json.NewEncoder(rw).Encode(&m)
+	// // encode to json and rw sends the json
+	// err := json.NewEncoder(rw).Encode(&m)
 
-	// error handling
-	if err != nil {
-		log.Fatal("error encoding into json")
-	}
+	// // error handling
+	// if err != nil {
+	// 	log.Fatal("error encoding into json")
+	// }
+
+	utils.Get[*menu](rw, req, m)
 
 }
 
