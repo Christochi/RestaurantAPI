@@ -49,7 +49,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 		m.GetMenu(rw, req)
 
 	case req.Method == http.MethodGet && mealType.MatchString(req.URL.Path):
-		m.getMealType(rw, req)
+		m.GetMealType(rw, req)
 
 	case req.Method == http.MethodDelete && allMenuRegex.MatchString(req.URL.Path):
 		m.DeleteMenu(rw, req)
@@ -93,7 +93,7 @@ func (m *menu) GetMenu(rw http.ResponseWriter, req *http.Request) {
 }
 
 // gets the list of menu for a meal type
-func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
+func (m *menu) GetMealType(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
 	urlSubPaths := mealType.FindStringSubmatch(req.URL.Path)
@@ -134,7 +134,7 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 // 	urlSubPaths := allBreakfastRegex.FindStringSubmatch(req.URL.Path)
 
 // 	// gets the list of menu for a meal type
-// 	getMealType(m, rw, req, urlSubPaths)
+// 	GetMealType()(m, rw, req, urlSubPaths)
 
 // }
 
@@ -145,7 +145,7 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 // 	urlSubPaths := allLunchRegex.FindStringSubmatch(req.URL.Path)
 
 // 	// gets the list of menu for a meal type
-// 	getMealType(m, rw, req, urlSubPaths)
+// 	GetMealType()(m, rw, req, urlSubPaths)
 
 // }
 
@@ -156,7 +156,7 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 // 	urlSubPaths := allDinnerRegex.FindStringSubmatch(req.URL.Path)
 
 // 	// gets the list of menu for a meal type
-// 	getMealType(m, rw, req, urlSubPaths)
+// 	GetMealType()(m, rw, req, urlSubPaths)
 
 // }
 
@@ -167,7 +167,7 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 // 	urlSubPaths := allDrinksRegex.FindStringSubmatch(req.URL.Path)
 
 // 	// gets the list of menu for a meal type
-// 	getMealType(m, rw, req, urlSubPaths)
+// 	GetMealType()(m, rw, req, urlSubPaths)
 
 // }
 
