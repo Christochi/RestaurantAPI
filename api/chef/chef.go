@@ -119,11 +119,7 @@ func (c *chef) DeleteChef(rw http.ResponseWriter, req *http.Request) {
 	// delete all element by re-initializing to nil
 	*c = nil
 
-	if *c != nil {
-		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusInternalServerError)) // 500 Internal Server Error
-	} else {
-		fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
-	}
+	utils.Delete(rw, req, &c)
 
 }
 
