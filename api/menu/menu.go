@@ -119,13 +119,8 @@ func (m *menu) GetMealType(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// delete all element by re-initializing to nil
-	// *m = nil
+	*m = nil
 
-	// if *m != nil {
-	// 	fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusInternalServerError)) // 500 Internal Server Error
-	// } else {
-	// 	fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
-	// }
 	utils.Delete(rw, req, &m)
 
 }
