@@ -68,7 +68,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// read and decode to struct
-	utils.Post(rw, req, m)
+	utils.Post(rw, req, &m)
 
 }
 
@@ -76,7 +76,7 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) getMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// read and encode to json
-	utils.Get(rw, req, m)
+	utils.Get(rw, req, &m)
 
 }
 
