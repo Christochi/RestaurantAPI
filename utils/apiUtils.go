@@ -8,7 +8,7 @@ import (
 )
 
 // logic for HTTP POST Method
-func Post[T any](rw http.ResponseWriter, req *http.Request, obj T) {
+func Post[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
 
 	// read response body and decode json to struct
 	err := json.NewDecoder(req.Body).Decode(&obj)
@@ -24,7 +24,7 @@ func Post[T any](rw http.ResponseWriter, req *http.Request, obj T) {
 }
 
 // logic for HTTP GET Method
-func Get[T any](rw http.ResponseWriter, req *http.Request, obj T) {
+func Get[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
 
 	// encode to json and rw sends the json
 	err := json.NewEncoder(rw).Encode(&obj)
