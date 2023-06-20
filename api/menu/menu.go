@@ -123,7 +123,7 @@ func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 	// delete all element by re-initializing to nil
 	*m = nil
 
-	utils.Delete[menu](rw, req, m)
+	utils.Delete(rw, req, &m)
 
 }
 
