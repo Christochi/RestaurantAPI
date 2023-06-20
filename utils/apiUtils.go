@@ -37,19 +37,12 @@ func Get[T any](rw http.ResponseWriter, req *http.Request, obj T) {
 }
 
 // logic for HTTP DELETE Method
-// func Delete[T any](rw http.ResponseWriter, req *http.Request, obj T) {
+func Delete[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
 
-// 	// delete all element by re-initializing to nil
-// 	ob := &obj
-// 	ob = nil
+	fmt.Fprintf(rw, "%v\n", *obj)
+	fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
 
-// 	if ob != nil {
-// 		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusInternalServerError)) // 500 Internal Server Error
-// 	} else {
-// 		fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
-// 	}
-
-// }
+}
 
 // sends status message to client if resource does not exist or not implemented
 func NotFound[T any](rw http.ResponseWriter, req *http.Request, obj T) {
