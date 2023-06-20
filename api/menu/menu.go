@@ -96,22 +96,24 @@ func (m *menu) GetMealType(rw http.ResponseWriter, req *http.Request) {
 
 		if strings.ToLower(value.Type) == mealTypeName {
 			meal = append(meal, value) // append to new slice
-
-			// encode to json and rw sends the json
-			err := json.NewEncoder(rw).Encode(meal)
-
-			// error handling
-			if err != nil {
-				log.Fatal("error encoding into json")
-			}
-
-			return
 		}
 
 	}
 
-	rw.WriteHeader(http.StatusNotFound)                    // 404
-	rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
+	if meal == nil {
+		rw.WriteHeader(http.StatusNotFound)                    // 404
+		rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
+
+		return // exit function call
+	}
+
+	// encode to json and rw sends the json
+	err := json.NewEncoder(rw).Encode(meal)
+
+	// error handling
+	if err != nil {
+		log.Fatal("error encoding into json")
+	}
 
 }
 
@@ -121,7 +123,7 @@ func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 	// delete all element by re-initializing to nil
 	*m = nil
 
-	utils.Delete(rw, req, &m)
+	utils.Delete[menu](rw, req, m)
 
 }
 
