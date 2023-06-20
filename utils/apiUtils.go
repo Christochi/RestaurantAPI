@@ -36,6 +36,8 @@ func Get[T any](rw http.ResponseWriter, req *http.Request, obj T) {
 
 }
 
+func GetItem[T any](rw http.ResponseWriter, req *http.Request, obj *T) {}
+
 // logic for HTTP DELETE Method
 func Delete[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
 
