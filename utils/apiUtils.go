@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+type Object interface{}
+
 // logic for HTTP POST Method
 func Post[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
 
@@ -35,14 +37,6 @@ func Get[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
 	}
 
 }
-
-// func GetUrlSubPath(index int) int {
-
-// 	return index
-
-// }
-
-func GetItem[T any](rw http.ResponseWriter, req *http.Request, obj *T) {}
 
 // logic for HTTP DELETE Method
 func Delete[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
