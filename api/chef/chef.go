@@ -91,25 +91,31 @@ func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	for _, value := range *c {
 
+		// returned subpath in the url after removing whitespace and lower case conversion
+		subPath := strings.ToLower(strings.ReplaceAll(value.Name, " ", ""))
+
 		// remove whitespaces and returns lower case of the string
-		if strings.ToLower(strings.ReplaceAll(value.Name, " ", "")) == name {
+		if subPath == name || strings.Contains(subPath, name) {
 			chefNames = append(chefNames, value) // append to new slice
-
-			// encode to json and rw sends the json
-			err := json.NewEncoder(rw).Encode(chefNames)
-
-			// error handling
-			if err != nil {
-				log.Fatal("error encoding into json")
-			}
-
-			return
 		}
 
 	}
 
-	rw.WriteHeader(http.StatusNotFound)                    // 404
-	rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
+	if chefNames == nil {
+		rw.WriteHeader(http.StatusNotFound)                    // 404
+		rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
+
+		return // exit function call
+
+	}
+
+	// encode to json and rw sends the json
+	err := json.NewEncoder(rw).Encode(chefNames)
+
+	// error handling
+	if err != nil {
+		log.Fatal("error encoding into json")
+	}
 
 }
 
