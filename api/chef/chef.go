@@ -149,7 +149,7 @@ func (c *chef) DeleteChefByName(rw http.ResponseWriter, req *http.Request) {
 
 			fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
 
-			return
+			return // exit function call
 		}
 
 	}
