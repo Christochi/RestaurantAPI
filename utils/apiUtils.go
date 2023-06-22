@@ -36,11 +36,11 @@ func Get[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
 
 }
 
-func GetUrlSubPath(index int) int {
+// func GetUrlSubPath(index int) int {
 
-	return index
+// 	return index
 
-}
+// }
 
 func GetItem[T any](rw http.ResponseWriter, req *http.Request, obj *T) {}
 
