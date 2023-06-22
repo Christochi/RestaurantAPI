@@ -87,7 +87,7 @@ func (m *menu) GetMealType(rw http.ResponseWriter, req *http.Request) {
 	urlSubPaths := mealType.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
-	// example: /menu/breakfast = ["/menu/breakfast", "breakfast"]
+	// example: /menu/<mealtype> = ["/menu/breakfast", "breakfast"]
 	mealTypeName := urlSubPaths[1]
 
 	var meal []menuJson // new slice to hold the filtered data
