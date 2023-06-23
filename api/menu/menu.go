@@ -49,7 +49,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	case req.Method == http.MethodGet && allMenuRegex.MatchString(req.URL.Path):
 		m.getMenu(rw, req)
 
-	case req.Method == http.MethodGet && mealType.MatchString(req.URL.Path):
+	case req.Method == http.MethodGet && mealTypeRegex.MatchString(req.URL.Path):
 		m.GetMealType(rw, req)
 
 	case req.Method == http.MethodGet && mealRegex.MatchString(req.URL.Path):
@@ -87,7 +87,7 @@ func (m *menu) getMenu(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) GetMealType(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
-	urlSubPaths := mealType.FindStringSubmatch(req.URL.Path)
+	urlSubPaths := mealTypeRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
 	// example: /menu/<mealtype> = ["/menu/breakfast", "breakfast"]
