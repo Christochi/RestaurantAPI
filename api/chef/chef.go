@@ -85,7 +85,7 @@ func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	// since the order of the slice is known, store the second index
 	// example: /chef/<name> = ["/chef/job", "job"]
-	name := urlSubPaths[1]
+	name := strings.ToLower(urlSubPaths[1])
 
 	var chefNames []chefJson // new slice to hold the filtered data
 
