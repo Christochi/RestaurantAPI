@@ -137,6 +137,7 @@ func (m *menu) GetMeal(rw http.ResponseWriter, req *http.Request) {
 		// remove whitespaces and returns lower case of the string
 		name := strings.ToLower(strings.ReplaceAll(value.Meal, " ", ""))
 
+		// compares if 2 strings have the same string literal or a substring
 		if name == mealName || strings.Contains(name, mealName) {
 			meal = append(meal, value) // append to new slice
 		}
