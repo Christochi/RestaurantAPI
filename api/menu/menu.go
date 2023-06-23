@@ -52,6 +52,9 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	case req.Method == http.MethodGet && mealType.MatchString(req.URL.Path):
 		m.GetMealType(rw, req)
 
+	case req.Method == http.MethodGet && mealRegex.MatchString(req.URL.Path):
+		m.GetMeal(rw, req)
+
 	case req.Method == http.MethodDelete && allMenuRegex.MatchString(req.URL.Path):
 		m.DeleteMenu(rw, req)
 
@@ -95,6 +98,46 @@ func (m *menu) GetMealType(rw http.ResponseWriter, req *http.Request) {
 	for _, value := range *m {
 
 		if strings.ToLower(value.Type) == mealTypeName {
+			meal = append(meal, value) // append to new slice
+		}
+
+	}
+
+	if meal == nil {
+		rw.WriteHeader(http.StatusNotFound)                    // 404
+		rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
+
+		return // exit function call
+	}
+
+	// encode to json and rw sends the json
+	err := json.NewEncoder(rw).Encode(meal)
+
+	// error handling
+	if err != nil {
+		log.Fatal("error encoding into json")
+	}
+
+}
+
+// gets a specific meal
+func (m *menu) GetMeal(rw http.ResponseWriter, req *http.Request) {
+
+	// returns slice of substrings that matches subexpressions in the url
+	urlSubPaths := mealRegex.FindStringSubmatch(req.URL.Path)
+
+	// since the order of the slice is known, store the second index
+	// example: /menu/<mealtype>/<mealname> = ["/menu/drinks/mangolasse", "drinks", "mangolasse"]
+	mealName := urlSubPaths[2]
+
+	var meal []menuJson // new slice to hold the filtered data
+
+	for _, value := range *m {
+
+		// returned subpath in the url after removing whitespace and lower case conversion
+		name := strings.ToLower(strings.ReplaceAll(value.Meal, " ", ""))
+
+		if name == mealName || strings.Contains(name, mealName) {
 			meal = append(meal, value) // append to new slice
 		}
 
