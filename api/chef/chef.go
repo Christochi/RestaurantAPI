@@ -136,7 +136,7 @@ func (c *chef) DeleteChefByName(rw http.ResponseWriter, req *http.Request) {
 	urlSubPaths := chefNameRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
-	// example: /user/job = ["/user/job", "job"]
+	// example: /user/SaintLawrence = ["/user/SaintLawrence", "SaintLawrence"]
 	name := strings.ToLower(urlSubPaths[1])
 
 	for index, value := range *c {
