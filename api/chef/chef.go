@@ -43,7 +43,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 	case req.Method == http.MethodGet && allChefsRegex.MatchString(req.URL.Path):
 		c.getChef(rw, req)
 
-	case req.Method == http.MethodGet && specificChefRegex.MatchString(req.URL.Path):
+	case req.Method == http.MethodGet && chefNameRegex.MatchString(req.URL.Path):
 		c.GetChefByName(rw, req)
 
 	case req.Method == http.MethodPost && allChefsRegex.MatchString(req.URL.Path):
@@ -52,7 +52,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 	case req.Method == http.MethodDelete && allChefsRegex.MatchString(req.URL.Path):
 		c.DeleteChef(rw, req)
 
-	case req.Method == http.MethodDelete && specificChefRegex.MatchString(req.URL.Path):
+	case req.Method == http.MethodDelete && chefNameRegex.MatchString(req.URL.Path):
 		c.DeleteChefByName(rw, req)
 
 	default:
@@ -81,7 +81,7 @@ func (c *chef) getChef(rw http.ResponseWriter, req *http.Request) {
 func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
-	urlSubPaths := specificChefRegex.FindStringSubmatch(req.URL.Path)
+	urlSubPaths := chefNameRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
 	// example: /chef/<name> = ["/chef/job", "job"]
@@ -133,7 +133,7 @@ func (c *chef) DeleteChef(rw http.ResponseWriter, req *http.Request) {
 func (c *chef) DeleteChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
-	urlSubPaths := specificChefRegex.FindStringSubmatch(req.URL.Path)
+	urlSubPaths := chefNameRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
 	// example: /user/job = ["/user/job", "job"]
