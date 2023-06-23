@@ -27,7 +27,7 @@ type menuJson struct {
 
 type menu []menuJson // slice type to be used as a receiver for methods
 
-// retuns menu object
+// retuns a pointer to menu object
 func NewMenu() *menu {
 
 	return new(menu)
