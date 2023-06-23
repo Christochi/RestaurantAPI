@@ -94,7 +94,7 @@ func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 		// returned subpath in the url after removing whitespace and lower case conversion
 		subPath := strings.ToLower(strings.ReplaceAll(value.Name, " ", ""))
 
-		// remove whitespaces and returns lower case of the string
+		// compares if 2 strings have the same string literal or a substring
 		if subPath == name || strings.Contains(subPath, name) {
 			chefNames = append(chefNames, value) // append to new slice
 		}
