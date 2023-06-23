@@ -134,7 +134,7 @@ func (m *menu) GetMeal(rw http.ResponseWriter, req *http.Request) {
 
 	for _, value := range *m {
 
-		// returned subpath in the url after removing whitespace and lower case conversion
+		// returned subpath in the url after removing whitespaces and lower case conversion
 		name := strings.ToLower(strings.ReplaceAll(value.Meal, " ", ""))
 
 		if name == mealName || strings.Contains(name, mealName) {
