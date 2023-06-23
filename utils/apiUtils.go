@@ -7,8 +7,6 @@ import (
 	"net/http"
 )
 
-type Object interface{}
-
 // logic for HTTP POST Method
 func Post[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
 
