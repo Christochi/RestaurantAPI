@@ -24,7 +24,7 @@ type chefJson struct {
 
 type chef []chefJson // slice type to be used as a receiver for methods
 
-// retuns slice of chef object
+// retuns a pointer to chef object
 func NewChef() *chef {
 
 	return new(chef)
