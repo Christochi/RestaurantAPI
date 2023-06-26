@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"reflect"
+	"strings"
 )
 
 // logic for HTTP POST Method
@@ -41,11 +42,33 @@ func Get(rw http.ResponseWriter, req *http.Request, a any) {
 // logic for HTTP DELETE Method
 func Delete(rw http.ResponseWriter, req *http.Request, a any) {
 
-	ab := reflect.Indirect(reflect.ValueOf(a))
+	object := reflect.Indirect(reflect.ValueOf(a))
 
-	if ab.IsNil() {
+	if object.IsNil() {
 		fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
 	}
+
+}
+
+func DeleteItem(rw http.ResponseWriter, req *http.Request, a any, str string) {
+
+	for index, value := range *m {
+
+		// remove whitespaces and returns lower case of the string
+		if strings.ToLower(strings.ReplaceAll(value.Meal, " ", "")) == meal {
+			// delete an element
+			(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
+			*m = (*m)[:len(*m)-1]         // reinitialize the array with all the elements excluding last element
+
+			fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+
+			return // exit function call
+		}
+
+	}
+
+	rw.WriteHeader(http.StatusNotFound)                    // 404
+	rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
 
 }
 
