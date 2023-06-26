@@ -8,10 +8,10 @@ import (
 )
 
 // logic for HTTP POST Method
-func Post[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
+func Post(rw http.ResponseWriter, req *http.Request, a any) {
 
 	// read response body and decode json to struct
-	err := json.NewDecoder(req.Body).Decode(&obj)
+	err := json.NewDecoder(req.Body).Decode(&a)
 
 	// error handling
 	if err != nil {
