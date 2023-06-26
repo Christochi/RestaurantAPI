@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"reflect"
 )
 
 // logic for HTTP POST Method
@@ -40,8 +41,11 @@ func Get(rw http.ResponseWriter, req *http.Request, a any) {
 // logic for HTTP DELETE Method
 func Delete(rw http.ResponseWriter, req *http.Request, a any) {
 
-	fmt.Fprintf(rw, "%v\n", &a)
-	fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+	ab := reflect.Indirect(reflect.ValueOf(a))
+
+	if ab.IsNil() {
+		fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+	}
 
 }
 
