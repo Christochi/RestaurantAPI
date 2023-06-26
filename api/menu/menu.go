@@ -71,7 +71,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// read and decode to struct
-	utils.Post(rw, req, &m)
+	utils.Post(rw, req, m)
 
 }
 
@@ -79,7 +79,7 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) getMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// read and encode to json
-	utils.Get(rw, req, &m)
+	utils.Get(rw, req, m)
 
 }
 
@@ -167,7 +167,7 @@ func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 	// delete all element by re-initializing to nil
 	*m = nil
 
-	utils.Delete(rw, req, &m)
+	utils.Delete(rw, req, m)
 
 }
 
@@ -203,6 +203,6 @@ func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 // sends status message to client if resource does not exist or not implemented
 func (m *menu) notImplemented(rw http.ResponseWriter, req *http.Request) {
 
-	utils.NotImplemented(rw, req, &m) // returns 501 Not Implemented
+	utils.NotImplemented(rw, req, m) // returns 501 Not Implemented
 
 }
