@@ -25,10 +25,10 @@ func Post(rw http.ResponseWriter, req *http.Request, a any) {
 }
 
 // logic for HTTP GET Method
-func Get[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
+func Get(rw http.ResponseWriter, req *http.Request, a any) {
 
 	// encode to json and rw sends the json
-	err := json.NewEncoder(rw).Encode(&obj)
+	err := json.NewEncoder(rw).Encode(&a)
 
 	// error handling
 	if err != nil {
