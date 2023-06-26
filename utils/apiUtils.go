@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"reflect"
-	"strings"
 )
 
 // logic for HTTP POST Method
@@ -42,8 +41,10 @@ func Get(rw http.ResponseWriter, req *http.Request, a any) {
 // logic for HTTP DELETE Method
 func Delete(rw http.ResponseWriter, req *http.Request, a any) {
 
+	// returns the value that the interface points to
 	object := reflect.Indirect(reflect.ValueOf(a))
 
+	// check if value is nil
 	if object.IsNil() {
 		fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
 	}
@@ -52,23 +53,32 @@ func Delete(rw http.ResponseWriter, req *http.Request, a any) {
 
 func DeleteItem(rw http.ResponseWriter, req *http.Request, a any, str string) {
 
-	for index, value := range *m {
+	// returns the value that the interface points to
+	object := reflect.Indirect(reflect.ValueOf(a))
+	k := object.Kind()
 
-		// remove whitespaces and returns lower case of the string
-		if strings.ToLower(strings.ReplaceAll(value.Meal, " ", "")) == meal {
-			// delete an element
-			(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
-			*m = (*m)[:len(*m)-1]         // reinitialize the array with all the elements excluding last element
-
-			fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
-
-			return // exit function call
-		}
-
+	if k == reflect.Slice {
+		// obj := object.MapRange()
+		fmt.Fprintf(rw, "%v", true)
 	}
 
-	rw.WriteHeader(http.StatusNotFound)                    // 404
-	rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
+	// for index, value := range object {
+
+	// 	// remove whitespaces and returns lower case of the string
+	// 	if strings.ToLower(strings.ReplaceAll(value.Meal, " ", "")) == str {
+	// 		// delete an element
+	// 		(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
+	// 		*m = (*m)[:len(*m)-1]         // reinitialize the array with all the elements excluding last element
+
+	// 		fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+
+	// 		return // exit function call
+	// 	}
+
+	// }
+
+	// rw.WriteHeader(http.StatusNotFound)                    // 404
+	// rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
 
 }
 
