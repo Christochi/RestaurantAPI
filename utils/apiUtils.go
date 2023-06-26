@@ -38,15 +38,15 @@ func Get(rw http.ResponseWriter, req *http.Request, a any) {
 }
 
 // logic for HTTP DELETE Method
-func Delete[T any](rw http.ResponseWriter, req *http.Request, obj *T) {
+func Delete(rw http.ResponseWriter, req *http.Request, a any) {
 
-	fmt.Fprintf(rw, "%v\n", *obj)
+	fmt.Fprintf(rw, "%v\n", &a)
 	fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
 
 }
 
 // sends status message to client if resource does not exist or not implemented
-func NotImplemented[T any](rw http.ResponseWriter, req *http.Request, obj T) {
+func NotImplemented(rw http.ResponseWriter, req *http.Request, a any) {
 
 	rw.WriteHeader(http.StatusNotImplemented)                    // 501
 	rw.Write([]byte(http.StatusText(http.StatusNotImplemented))) // Not Implemented
