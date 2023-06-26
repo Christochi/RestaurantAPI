@@ -8,6 +8,7 @@ import (
 )
 
 // logic for HTTP POST Method
+// any is an interface for any type
 func Post(rw http.ResponseWriter, req *http.Request, a any) {
 
 	// read response body and decode json to struct
