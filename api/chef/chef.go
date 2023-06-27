@@ -51,7 +51,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 		c.postChef(rw, req)
 
 	case req.Method == http.MethodDelete && allChefsRegex.MatchString(req.URL.Path):
-		c.deleteChef(rw, req)
+		c.deleteChef(rw)
 
 	case req.Method == http.MethodDelete && chefNameRegex.MatchString(req.URL.Path):
 		c.deleteChefByName(rw, req)
@@ -121,12 +121,12 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client deletes all chef data
-func (c *chef) deleteChef(rw http.ResponseWriter, req *http.Request) {
+func (c *chef) deleteChef(rw http.ResponseWriter) {
 
 	// delete all element by re-initializing to nil
 	*c = nil
 
-	utils.Delete(rw, req, &c)
+	utils.Delete(rw, c)
 
 }
 
