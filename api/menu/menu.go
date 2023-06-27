@@ -56,7 +56,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 		m.GetMeal(rw, req)
 
 	case req.Method == http.MethodDelete && allMenuRegex.MatchString(req.URL.Path):
-		m.DeleteMenu(rw)
+		m.deleteMenu(rw)
 
 	case req.Method == http.MethodDelete && mealRegex.MatchString(req.URL.Path):
 		m.DeleteMeal(rw, req)
@@ -162,7 +162,7 @@ func (m *menu) GetMeal(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client deletes all menu data
-func (m *menu) DeleteMenu(rw http.ResponseWriter) {
+func (m *menu) deleteMenu(rw http.ResponseWriter) {
 
 	// delete all element by re-initializing to nil
 	*m = nil
