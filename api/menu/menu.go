@@ -62,7 +62,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 		m.DeleteMeal(rw, req)
 
 	default:
-		m.notImplemented(rw, req) // returns 501 Not Implemented
+		m.notImplemented(rw) // returns 501 Not Implemented
 	}
 
 }
@@ -202,8 +202,8 @@ func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 }
 
 // sends status message to client if resource does not exist or not implemented
-func (m *menu) notImplemented(rw http.ResponseWriter, req *http.Request) {
+func (m *menu) notImplemented(rw http.ResponseWriter) {
 
-	utils.NotImplemented(rw, req, m) // returns 501 Not Implemented
+	utils.NotImplemented(rw) // returns 501 Not Implemented
 
 }
