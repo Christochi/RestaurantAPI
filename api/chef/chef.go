@@ -45,7 +45,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 		c.getChefs(rw)
 
 	case req.Method == http.MethodGet && chefNameRegex.MatchString(req.URL.Path):
-		c.getChefByName(rw)
+		c.getChefByName(rw, req)
 
 	case req.Method == http.MethodPost && allChefsRegex.MatchString(req.URL.Path):
 		c.postChef(rw, req)
@@ -79,7 +79,7 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 }
 
 // client requests for specific chef
-func (c *chef) getChefByName(rw http.ResponseWriter) {
+func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
 	urlSubPaths := chefNameRegex.FindStringSubmatch(req.URL.Path)
