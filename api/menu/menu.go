@@ -171,6 +171,7 @@ func (m *menu) DeleteMenu(rw http.ResponseWriter, req *http.Request) {
 
 }
 
+// deletes a specific meal
 func (m *menu) DeleteMeal(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
