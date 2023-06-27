@@ -47,7 +47,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 		m.postMenu(rw, req)
 
 	case req.Method == http.MethodGet && allMenuRegex.MatchString(req.URL.Path):
-		m.getMenu(rw, req)
+		m.getMenu(rw)
 
 	case req.Method == http.MethodGet && mealTypeRegex.MatchString(req.URL.Path):
 		m.GetMealType(rw, req)
@@ -76,10 +76,10 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client requests for menu data using GET Method
-func (m *menu) getMenu(rw http.ResponseWriter, req *http.Request) {
+func (m *menu) getMenu(rw http.ResponseWriter) {
 
 	// read and encode to json
-	utils.Get(rw, req, m)
+	utils.Get(rw, m)
 
 }
 
