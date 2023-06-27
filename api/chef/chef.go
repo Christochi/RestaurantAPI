@@ -57,7 +57,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 		c.deleteChefByName(rw, req)
 
 	default:
-		c.notImplemented(rw) // returns 501 Not Implemented
+		notImplemented(rw) // returns 501 Not Implemented
 	}
 
 }
@@ -161,7 +161,7 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 }
 
 // sends message to client if resource does not exist or not implemented
-func (c *chef) notImplemented(rw http.ResponseWriter) {
+func notImplemented(rw http.ResponseWriter) {
 
 	utils.NotImplemented(rw) // returns 501 Not Implemented
 
