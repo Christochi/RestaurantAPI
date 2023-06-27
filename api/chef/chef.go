@@ -45,16 +45,16 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 		c.getChefs(rw, req)
 
 	case req.Method == http.MethodGet && chefNameRegex.MatchString(req.URL.Path):
-		c.GetChefByName(rw, req)
+		c.getChefByName(rw, req)
 
 	case req.Method == http.MethodPost && allChefsRegex.MatchString(req.URL.Path):
 		c.postChef(rw, req)
 
 	case req.Method == http.MethodDelete && allChefsRegex.MatchString(req.URL.Path):
-		c.DeleteChef(rw, req)
+		c.deleteChef(rw, req)
 
 	case req.Method == http.MethodDelete && chefNameRegex.MatchString(req.URL.Path):
-		c.DeleteChefByName(rw, req)
+		c.deleteChefByName(rw, req)
 
 	default:
 		c.notImplemented(rw, req) // returns 501 Not Implemented
@@ -79,7 +79,7 @@ func (c *chef) getChefs(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client requests for specific chef
-func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
+func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
 	urlSubPaths := chefNameRegex.FindStringSubmatch(req.URL.Path)
@@ -121,7 +121,7 @@ func (c *chef) GetChefByName(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client deletes all chef data
-func (c *chef) DeleteChef(rw http.ResponseWriter, req *http.Request) {
+func (c *chef) deleteChef(rw http.ResponseWriter, req *http.Request) {
 
 	// delete all element by re-initializing to nil
 	*c = nil
@@ -131,7 +131,7 @@ func (c *chef) DeleteChef(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client deletes a specific chef
-func (c *chef) DeleteChefByName(rw http.ResponseWriter, req *http.Request) {
+func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	// returns slice of substrings that matches subexpressions in the url
 	urlSubPaths := chefNameRegex.FindStringSubmatch(req.URL.Path)
