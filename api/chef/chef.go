@@ -42,7 +42,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 	switch {
 
 	case req.Method == http.MethodGet && allChefsRegex.MatchString(req.URL.Path):
-		c.getChefs(rw, req)
+		c.getChefs(rw)
 
 	case req.Method == http.MethodGet && chefNameRegex.MatchString(req.URL.Path):
 		c.getChefByName(rw, req)
@@ -71,10 +71,10 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 }
 
 // client requests for chef data using GET Method
-func (c *chef) getChefs(rw http.ResponseWriter, req *http.Request) {
+func (c *chef) getChefs(rw http.ResponseWriter) {
 
 	// read and encode to json
-	utils.Get(rw, req, c)
+	utils.Get(rw, c)
 
 }
 
