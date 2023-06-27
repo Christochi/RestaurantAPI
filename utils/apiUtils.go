@@ -39,7 +39,7 @@ func Get(rw http.ResponseWriter, a any) {
 }
 
 // logic for HTTP DELETE Method
-func Delete(rw http.ResponseWriter, req *http.Request, a any) {
+func Delete(rw http.ResponseWriter, a any) {
 
 	// returns the value that the interface points to
 	object := reflect.Indirect(reflect.ValueOf(a))
