@@ -1,6 +1,8 @@
 package webserver
 
 import (
+	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"restaurantapi/api/chef"
@@ -8,7 +10,7 @@ import (
 )
 
 // CONSTANTS
-const addr string = ":3000"
+const addr string = ":3000" // default docker exposed port
 
 var WebFilesDir string // directory of web files
 
@@ -42,8 +44,14 @@ func RunServer(dir string) {
 	newMenu := menu.NewMenu() // returns a menu object
 	router.HandleFunc("/menu/", newMenu.MenuHandler)
 
+	// command line flag for setting the port that the server would listen on
+	// To change the address (not using docker build), run:
+	// go run main.go --listenaddr :port => go run main.go --listenaddr :7000
+	listenAddr := flag.String("listenaddr", addr, "server address")
+	flag.Parse()
+	fmt.Println("server running on port: ", *listenAddr)
 	// listens on the network address and handles requests from incoming connections
-	log.Fatal(http.ListenAndServe(addr, router))
+	log.Fatal(http.ListenAndServe(*listenAddr, router))
 
 }
 
