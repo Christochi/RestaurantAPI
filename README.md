@@ -1,0 +1,22 @@
+# Restaurant API
+## Description
+JSON API is used to update the menu in the Restaurant and the Chefs. You can perform normal CRUD operations via the endpoints
+
+## Requirement
+- install the lastest Golang
+- install Docker (only necessary for using the build in a docker container)
+- HTTP Client for interacting with API: Postman, Curl, Thunder Client, Web Browser or any client of your choice
+
+## Setup
+There are 2 ways to run this project: `cloning the project` and `docker build`
+
+### Cloning the Project
+- clone the project
+- run the project: 
+    - from the command line, run `go run main.go`
+    - on your browser or HTTP client, enter `http://localhost` or `http://localhost:3000`. The default port is ***3000***
+    - on change the port or address, for example, ***7000***, on the commad line, run `go run main.go --listenaddr :7000`
+    - on your browser or HTTP client, enter `http://localhost:7000` 
+
+### Docker Build
+**COMING SOON...**
