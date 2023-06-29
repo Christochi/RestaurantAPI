@@ -45,8 +45,6 @@ func RunServer(dir string) {
 	router.HandleFunc("/menu/", newMenu.MenuHandler)
 
 	// command line flag for setting the port that the server would listen on
-	// To change the address (not using docker build), run:
-	// go run main.go --listenaddr :port => go run main.go --listenaddr :7000
 	listenAddr := flag.String("listenaddr", addr, "server address")
 	flag.Parse()
 	fmt.Println("server running on port: ", *listenAddr)
