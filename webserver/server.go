@@ -48,6 +48,7 @@ func RunServer(dir string) {
 	listenAddr := flag.String("listenaddr", addr, "server address")
 	flag.Parse() // parse the command line into the defined flag
 	fmt.Println("server running on port: ", *listenAddr)
+
 	// listens on the network address and handles requests from incoming connections
 	log.Fatal(http.ListenAndServe(*listenAddr, router))
 
