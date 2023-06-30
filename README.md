@@ -47,3 +47,5 @@ GET `http://localhost/drinks` or GET `http://localhost/lunch`
 - **Returns meals that match a search pattern**: GET `http://localhost/menu/breakfast/hotdog` or `http://localhost/menu/dinner/rice`
 - **Deletes all menu**: DELETE `http://localhost/menu/`
 - **Deletes a meal that matches a search pattern**: DELETE `http://localhost/menu/drinks/mangolasse`
+
+### Chef
