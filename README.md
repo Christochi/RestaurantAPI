@@ -21,5 +21,5 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
 #### Docker Build
 ***COMING SOON...***
 
-## Usage
-
+## Endpoints
+This project has 2 endpoints: 
