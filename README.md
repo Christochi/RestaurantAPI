@@ -19,7 +19,7 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
     - on your browser or HTTP client, enter `http://localhost:7000` 
 
 #### Docker Build
-**COMING SOON...**
+***COMING SOON...***
 
 ## Usage
 
