@@ -60,8 +60,10 @@ GET `http://localhost/drinks` or GET `http://localhost/lunch`
 
     {
         "Name": "Chocho Okoye",
-        "About": "Chocho has 20 years experience cooking for famous restaurants in African and the Caribbean"
+        "About": "Chocho has 20 years experience cooking for famous restaurants in African 
+            and the Caribbean"
     }
 ]
 ~~~
 - **Returns list of Chefs**: GET `http://localhost/chef/`
+- **Returns a chef that matches a search pattern**: GET `http://localhost/chef/John`
