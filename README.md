@@ -15,7 +15,7 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
 - Run the project: 
     - from the command line, run `go run main.go`
     - on your browser or HTTP client, enter `http://localhost:3000`. The default port is ***3000***
-    - to change the port or address, for example, to ***7000***, on the commad line, run `go run main.go --listenaddr :7000`
+    - to change the port or address, for example to ***7000***, on the commad line, run `go run main.go --listenaddr :7000`
     - on your browser or HTTP client, enter `http://localhost:7000` 
 
 ### Docker Build
