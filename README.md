@@ -23,7 +23,7 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
 
 ## Endpoints
 ### Menu
-- **Add a Food Menu**: POST `http://localhost/menu`
+- **Add a Food Menu**: POST `http://localhost/menu/`
 ~~~
 [
     {
@@ -41,7 +41,7 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
     }
 ]
 ~~~
-- **Returns list of Food Menu**: GET `http://localhost/menu`
+- **Returns list of Food Menu**: GET `http://localhost/menu/`
 - **Returns list of a meal type in the food menu**: There are 4 acceptable meal type: ***Breakfast, Lunch, Dinner & Drinks***.
 GET `http://localhost/drinks` or GET `http://localhost/lunch`
 - **Returns meals that match a search pattern**: GET `http://localhost/menu/breakfast/hotdog` or `http://localhost/menu/dinner/rice`
@@ -49,3 +49,17 @@ GET `http://localhost/drinks` or GET `http://localhost/lunch`
 - **Deletes a meal that matches a search pattern**: DELETE `http://localhost/menu/drinks/mangolasse`
 
 ### Chef
+- **Add a Chef**: POST `http://localhost/chef/`
+~~~
+[
+    {
+        "Name": "John Doe",
+        "About": "Mango lasse"
+    },
+    
+    {
+        "Name": "Chocho Okoye",
+        "About": "Mango lasse"
+    }
+]
+~~~
