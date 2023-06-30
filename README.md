@@ -24,4 +24,22 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
 ## Endpoints
 ### Menu
 - **Add a Food Menu**: POST `http://localhost/menu`
+Example
+~~~
+[
+    {
+        "type" : "Breakfast",
+        "meal" : "Potato with Bacon",
+        "price" : "$5",
+        "desc": "mildly fried potatoes with bacon"
+    },  
+
+    {
+        "type" : "Lunch",
+        "meal" : "Chicken Fried Rice",
+        "price" : "$15",
+        "desc": "Rice with stirred fried vege with baked chicken"
+    }
+]
+~~~
 
