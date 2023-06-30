@@ -1,6 +1,6 @@
 # Restaurant API
 ## Description
-JSON API is used to update the menu in the Restaurant and the Chefs. You can perform normal CRUD operations via the endpoints
+JSON API allows one to update the food menu of a Restaurant and the Chefs. You can also perform normal CRUD operations via the endpoints
 
 ## Requirement
 - Install the lastest Golang
@@ -22,4 +22,5 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
 ***COMING SOON...***
 
 ## Endpoints
-This project has 2 endpoints: 
+#### Menu
+
