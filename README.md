@@ -3,8 +3,8 @@
 JSON API allows one to update the food menu of a Restaurant and the Chefs. You can also perform normal CRUD operations via the endpoints
 
 ## Requirement
-- Install the lastest Golang
-- Install Docker (only necessary for using the build in a docker container)
+- Install the lastest Golang (required for first setup)
+- Install Docker (required for second setup)
 - HTTP Client for interacting with the API: Postman, Curl, Thunder Client, Web Browser or any client of your choice
 
 ## Setup
