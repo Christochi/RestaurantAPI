@@ -24,7 +24,6 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
 ## Endpoints
 ### Menu
 - **Add a Food Menu**: POST `http://localhost/menu`
-Example
 ~~~
 [
     {
