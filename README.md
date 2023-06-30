@@ -64,4 +64,4 @@ GET `http://localhost/drinks` or GET `http://localhost/lunch`
 ]
 ~~~
 - **Returns list of Chefs**: GET `http://localhost/chef/`
-- **Returns a chef that matches a search pattern**: GET `http://localhost/chef/John`
+- **Returns a Chef that matches a search pattern**: GET `http://localhost/chef/John`
