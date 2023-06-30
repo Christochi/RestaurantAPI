@@ -41,4 +41,6 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
     }
 ]
 ~~~
+- **Returns list of Food Menu**: GET `http://localhost/menu`
+
 
