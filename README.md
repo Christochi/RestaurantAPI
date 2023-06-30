@@ -10,7 +10,7 @@ JSON API is used to update the menu in the Restaurant and the Chefs. You can per
 ## Setup
 There are 2 ways to run this project: `cloning the project` and `docker build`
 
-### Cloning the Project
+#### Cloning the Project
 - Clone the project
 - Run the project: 
     - from the command line, run `go run main.go`
@@ -18,5 +18,6 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
     - on change the port or address, for example, ***7000***, on the commad line, run `go run main.go --listenaddr :7000`
     - on your browser or HTTP client, enter `http://localhost:7000` 
 
-### Docker Build
+#### Docker Build
 **COMING SOON...**
+
