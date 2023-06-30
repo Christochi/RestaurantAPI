@@ -44,4 +44,4 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
 - **Returns list of Food Menu**: GET `http://localhost/menu`
 - **Returns list of a meal type in the food menu**: There are 4 acceptable meal type: ***Breakfast, Lunch, Dinner & Drinks***.
 GET `http://localhost/drinks` or GET `http://localhost/lunch`
-
+- **Returns list of meals that match a search pattern**: GET `http://localhost/menu/breakfast/hotdog` or `http://localhost/menu/dinner/rice`
