@@ -25,6 +25,8 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
 ### Menu
 - **Add a Food Menu**: POST `http://localhost:3000/menu/`
 ~~~
+Example of Json body to send as part of the POST request
+
 [
     {
         "type" : "Breakfast",
