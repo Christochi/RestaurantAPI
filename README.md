@@ -25,7 +25,7 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
 ### Menu
 - **Add a Food Menu**: POST `http://localhost:3000/menu/`
 ~~~
-Example of Json body to send as part of the POST request
+Example of JSON body to send as part of the POST request
 
 [
     {
@@ -53,7 +53,7 @@ GET `http://localhost:3000/drinks` or GET `http://localhost:3000/lunch`
 ### Chef
 - **Add a Chef**: POST `http://localhost:3000/chef/`
 ~~~
-Example of Json body to send as part of the POST request
+Example of JSON body to send as part of the POST request
 
 [
     {
