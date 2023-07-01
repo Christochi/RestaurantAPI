@@ -23,7 +23,7 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
 
 ## Endpoints
 ### Menu
-- **Add a Food Menu**: POST `http://localhost/menu/`
+- **Add a Food Menu**: POST `http://localhost:3000/menu/`
 ~~~
 [
     {
@@ -41,15 +41,15 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
     }
 ]
 ~~~
-- **Returns list of Food Menu**: GET `http://localhost/menu/`
-- **Returns list of a meal type in the food menu**: There are 4 acceptable meal type: ***Breakfast, Lunch, Dinner & Drinks***.
-GET `http://localhost/drinks` or GET `http://localhost/lunch`
-- **Returns Meals that match a search pattern**: GET `http://localhost/menu/breakfast/hotdog` or `http://localhost/menu/dinner/rice`
-- **Deletes all Menu**: DELETE `http://localhost/menu/`
-- **Deletes a Meal that matches a search pattern**: DELETE `http://localhost/menu/drinks/mangolasse`
+- **Returns list of Food Menu**: GET `http://localhost:3000/menu/`
+- **Returns list of a meal type in the food menu**: There are 4 acceptable meal types: ***Breakfast, Lunch, Dinner & Drinks***.
+GET `http://localhost:3000/drinks` or GET `http://localhost:3000/lunch`
+- **Returns Meals that match a search pattern**: GET `http://localhost:3000/menu/breakfast/hotdog` or `http://localhost:3000/menu/dinner/rice`
+- **Deletes all Menu**: DELETE `http://localhost:3000/menu/`
+- **Deletes a Meal that matches a search pattern**: DELETE `http://localhost:3000/menu/drinks/mangolasse`
 
 ### Chef
-- **Add a Chef**: POST `http://localhost/chef/`
+- **Add a Chef**: POST `http://localhost:3000/chef/`
 ~~~
 [
     {
@@ -63,7 +63,7 @@ GET `http://localhost/drinks` or GET `http://localhost/lunch`
     }
 ]
 ~~~
-- **Returns list of Chefs**: GET `http://localhost/chef/`
-- **Returns a Chef that matches a search pattern**: GET `http://localhost/chef/john`
-- **Deletes all Chefs**: DELETE `http://localhost/chef/`
-- **Deletes a Chef that matches a search pattern**: DELETE `http://localhost/chef/johndoe`
+- **Returns list of Chefs**: GET `http://localhost:3000/chef/`
+- **Returns a Chef that matches a search pattern**: GET `http://localhost:3000/chef/john`
+- **Deletes all Chefs**: DELETE `http://localhost:3000/chef/`
+- **Deletes a Chef that matches a search pattern**: DELETE `http://localhost:3000/chef/johndoe`
