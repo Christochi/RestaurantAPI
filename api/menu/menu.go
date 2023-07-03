@@ -60,7 +60,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 		m.deleteMeal(rw, req)
 
 	default:
-		http.Error(rw, http.StatusText(http.StatusNotImplemented), http.StatusNotImplemented) // returns 501 Not Implemented
+		utils.ServerMessgae(rw, http.StatusText(http.StatusNotImplemented), http.StatusNotImplemented) // returns 501 Not Implemented
 	}
 
 }
@@ -102,8 +102,9 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	if meal == nil {
-		rw.WriteHeader(http.StatusNotFound)                    // 404
-		rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
+		// rw.WriteHeader(http.StatusNotFound)                    // 404
+		// rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
+		utils.ServerMessgae(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 
 		return // exit function call
 	}
@@ -144,8 +145,9 @@ func (m *menu) getMeal(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	if meal == nil {
-		rw.WriteHeader(http.StatusNotFound)                    // 404
-		rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
+		// rw.WriteHeader(http.StatusNotFound)                    // 404
+		// rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
+		utils.ServerMessgae(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 
 		return // exit function call
 	}
@@ -188,15 +190,17 @@ func (m *menu) deleteMeal(rw http.ResponseWriter, req *http.Request) {
 			(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
 			*m = (*m)[:len(*m)-1]         // reinitialize the array with all the elements excluding last element
 
-			rw.WriteHeader(http.StatusOK) // 200 OK
-			rw.Write([]byte("resource deleted successfully"))
+			// rw.WriteHeader(http.StatusOK) // 200 OK
+			// rw.Write([]byte("resource deleted successfully"))
+			utils.ServerMessgae(rw, "resource deleted successfully", http.StatusOK) // 200 OK
 
 			return // exit function call
 		}
 
 	}
 
-	rw.WriteHeader(http.StatusNotFound)                    // 404
-	rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
+	// rw.WriteHeader(http.StatusNotFound)                                                // 404
+	// rw.Write([]byte(http.StatusText(http.StatusNotFound)))                             // NotFound
+	utils.ServerMessgae(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 
 }
