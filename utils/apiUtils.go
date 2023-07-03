@@ -17,7 +17,7 @@ func Post(rw http.ResponseWriter, req *http.Request, a any) {
 
 	// error handling
 	if err != nil {
-		rw.WriteHeader(http.StatusUnprocessableEntity) // 422 Not Acceptable
+		rw.WriteHeader(http.StatusUnprocessableEntity) // 422 Unprocessable Entity
 		rw.Write([]byte("error decoding into struct"))
 	} else {
 		// server's response to client
@@ -34,6 +34,8 @@ func Get(rw http.ResponseWriter, a any) {
 
 	// error handling
 	if err != nil {
+		rw.WriteHeader(http.StatusUnprocessableEntity) // 422 Unprocessable Entity
+		rw.Write([]byte("error decoding into struct"))
 		log.Fatal("error encoding into json")
 	}
 
