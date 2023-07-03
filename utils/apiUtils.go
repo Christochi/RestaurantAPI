@@ -16,8 +16,7 @@ func Post(rw http.ResponseWriter, req *http.Request, a any) {
 
 	// error handling
 	if err != nil {
-		rw.WriteHeader(http.StatusUnprocessableEntity) // 422 Unprocessable Entity
-		rw.Write([]byte("error decoding into struct"))
+		ErrorMessage(rw, "error decoding into struct", http.StatusUnprocessableEntity)
 	} else {
 		// server's response to client
 		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // 201 Created
