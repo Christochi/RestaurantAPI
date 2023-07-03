@@ -45,7 +45,8 @@ func Delete(rw http.ResponseWriter, a any) {
 
 	// check if value is nil
 	if object.IsNil() {
-		fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+		rw.WriteHeader(http.StatusOK) // 200 OK
+		rw.Write([]byte("resource deleted successfully"))
 	}
 
 }
