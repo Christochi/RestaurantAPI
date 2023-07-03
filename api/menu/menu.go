@@ -2,7 +2,6 @@ package menu
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"regexp"
 	"restaurantapi/utils"
@@ -189,7 +188,8 @@ func (m *menu) deleteMeal(rw http.ResponseWriter, req *http.Request) {
 			(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
 			*m = (*m)[:len(*m)-1]         // reinitialize the array with all the elements excluding last element
 
-			fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+			rw.WriteHeader(http.StatusOK) // 200 OK
+			rw.Write([]byte("resource deleted successfully"))
 
 			return // exit function call
 		}
