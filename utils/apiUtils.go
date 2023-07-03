@@ -3,7 +3,6 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"reflect"
 )
@@ -36,7 +35,6 @@ func Get(rw http.ResponseWriter, a any) {
 	if err != nil {
 		rw.WriteHeader(http.StatusUnprocessableEntity) // 422 Unprocessable Entity
 		rw.Write([]byte("error decoding into struct"))
-		log.Fatal("error encoding into json")
 	}
 
 }
@@ -59,5 +57,6 @@ func NotImplemented(rw http.ResponseWriter) {
 
 	rw.WriteHeader(http.StatusNotImplemented)                    // 501
 	rw.Write([]byte(http.StatusText(http.StatusNotImplemented))) // Not Implemented
+	//http.Error(rw, http.StatusText(http.StatusNotImplemented), http.StatusNotImplemented)
 
 }
