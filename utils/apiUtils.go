@@ -52,11 +52,10 @@ func Delete(rw http.ResponseWriter, a any) {
 
 }
 
-// sends status message to client if resource does not exist or not implemented
+// sends error message to client if resource does not exist or not implemented
 func NotImplemented(rw http.ResponseWriter) {
 
-	rw.WriteHeader(http.StatusNotImplemented)                    // 501
-	rw.Write([]byte(http.StatusText(http.StatusNotImplemented))) // Not Implemented
-	//http.Error(rw, http.StatusText(http.StatusNotImplemented), http.StatusNotImplemented)
+	// 501 Not Implemented
+	http.Error(rw, http.StatusText(http.StatusNotImplemented), http.StatusNotImplemented)
 
 }
