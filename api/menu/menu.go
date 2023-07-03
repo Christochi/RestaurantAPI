@@ -3,7 +3,6 @@ package menu
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"regexp"
 	"restaurantapi/utils"
@@ -157,7 +156,7 @@ func (m *menu) getMeal(rw http.ResponseWriter, req *http.Request) {
 
 	// error handling
 	if err != nil {
-		log.Fatal("error encoding into json")
+		http.Error(rw, "error encoding into json", http.StatusUnprocessableEntity) // 422 Unprocessable Entity
 	}
 
 }
