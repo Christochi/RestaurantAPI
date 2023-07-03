@@ -16,7 +16,7 @@ func Post(rw http.ResponseWriter, req *http.Request, a any) {
 
 	// error handling
 	if err != nil {
-		ErrorMessage(rw, "error decoding into struct", http.StatusUnprocessableEntity) // 422 Unprocessable Entity
+		http.Error(rw, "error decoding into struct", http.StatusUnprocessableEntity) // 422 Unprocessable Entity
 	} else {
 		// server's response to client
 		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // 201 Created
@@ -32,7 +32,7 @@ func Get(rw http.ResponseWriter, a any) {
 
 	// error handling
 	if err != nil {
-		ErrorMessage(rw, "error encoding into json", http.StatusUnprocessableEntity) // 422 Unprocessable Entity
+		http.Error(rw, "error encoding into json", http.StatusUnprocessableEntity) // 422 Unprocessable Entity
 	}
 
 }
@@ -48,13 +48,5 @@ func Delete(rw http.ResponseWriter, a any) {
 		rw.WriteHeader(http.StatusOK) // 200 OK
 		rw.Write([]byte("resource deleted successfully"))
 	}
-
-}
-
-// sends error message to client if resource does not exist or not implemented
-func ErrorMessage(rw http.ResponseWriter, err string, statusCode int) {
-
-	// replies to the request with the specified error message and HTTP code
-	http.Error(rw, err, statusCode)
 
 }
