@@ -3,7 +3,6 @@ package chef
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"regexp"
 	"restaurantapi/utils"
@@ -56,7 +55,7 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 		c.deleteChefByName(rw, req)
 
 	default:
-		notImplemented(rw) // returns 501 Not Implemented
+		http.Error(rw, http.StatusText(http.StatusNotImplemented), http.StatusNotImplemented) // returns 501 Not Implemented
 	}
 
 }
@@ -114,7 +113,7 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	// error handling
 	if err != nil {
-		log.Fatal("error encoding into json")
+		http.Error(rw, "error encoding into json", http.StatusUnprocessableEntity) // 422 Unprocessable Entity
 	}
 
 }
@@ -156,12 +155,5 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	rw.WriteHeader(http.StatusNotFound)                    // 404
 	rw.Write([]byte(http.StatusText(http.StatusNotFound))) // NotFound
-
-}
-
-// sends message to client if resource does not exist or not implemented
-func notImplemented(rw http.ResponseWriter) {
-
-	utils.NotImplemented(rw) // returns 501 Not Implemented
 
 }
