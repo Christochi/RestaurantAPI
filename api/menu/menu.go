@@ -115,7 +115,8 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 
 	// error handling
 	if err != nil {
-		log.Fatal("error encoding into json")
+		// 422 Unprocessable Entity
+		http.Error(rw, "error encoding into json", http.StatusUnprocessableEntity)
 	}
 
 }
