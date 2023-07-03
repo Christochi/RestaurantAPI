@@ -54,7 +54,7 @@ func Delete(rw http.ResponseWriter, a any) {
 // sends error message to client if resource does not exist or not implemented
 func ErrorMessage(rw http.ResponseWriter, err string, statusCode int) {
 
-	// replied to the request with the specified error message and HTTP code
+	// replies to the request with the specified error message and HTTP code
 	http.Error(rw, err, statusCode)
 
 }
