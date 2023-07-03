@@ -2,7 +2,6 @@ package chef
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"regexp"
 	"restaurantapi/utils"
@@ -146,7 +145,8 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 			(*c)[index] = (*c)[len(*c)-1] // replace the element with the last element
 			*c = (*c)[:len(*c)-1]         // reinitialize the array with all the elements excluding last element
 
-			fmt.Fprintln(rw, http.StatusOK, http.StatusText(http.StatusOK), "resource deleted successfully")
+			rw.WriteHeader(http.StatusOK) // 200 OK
+			rw.Write([]byte("resource deleted successfully"))
 
 			return // exit function call
 		}
