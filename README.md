@@ -6,6 +6,8 @@ JSON API allows you to update the food menu of a Restaurant and the Chefs. You c
 - Install the lastest Golang (required for first setup)
 - Install Docker (required for second setup)
 - HTTP Client for interacting with the API: Postman, Curl, Thunder Client, Web Browser or any client of your choice
+      
+    [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/25499133-d07cee34-4e11-4ae7-ad33-643cd9a6e3b5?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D25499133-d07cee34-4e11-4ae7-ad33-643cd9a6e3b5%26entityType%3Dcollection%26workspaceId%3D6089f5e4-d1b8-4a4c-ba19-c5bec8f7facc)
 
 ## Setup
 There are 2 ways to run this project: `cloning the project` and `docker build`
