@@ -17,7 +17,8 @@ func Post(rw http.ResponseWriter, req *http.Request, a any) {
 
 	// error handling
 	if err != nil {
-		log.Fatal("error decoding into struct")
+		rw.WriteHeader(http.StatusUnprocessableEntity) // 422 Not Acceptable
+		rw.Write([]byte("error decoding into struct"))
 	} else {
 		// server's response to client
 		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // 201 Created
