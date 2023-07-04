@@ -1,6 +1,6 @@
 # Restaurant API
 ## Description
-JSON API allows you to update the food menu of a Restaurant and the Chefs. You can also perform normal CRUD operations via the endpoints
+REST API allows you to update the food menu of a Restaurant and the Chefs. You can also perform normal CRUD operations via the endpoints
 
 ## Requirement
 - Install the lastest Golang (required for first setup)
