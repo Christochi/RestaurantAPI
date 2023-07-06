@@ -82,7 +82,7 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 	urlSubPaths := chefNameRegex.FindStringSubmatch(req.URL.Path)
 
 	// since the order of the slice is known, store the second index
-	// example: /chef/<name> = ["/chef/stevejob", "stevejobs"]
+	// example: /chef/<name> = ["/chef/stevejobs", "stevejobs"]
 	name := strings.ToLower(urlSubPaths[1])
 
 	var chefNames []chefJson // new slice to hold the filtered data
