@@ -3,6 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"reflect"
 )
@@ -10,6 +11,8 @@ import (
 // logic for HTTP POST Method
 // any is an interface for any type
 func Post(rw http.ResponseWriter, req *http.Request, a any) {
+
+	log.Println("POST Request")
 
 	// read response body and decode json to struct
 	err := json.NewDecoder(req.Body).Decode(&a)
@@ -27,6 +30,8 @@ func Post(rw http.ResponseWriter, req *http.Request, a any) {
 // logic for HTTP GET Method
 func Get(rw http.ResponseWriter, a any) {
 
+	log.Println("GET Request")
+
 	// encode to json and rw sends the json
 	err := json.NewEncoder(rw).Encode(&a)
 
@@ -39,6 +44,8 @@ func Get(rw http.ResponseWriter, a any) {
 
 // logic for HTTP DELETE Method
 func Delete(rw http.ResponseWriter, a any) {
+
+	log.Println("DELETE Request")
 
 	// returns the value that the interface points to
 	object := reflect.Indirect(reflect.ValueOf(a))
