@@ -50,7 +50,7 @@ func noCache(h http.Handler) http.Handler {
 		rw.Header().Set("pragma", "no-cache")
 		rw.Header().Set("X-Content-Type-Options", "nosniff")
 
-		h.ServeHTTP(rw, req)
+		h.ServeHTTP(rw, req) // sets the headers and data to the ResponseWriter
 	}
 
 	return http.HandlerFunc(handlerFunc)
