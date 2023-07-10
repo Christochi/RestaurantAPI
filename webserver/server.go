@@ -14,19 +14,6 @@ const addr string = ":3000" // default docker exposed port
 
 var WebFilesDir string // directory of web files
 
-// handler interface
-// type apiHandler struct {
-// 	c []chef.ChefJson
-// 	//menu Menu
-// }
-
-// func (api *apiHandler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-
-// 	tmpl := template.Must(template.ParseFiles("static/index.html"))
-// 	tmpl.Execute(rw, api)
-
-// }
-
 // starts server
 func RunServer(dir string) {
 
@@ -38,7 +25,6 @@ func RunServer(dir string) {
 
 	// matches handler with incoming request or pattern (endpoint)
 	router.Handle("/", noCache(http.StripPrefix("/", fileHandler)))
-	// router.Handle("/", noCache(&apiHandler{c: chef.Chef}))
 	newChef := chef.NewChef() // returns a chef object
 	router.HandleFunc("/chef/", newChef.ChefHandler)
 	newMenu := menu.NewMenu() // returns a menu object
