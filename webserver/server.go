@@ -30,7 +30,7 @@ func RunServer(dir string) {
 	newMenu := menu.NewMenu() // returns a menu object
 	router.HandleFunc("/menu/", newMenu.MenuHandler)
 
-	// command line flag for setting the port that the server would listen on
+	// command line flag for setting the port that the server would listen to
 	listenAddr := flag.String("listenaddr", addr, "server address")
 	flag.Parse() // parse the command line into the defined flag
 	fmt.Println("server running on port: ", *listenAddr)
