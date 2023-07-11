@@ -1,6 +1,6 @@
 # Restaurant API
 ## Description
-REST API is used update the food menu of a Restaurant and the Chefs. You can also perform normal CRUD operations via the endpoints (`/menu/` and `/chef/`). The data from the API is displayed on the webpage after refreshing the webpage
+REST API is used to update the food menu of a Restaurant and the Chefs section of the webpage. You can also perform normal CRUD operations via the endpoints (`/menu/` and `/chef/`). The data from the API is displayed on the webpage after refreshing the webpage
 
 ## Requirement
 - Install the lastest Golang (required for first setup)
