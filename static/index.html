@@ -358,30 +358,45 @@
         <p>Our world class chefs have trained and worked in the finest restaurants and hotels in the world. They have extensive experience and have won numerous awards.</p>
       </div>
       <div id="row">
-        <div class="col-md-4 team">
-          <div class="thumbnail">
-            <div class="team-img"><img src="img/team/01.jpg" alt="..."></div>
-            <div class="caption">
-              <h3>Mike Doe</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 team">
-          <div class="thumbnail">
-            <div class="team-img"><img src="img/team/02.jpg" alt="..."></div>
-            <div class="caption">
-              <h3>Chris Doe</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 team">
-          <div class="thumbnail">
-            <div class="team-img"><img src="img/team/03.jpg" alt="..."></div>
-            <div class="caption">
-              <h3>Ethan Doe</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam.</p>
+        <script>
+            let myData // API data
+            fetch('http://localhost/chef', {
+              method: 'GET', 
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+            .then(response => response.json())
+            .then(data => {
+                myData = data;
+                console.log(myData)
+
+                let html = '';
+                for (let item of myData) {
+                  html += `<div class="col-md-4 team">
+                    <div class="thumbnail">
+                      <div class="team-img"><img src="img/team/01.jpg" alt="..."></div>
+                      <div class="caption">
+                        <h3>${item.name}</h3>
+                        <p>${item.about}</p>
+                      </div>
+                    </div>
+                  </div>`;
+                }
+                document.getElementById("chef").innerHTML = html;
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        </script>
+        <div id="chef">
+          <div class="col-md-4 team">
+            <div class="thumbnail">
+              <div class="team-img">no data</div>
+              <div class="caption">
+                <h3>no data</h3>
+                <p>no data</p>
+              </div>
             </div>
           </div>
         </div>
