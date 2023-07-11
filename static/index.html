@@ -106,7 +106,11 @@
           <hr>
           <script>
             let breakfastData // API breakfast data
-            fetch('http://localhost/menu/breakfast', {
+
+            // store port number
+            var port = window.location.port || (window.location.protocol === 'http:' ? '80' : '443')
+
+            fetch('http://localhost:' + port + '/menu/breakfast', {
               method: 'GET', 
               headers: {
                 'Content-Type': 'application/json',
@@ -146,7 +150,11 @@
           <hr>
           <script>
             let lunchData // API lunch data
-            fetch('http://localhost/menu/lunch', {
+
+            // store port number
+            var port = window.location.port || (window.location.protocol === 'http:' ? '80' : '443')
+
+            fetch('http://localhost:' + port + '/menu/lunch', {
               method: 'GET', 
               headers: {
                 'Content-Type': 'application/json',
@@ -188,7 +196,11 @@
           <hr>
           <script>
             let dinnerData // API dinner data
-            fetch('http://localhost/menu/dinner', {
+
+            // store port number
+            var port = window.location.port || (window.location.protocol === 'http:' ? '80' : '443')
+
+            fetch('http://localhost:' + port + '/menu/dinner', {
               method: 'GET', 
               headers: {
                 'Content-Type': 'application/json',
@@ -228,7 +240,11 @@
           <hr>
           <script>
             let drinksData // API drinks data
-            fetch('http://localhost/menu/drinks', {
+            
+            // store port number
+            var port = window.location.port || (window.location.protocol === 'http:' ? '80' : '443')
+  
+            fetch('http://localhost:' + port + '/menu/drinks', {
               method: 'GET', 
               headers: {
                 'Content-Type': 'application/json',
@@ -416,7 +432,11 @@
       <div id="row">
         <script>
             let myData // API data
-            fetch('http://localhost/chef', {
+
+            // store port number
+            var port = window.location.port || (window.location.protocol === 'http:' ? '80' : '443')
+
+            fetch('http://localhost:'+ port +'/chef', {
               method: 'GET', 
               headers: {
                 'Content-Type': 'application/json',
