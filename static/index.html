@@ -104,51 +104,79 @@
         <div class="menu-section">
           <h2 class="menu-section-title">Breakfast & Starters</h2>
           <hr>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $35 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $30 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $30 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $30 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
+          <script>
+            let breakfastData // API breakfast data
+            fetch('http://localhost/menu/breakfast', {
+              method: 'GET', 
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+            .then(response => response.json())
+            .then(data => {
+                breakfastData = data;
+                console.log(breakfastData)
+
+                let html = '';
+                for (let item of breakfastData) {
+                  html += `<div class="menu-item">
+                      <div class="menu-item-name"> ${item.meal} </div>
+                      <div class="menu-item-price"> ${item.price} </div>
+                      <div class="menu-item-description"> ${item.desc} </div>
+                    </div>`;
+                }
+                document.getElementById("breakfast").innerHTML = html;
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+          </script>
+          <div id="breakfast">
+            <div class="menu-item">
+              <div class="menu-item-name"> No data </div>
+              <div class="menu-item-price"> No data </div>
+              <div class="menu-item-description"> No data </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-6">
         <div class="menu-section">
-          <h2 class="menu-section-title">Main Course</h2>
+          <h2 class="menu-section-title">Lunch</h2>
           <hr>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $45 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $30 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $30 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $30 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
+          <script>
+            let lunchData // API lunch data
+            fetch('http://localhost/menu/lunch', {
+              method: 'GET', 
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+            .then(response => response.json())
+            .then(data => {
+                lunchData = data;
+                console.log(lunchData)
+
+                let html = '';
+                for (let item of lunchData) {
+                  html += `<div class="menu-item">
+                      <div class="menu-item-name"> ${item.meal} </div>
+                      <div class="menu-item-price"> ${item.price} </div>
+                      <div class="menu-item-description"> ${item.desc} </div>
+                    </div>`;
+                }
+                document.getElementById("lunch").innerHTML = html;
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+          </script>
+          <div id="lunch">
+            <div class="menu-item">
+              <div class="menu-item-name"> No data </div>
+              <div class="menu-item-price"> No data </div>
+              <div class="menu-item-description"> No data </div>
+            </div>
           </div>
         </div>
       </div>
@@ -158,51 +186,79 @@
         <div class="menu-section">
           <h2 class="menu-section-title">Dinner</h2>
           <hr>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $45 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $350 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $30 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam.. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $30 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
+          <script>
+            let dinnerData // API dinner data
+            fetch('http://localhost/menu/dinner', {
+              method: 'GET', 
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+            .then(response => response.json())
+            .then(data => {
+                dinnerData = data;
+                console.log(dinnerData)
+
+                let html = '';
+                for (let item of dinnerData) {
+                  html += `<div class="menu-item">
+                      <div class="menu-item-name"> ${item.meal} </div>
+                      <div class="menu-item-price"> ${item.price} </div>
+                      <div class="menu-item-description"> ${item.desc} </div>
+                    </div>`;
+                }
+                document.getElementById("dinner").innerHTML = html;
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+          </script>
+          <div id="dinner">
+            <div class="menu-item">
+              <div class="menu-item-name"> No data </div>
+              <div class="menu-item-price"> No data </div>
+              <div class="menu-item-description"> No data </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-6">
         <div class="menu-section">
-          <h2 class="menu-section-title">Coffee & Drinks</h2>
+          <h2 class="menu-section-title">Drinks</h2>
           <hr>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $35 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $30 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $30 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
-          </div>
-          <div class="menu-item">
-            <div class="menu-item-name"> Delicious Dish </div>
-            <div class="menu-item-price"> $30 </div>
-            <div class="menu-item-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, duis sed dapibus leo nec ornare diam. </div>
+          <script>
+            let drinksData // API drinks data
+            fetch('http://localhost/menu/drinks', {
+              method: 'GET', 
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+            .then(response => response.json())
+            .then(data => {
+                drinksData = data;
+                console.log(drinksData)
+
+                let html = '';
+                for (let item of drinksData) {
+                  html += `<div class="menu-item">
+                      <div class="menu-item-name"> ${item.meal} </div>
+                      <div class="menu-item-price"> ${item.price} </div>
+                      <div class="menu-item-description"> ${item.desc} </div>
+                    </div>`;
+                }
+                document.getElementById("drinks").innerHTML = html;
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+          </script>
+          <div id="drinks">
+            <div class="menu-item">
+              <div class="menu-item-name"> No data </div>
+              <div class="menu-item-price"> No data </div>
+              <div class="menu-item-description"> No data </div>
+            </div>
           </div>
         </div>
       </div>
