@@ -51,7 +51,7 @@ Example of JSON body to send as part of the POST request
 ~~~
 - **Returns list of Food Menu**: GET `http://localhost:3000/menu/`. **GET** request retrieves the data and it is displayed on the browser
 - **Returns list of a meal type in the food menu**: There are 4 acceptable meal types: ***Breakfast, Lunch, Dinner & Drinks***.
-GET `http://localhost:3000/drinks` or GET `http://localhost:3000/lunch`
+GET `http://localhost:3000/menu/drinks` or GET `http://localhost:3000/menu/lunch`
 - **Returns Meals that match a search pattern**: GET `http://localhost:3000/menu/breakfast/hotdog` or `http://localhost:3000/menu/dinner/rice`
 - **Deletes all Menu**: DELETE `http://localhost:3000/menu/`
 - **Deletes a Meal that matches a search pattern**: DELETE `http://localhost:3000/menu/drinks/mangolasse`
