@@ -73,7 +73,7 @@ Example of JSON body to send as part of the POST request
     }
 ]
 ~~~
-- **Returns list of Chefs**: GET `http://localhost:3000/chef/`
+- **Returns list of Chefs**: GET `http://localhost:3000/chef/`. **GET** request retrieves the data and it is displayed on the browser
 - **Returns a Chef that matches a search pattern**: GET `http://localhost:3000/chef/john`
 - **Deletes all Chefs**: DELETE `http://localhost:3000/chef/`
 - **Deletes a Chef that matches a search pattern**: DELETE `http://localhost:3000/chef/johndoe`
