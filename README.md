@@ -75,6 +75,8 @@ Example of JSON body to send as part of the POST request
     }
 ]
 ~~~
+If adding a new chef profile, please add the chef's image to ***/static/img/team/***, and include the Name, About and Image fields with values. The value of the Image field must be the name of the image just like in the json above
+
 - **Returns list of Chefs**: GET `http://localhost:3000/chef/`. **GET** request retrieves the data and it is displayed on the browser
 - **Returns a Chef that matches a search pattern**: GET `http://localhost:3000/chef/john`
 - **Deletes all Chefs**: DELETE `http://localhost:3000/chef/`
