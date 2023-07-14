@@ -64,12 +64,14 @@ Example of JSON body to send as part of the POST request
 [
     {
         "Name": "John Doe",
-        "About": "John has 10 years experience making delicious meals for 5-star hotels and famous restaurants in North America"
+        "About": "John has 10 years experience making delicious meals for 5-star hotels and famous restaurants in North America",
+        "Image": "johndoe.jpg"
     },
 
     {
         "Name": "Chocho Okoye",
-        "About": "Chocho has 20 years experience cooking for famous restaurants in African and the Caribbean"
+        "About": "Chocho has 20 years experience cooking for famous restaurants in African and the Caribbean",
+        "Image": "chocho.jpg"
     }
 ]
 ~~~
