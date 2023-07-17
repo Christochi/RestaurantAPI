@@ -290,7 +290,7 @@ header .intro-text {
 	color: #555;
 	margin-top: -26px;
 }
-/* #restaurant-menu #breakfast {
+#restaurant-menu #breakfast {
 	height: 200px;
 	overflow-y: auto;
 }
@@ -320,7 +320,7 @@ header .intro-text {
 }
 ::-webkit-scrollbar-thumb:hover {
 	background: #88ba1c;
-} */
+}
 /* Portfolio Section */
 #portfolio {
 	padding: 0 0 120px 0;
