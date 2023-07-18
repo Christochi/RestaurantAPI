@@ -52,13 +52,13 @@ func Delete(rw http.ResponseWriter, a any) {
 
 	// check if value is nil
 	if object.IsNil() {
-		ServerMessgae(rw, "resource deleted successfully", http.StatusOK) // 200 OK
+		ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
 	}
 
 }
 
 // server's response
-func ServerMessgae(rw http.ResponseWriter, msg string, code int) {
+func ServerMessage(rw http.ResponseWriter, msg string, code int) {
 
 	rw.WriteHeader(code)  // HTTP Status Code
 	rw.Write([]byte(msg)) // response body
