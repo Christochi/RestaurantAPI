@@ -60,7 +60,7 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 		m.deleteMeal(rw, req)
 
 	default:
-		utils.ServerMessgae(rw, http.StatusText(http.StatusNotImplemented), http.StatusNotImplemented) // returns 501 Not Implemented
+		utils.ServerMessage(rw, http.StatusText(http.StatusNotImplemented), http.StatusNotImplemented) // returns 501 Not Implemented
 	}
 
 }
@@ -102,7 +102,7 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	if meal == nil {
-		utils.ServerMessgae(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 
 		return // exit function call
 	}
@@ -143,7 +143,7 @@ func (m *menu) getMeal(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	if meal == nil {
-		utils.ServerMessgae(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 
 		return // exit function call
 	}
@@ -186,13 +186,13 @@ func (m *menu) deleteMeal(rw http.ResponseWriter, req *http.Request) {
 			(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
 			*m = (*m)[:len(*m)-1]         // reinitialize the array with all the elements excluding last element
 
-			utils.ServerMessgae(rw, "resource deleted successfully", http.StatusOK) // 200 OK
+			utils.ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
 
 			return // exit function call
 		}
 
 	}
 
-	utils.ServerMessgae(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+	utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 
 }
