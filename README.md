@@ -1,6 +1,6 @@
 # Restaurant API
 ## Description
-The REST API is used to update the food menu of a Restaurant and the Chefs profile of the webpage. You can also perform normal CRUD operations via the endpoints (`/menu/` and `/chef/`).
+The REST API is used to update the food menu of a Restaurant and the Chefs profile on the webpage. You can also perform normal CRUD operations via the endpoints (`/menu/` and `/chef/`).
 
 The data from the API is displayed on the webpage after refreshing the webpage. Loading or refreshing the webpage automatically sends a **GET** request to the endpoint to retrieve the data
 
