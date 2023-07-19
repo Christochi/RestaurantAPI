@@ -38,14 +38,16 @@ Example of JSON body to send as part of the POST request
         "type" : "Breakfast",
         "meal" : "Potato with Bacon",
         "price" : "$5",
-        "desc": "mildly fried potatoes with bacon"
+        "desc": "mildly fried potatoes with bacon",
+        "image": "potato"
     },  
 
     {
         "type" : "Lunch",
         "meal" : "Chicken Fried Rice",
         "price" : "$15",
-        "desc": "Rice with stirred fried vege with baked chicken"
+        "desc": "Rice with stirred fried vege with baked chicken",
+        "image": "chicken-fried-rice"
     }
 ]
 ~~~
