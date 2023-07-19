@@ -20,7 +20,8 @@ type menuJson struct {
 	Type  string `json:"type"` // meal type
 	Meal  string `json:"meal"`
 	Price string `json:"price"`
-	Desc  string `json:"desc"` // description
+	Desc  string `json:"desc"`  // description
+	Image string `json:"image"` // image name
 }
 
 type menu []menuJson // slice type to be used as a receiver for methods
