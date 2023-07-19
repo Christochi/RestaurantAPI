@@ -69,9 +69,9 @@ Example of JSON body to send as part of the POST request
     },
 
     {
-        "Name": "Chocho Okoye",
-        "About": "Chocho has 20 years experience cooking for famous restaurants in African and the Caribbean",
-        "Image": "chocho.jpg"
+        "name": "Chocho Okoye",
+        "about": "Chocho has 20 years experience cooking for famous restaurants in African and the Caribbean",
+        "image": "chocho.jpg"
     }
 ]
 ~~~
