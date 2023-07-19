@@ -77,7 +77,7 @@ Example of JSON body to send as part of the POST request
     }
 ]
 ~~~
-If adding a new chef profile, please put the chef's image in ***/static/img/team/*** path, and include the name, about and image fields with values to be sent as a request. The value of the Image field must be the name of the image just like in the json above.
+If adding a new chef profile, please put the chef's image in ***/static/img/team/*** path, and include the ***name, about and image*** fields with values to be sent as a request. The value of the ***image*** field must be the name of the image (including the extension) just like in the json above.
 
 - **Returns list of Chefs**: GET `http://localhost:3000/chef/`. **GET** request retrieves the data in JSON format via the endpoint
 - **Returns a Chef that matches a search pattern**: GET `http://localhost:3000/chef/john`
