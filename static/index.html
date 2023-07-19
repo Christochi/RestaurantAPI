@@ -308,114 +308,156 @@
     </div>
     <div class="row">
       <div class="portfolio-items">
+        <!-- <script>
+          let galleryData // API data
+
+          // store port number
+          var port = window.location.port || (window.location.protocol === 'http:' ? '80' : '443')
+
+          fetch('http://localhost:'+ port +'/menu/', {
+            method: 'GET', 
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+          .then(response => response.json())
+          .then(data => {
+            galleryData = data;
+              console.log(galleryData)
+
+              let html = '';
+              for (let item of galleryData) {
+                let mealType = item.type
+                let result = mealType.toLowerCase()
+                html += `<div class="col-sm-6 col-md-4 col-lg-4 ${result}">
+                  <div class="portfolio-item">
+                    <div class="hover-bg"> <a href="img/portfolio/${item.image}-large.jpg" title="${item.meal}" data-lightbox-gallery="gallery1">
+                      <div class="hover-text">
+                        <h4>${item.meal}</h4>
+                      </div>
+                      <img src="img/portfolio/${item.image}-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+                  </div>
+                </div>`;
+              }
+              document.getElementById("food").innerHTML = html;
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        </script>   -->
         <div class="col-sm-6 col-md-4 col-lg-4 dinner">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/01-large.jpg" title="Pumpkin Soup" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="img/portfolio/pumpkin-soup-large.jpg" title="Pumpkin Soup" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Pumpkin Soup</h4>
               </div>
-              <img src="img/portfolio/01-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="img/portfolio/pumpkin-soup-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4 lunch">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/02-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="img/portfolio/fried-octopus-large.jpg" title="Fried Octopus" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>Dish Name</h4>
+                <h4>Fried Octopus</h4>
               </div>
-              <img src="img/portfolio/02-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="img/portfolio/fried-octopus-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/03-large.jpg" title="Boli" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="img/portfolio/boli-large.jpg" title="Boli" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Boli</h4>
               </div>
-              <img src="img/portfolio/03-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="img/portfolio/boli-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4 lunch">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/04-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="img/portfolio/fried-rice-chicken-large.jpg" title="Fried Rice with Chicken" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Dish Name</h4>
               </div>
-              <img src="img/portfolio/04-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="img/portfolio/fried-rice-chicken-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/05-large.jpg" title="French Toast with Steak" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="img/portfolio/french-toast-with-steak-large.jpg" title="French Toast with Steak" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>French Toast with Steak</h4>
               </div>
-              <img src="img/portfolio/05-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="img/portfolio/french-toast-with-steak-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/06-large.jpg" title="Toasted Bread with Mashed Potato and Fried Egg" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="img/portfolio/toasted-bread-potato-large.jpg" title="Toasted Bread with Mashed Potato and Fried Egg" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Toasted Bread with Mashed Potato and Fried Egg</h4>
               </div>
-              <img src="img/portfolio/06-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="img/portfolio/toasted-bread-potato-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4 lunch">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/07-large.jpg" title="Fried Rice with Chicken" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Fried Rice with Chicken</h4>
-              </div>
-              <img src="img/portfolio/07-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/08-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Dish Name</h4>
-              </div>
-              <img src="img/portfolio/08-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/09-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Dish Name</h4>
-              </div>
-              <img src="img/portfolio/09-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/10-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Dish Name</h4>
-              </div>
-              <img src="img/portfolio/10-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/11-large.jpg" title="Dish Name" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Dish Name</h4>
-              </div>
-              <img src="img/portfolio/11-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-4 lunch">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="img/portfolio/12-large.jpg" title="Juicy Steak with Boiled Potatoes" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="img/portfolio/juicy-steak-potatoes-large.jpg" title="Juicy Steak with Boiled Potatoes" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Juicy Steak with Boiled Potatoes</h4>
               </div>
-              <img src="img/portfolio/12-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="img/portfolio/juicy-steak-potatoes-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/spaghetti-bologne-large.jpg" title="Spaghetti Bologne" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>Spaghetti Bologne</h4>
+              </div>
+              <img src="img/portfolio/spaghetti-bologne-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/jollof-pasta-large.jpg" title="Jollof Pasta" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>Jollof Pasta</h4>
+              </div>
+              <img src="img/portfolio/jollof-pasta-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/peperoni-pizza-large.jpg" title="Peperoni Pizza" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>Peperoni Pizza</h4>
+              </div>
+              <img src="img/portfolio/peperoni-pizza-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 dinner">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/spinach-beef-large.jpg" title="Spinach Beef" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>Spinach Beef</h4>
+              </div>
+              <img src="img/portfolio/spinach-beef-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 lunch">
+          <div class="portfolio-item">
+            <div class="hover-bg"> <a href="img/portfolio/sliced-ham-coleslaw-large.jpg" title="Sliced Ham with Coleslaw" data-lightbox-gallery="gallery1">
+              <div class="hover-text">
+                <h4>Sliced Ham with Coleslaw</h4>
+              </div>
+              <img src="img/portfolio/sliced-ham-coleslaw-small.jpg" class="img-responsive" alt="Project Title"> </a> </div>
+          </div>
+        </div>
+        <!-- <div id="food">
+          <div class="col-md-10 col-md-offset-1">  
+              <h4>No data</h4>
+          </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -436,7 +478,7 @@
             // store port number
             var port = window.location.port || (window.location.protocol === 'http:' ? '80' : '443')
 
-            fetch('http://localhost:'+ port +'/chef', {
+            fetch('http://localhost:'+ port +'/chef/', {
               method: 'GET', 
               headers: {
                 'Content-Type': 'application/json',
