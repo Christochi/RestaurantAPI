@@ -5,8 +5,8 @@ The REST API is used to update the food menu of a Restaurant and the Chefs profi
 The data from the API is displayed on the webpage after refreshing the webpage. Loading or refreshing the webpage automatically sends a **GET** request to the endpoint to retrieve the data.
 
 ## Requirement
-- Install the lastest Golang (required for first setup)
-- Install Docker (required for second setup)
+- Install the lastest Golang (required if using first setup)
+- Install Docker (required if using second setup)
 - HTTP Client for interacting with the API: Postman, Curl, Thunder Client, Web Browser or any client of your choice
 
 ## Setup
