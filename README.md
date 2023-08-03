@@ -49,9 +49,9 @@ Example of JSON body to send as part of the POST request
     }
 ]
 ~~~
-If adding a new meal, please put the meal's image in ***/static/img/portfolio/*** path, and include the ***type, meal, price, desc and image*** fields with values to be sent as a request. The value of the ***image*** field must be the name of the image without the extension just like in the json above. 
+If adding a new meal, please put the meal's images in ***/static/img/portfolio/*** path, and include the ***type, meal, price, desc and image*** fields with values to be sent as a request. The value of the ***image*** field must be the name of the image without the extension just like in the json above. 
 
-Resize the image and create 2 copies. One copy of dimension ***890 x 593*** and name it ***image-name-large (chicken-fried-rice-large)***, and the other of dimension ***500 x 333*** also named as ***chicken-fried-rice-small***
+Resize the image and maintain aspect ratio by creating 2 copies. One copy of dimension ***890 x 593*** and name it ***image-name-large (chicken-fried-rice-large)***, and the other of dimension ***500 x 333*** also named as ***chicken-fried-rice-small***. 
 
 - **Returns list of Food Menu**: GET `http://localhost:3000/menu/`. **GET** request retrieves the data in JSON format via the endpoint
 - **Returns list of a meal type in the food menu**: There are 4 acceptable meal types: ***Breakfast, Lunch, Dinner & Drinks***
