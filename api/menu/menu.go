@@ -10,12 +10,7 @@ import (
 	"strings"
 )
 
-// Logger Struct
-type MenuRequestLogger struct {
-	menuLogger *log.Logger
-}
-
-var menuRequestLogger = MenuRequestLogger{} // instantiate logger object
+var requestLogger = utils.InfoLog() // return info field
 
 // pathnames for subroot in url endpoint
 var (
