@@ -27,8 +27,6 @@ func Post(rw http.ResponseWriter, req *http.Request, a any) {
 // logic for HTTP GET Method
 func Get(rw http.ResponseWriter, a any) {
 
-	// log.Println("GET Request")
-
 	// encode to json and rw sends the json
 	err := json.NewEncoder(rw).Encode(&a)
 
