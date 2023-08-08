@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+var requestLogger = utils.InfoLog() // return info field
+
 // pathnames for subroot in url endpoint
 var (
 	allChefsRegex = regexp.MustCompile(`^\/chef[\/]?$`)         // /chef or /chef/
@@ -63,6 +65,9 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 // client send chef data using POST Method
 func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 
+	// log for informational purpose
+	requestLogger.Println("POST chef request at /chef endpoint")
+
 	// read and decode to struct
 	utils.Post(rw, req, c)
 
@@ -70,6 +75,9 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 
 // client requests for chef data using GET Method
 func (c *chef) getChefs(rw http.ResponseWriter) {
+
+	// log for informational purpose
+	requestLogger.Println("GET chef request at /chef endpoint")
 
 	// read and encode to json
 	utils.Get(rw, c)
@@ -85,6 +93,9 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 	// since the order of the slice is known, store the second index
 	// example: /chef/<name> = ["/chef/stevejobs", "stevejobs"]
 	name := strings.ToLower(urlSubPaths[1])
+
+	// log for informational purpose
+	requestLogger.Printf("GET chef name request at /chef/%s endpoint", name)
 
 	var chefNames []chefJson // new slice to hold the filtered data
 
@@ -120,6 +131,9 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 // client deletes all chef data
 func (c *chef) deleteChef(rw http.ResponseWriter) {
 
+	// log for informational purpose
+	requestLogger.Println("DELETE chef request at /chef endpoint")
+
 	// delete all element by re-initializing to nil
 	*c = nil
 
@@ -136,6 +150,9 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 	// since the order of the slice is known, store the second index
 	// example: /user/SaintLawrence = ["/user/SaintLawrence", "SaintLawrence"]
 	name := strings.ToLower(urlSubPaths[1])
+
+	// log for informational purpose
+	requestLogger.Printf("DELETE chef name request at /chef/%s endpoint", name)
 
 	for index, value := range *c {
 
