@@ -3,9 +3,25 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 	"reflect"
 )
+
+// Logger Struct
+type requestLogger struct {
+	info *log.Logger
+}
+
+// return info field
+func InfoLog() *log.Logger {
+
+	// instantiate logger object
+	requestLogger := requestLogger{info: log.New(os.Stdout, "REQUEST INFO: ", log.Ltime)}
+	return requestLogger.info
+
+}
 
 // logic for HTTP POST Method
 // any is an interface for any type
