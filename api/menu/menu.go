@@ -2,11 +2,20 @@ package menu
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
+	"os"
 	"regexp"
 	"restaurantapi/utils"
 	"strings"
 )
+
+// Logger Struct
+type MenuRequestLogger struct {
+	menuLogger *log.Logger
+}
+
+var menuRequestLogger = MenuRequestLogger{} // instantiate logger object
 
 // pathnames for subroot in url endpoint
 var (
@@ -69,6 +78,10 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 // client send menu data using POST Method
 func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 
+	// log for informational purpose
+	menuRequestLogger.menuLogger = log.New(os.Stdout, "REQUEST INFO: ", log.Ldate|log.Ltime)
+	menuRequestLogger.menuLogger.Println("POST menu request to /menu endpoint")
+
 	// read and decode to struct
 	utils.Post(rw, req, m)
 
@@ -76,6 +89,10 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 
 // client requests for menu data using GET Method
 func (m *menu) getMenu(rw http.ResponseWriter) {
+
+	// log for informational purpose
+	menuRequestLogger.menuLogger = log.New(os.Stdout, "REQUEST INFO: ", log.Ldate|log.Ltime)
+	menuRequestLogger.menuLogger.Println("GET menu request to /menu endpoint")
 
 	// read and encode to json
 	utils.Get(rw, m)
@@ -91,6 +108,10 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 	// since the order of the slice is known, store the second index
 	// example: /menu/<mealtype> = ["/menu/breakfast", "breakfast"]
 	mealTypeName := strings.ToLower(urlSubPaths[1])
+
+	// log for informational purpose
+	menuRequestLogger.menuLogger = log.New(os.Stdout, "REQUEST INFO: ", log.Ldate|log.Ltime)
+	menuRequestLogger.menuLogger.Printf("GET meal type request to /menu/%s endpoint", mealTypeName)
 
 	var meal []menuJson // new slice to hold the filtered data
 
@@ -127,7 +148,12 @@ func (m *menu) getMeal(rw http.ResponseWriter, req *http.Request) {
 
 	// since the order of the slice is known, store the second index
 	// example: /menu/<mealtype>/<mealname> = ["/menu/drinks/mangolasse", "drinks", "mangolasse"]
+	mealTypeName := strings.ToLower(urlSubPaths[1])
 	mealName := strings.ToLower(urlSubPaths[2])
+
+	// log for informational purpose
+	menuRequestLogger.menuLogger = log.New(os.Stdout, "REQUEST INFO: ", log.Ldate|log.Ltime)
+	menuRequestLogger.menuLogger.Printf("GET meal request to /menu/%s/%s endpoint", mealTypeName, mealName)
 
 	var meal []menuJson // new slice to hold the filtered data
 
@@ -162,6 +188,10 @@ func (m *menu) getMeal(rw http.ResponseWriter, req *http.Request) {
 // client deletes all menu data
 func (m *menu) deleteMenu(rw http.ResponseWriter) {
 
+	// log for informational purpose
+	menuRequestLogger.menuLogger = log.New(os.Stdout, "REQUEST INFO: ", log.Ldate|log.Ltime)
+	menuRequestLogger.menuLogger.Println("DELETE menu request to /menu endpoint")
+
 	// delete all element by re-initializing to nil
 	*m = nil
 
@@ -177,7 +207,12 @@ func (m *menu) deleteMeal(rw http.ResponseWriter, req *http.Request) {
 
 	// since the order of the slice is known, store the third index
 	// example: /menu/<mealtype>/<mealname> = ["/menu/lunch/burger", "lunch", "burger"]
+	mealTypeName := strings.ToLower(urlSubPaths[1])
 	meal := strings.ToLower(urlSubPaths[2])
+
+	// log for informational purpose
+	menuRequestLogger.menuLogger = log.New(os.Stdout, "REQUEST INFO: ", log.Ldate|log.Ltime)
+	menuRequestLogger.menuLogger.Printf("DELETE meal request to /menu/%s/%s endpoint", mealTypeName, meal)
 
 	for index, value := range *m {
 
