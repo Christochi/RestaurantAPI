@@ -23,13 +23,13 @@ func TestChefHandler(t *testing.T) {
 	// creates a request to query the server
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
 	}
 
 	// send the HTTP request and return an HTTP response
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
 	}
 
 	statusCode := resp.StatusCode // return status code gotten after hitting the endpoint
@@ -65,13 +65,13 @@ func TestMenuHandler(t *testing.T) {
 	// creates a request to query the server
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
 	}
 
 	// send the HTTP request and return an HTTP response
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
 	}
 
 	statusCode := resp.StatusCode // return status code gotten after hitting the endpoint
