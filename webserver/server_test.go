@@ -54,7 +54,7 @@ func TestMenuHandler(t *testing.T) {
 
 	t.Parallel()
 
-	newMenu := menu.NewMenu() // chef object
+	newMenu := menu.NewMenu() // menu object
 
 	//starts and returns a server
 	server := httptest.NewServer(http.HandlerFunc(newMenu.MenuHandler))
