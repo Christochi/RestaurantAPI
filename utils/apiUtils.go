@@ -1,3 +1,5 @@
+// utility functions for the api package
+
 package utils
 
 import (
