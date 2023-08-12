@@ -18,7 +18,7 @@ There are 2 ways to run this project: `cloning the project` and `docker build`
 - On your browser or HTTP client, enter `http://localhost:3000` to **load the web page**. The default port is ***3000***
     - to change the port or address, for example to ***7000***, on the commad line, run `go run main.go --listenaddr :7000`
     - on your browser or HTTP client like Postman, enter `http://localhost:7000`
-- Make an HTTP **POST** request using an HTTP client, then refresh the webpage to see the data displayed on the webpage. ***Click the button below to send HTTP requests using my Postman collection*** 
+- Make an HTTP **POST** request using an HTTP client, then refresh the webpage to see the data displayed on the webpage. ***Click the button below to send HTTP requests using my Postman collection. Make sure to change the port to the port number you will use*** 
 
     [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/25499133-d07cee34-4e11-4ae7-ad33-643cd9a6e3b5?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D25499133-d07cee34-4e11-4ae7-ad33-643cd9a6e3b5%26entityType%3Dcollection%26workspaceId%3D6089f5e4-d1b8-4a4c-ba19-c5bec8f7facc)
 
