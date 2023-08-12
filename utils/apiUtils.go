@@ -1,4 +1,4 @@
-// utility functions for the api package
+// Utility functions for the api package
 
 package utils
 
