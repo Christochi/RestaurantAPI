@@ -9,6 +9,7 @@ import (
 	"reflect"
 	"restaurantapi/api/chef"
 	"restaurantapi/api/menu"
+	"restaurantapi/utils"
 	"testing"
 )
 
@@ -76,7 +77,7 @@ func TestHandlers(t *testing.T) {
 
 	t.Parallel()
 
-	testHandlers := func(t testing.TB, handlerfunc func(rw http.ResponseWriter, req *http.Request), endpoint string, code int) {
+	testHandlers := func(t testing.TB, handlerfunc func(rw http.ResponseWriter, req *http.Request), endpoint string, code int, jsonData any) {
 
 		// captures everything that is written with the ResponseWriter and returns ResponseRecorder
 		rec := httptest.NewRecorder()
@@ -92,31 +93,31 @@ func TestHandlers(t *testing.T) {
 			t.Errorf("want %d, got %d", code, rec.Result().StatusCode)
 		}
 
-		// type A struct {
-		// 	data string
-		// }
-		// a := A{data: ""}
-		// defer resp.Body.Close()
-		// errBody := json.NewDecoder(resp.Body).Decode(&a)
-		// // get the response body
-		// if errBody != nil {
-		// 	t.Error(errBody)
-		// }
+		defer resp.Body.Close()
 
-		// if a.data != "" {
-		// 	t.Errorf("want nil, got %v", a)
-		// }
+		// read and decode Response's body to struct
+		utils.Post(rec, req, jsonData)
+
+		// test if the object is not nil
+		if !reflect.Indirect(reflect.ValueOf(jsonData)).IsNil() {
+			t.Errorf("want nil, got %#v", jsonData)
+		}
 
 	}
+
+	// objects from api package
+	chef := chef.NewChef()
+	menu := menu.NewMenu()
 
 	testCases := []struct {
 		handlerName string
 		handlerfunc func(rw http.ResponseWriter, req *http.Request)
 		endpoint    string
 		statusCode  int
+		jsonData    any
 	}{
-		{handlerName: "ChefHandler", handlerfunc: chef.NewChef().ChefHandler, endpoint: "/chef", statusCode: http.StatusOK},
-		{handlerName: "MenuHandler", handlerfunc: menu.NewMenu().MenuHandler, endpoint: "/menu", statusCode: http.StatusOK},
+		{handlerName: "ChefHandler", handlerfunc: chef.ChefHandler, endpoint: "/chef", statusCode: http.StatusOK, jsonData: chef},
+		{handlerName: "MenuHandler", handlerfunc: menu.MenuHandler, endpoint: "/menu", statusCode: http.StatusOK, jsonData: menu},
 	}
 
 	for _, testCase := range testCases {
@@ -126,7 +127,7 @@ func TestHandlers(t *testing.T) {
 		// run subtests
 		t.Run(testCase.handlerName, func(t *testing.T) {
 
-			testHandlers(t, testCase.handlerfunc, testCase.endpoint, testCase.statusCode)
+			testHandlers(t, testCase.handlerfunc, testCase.endpoint, testCase.statusCode, testCase.jsonData)
 
 		})
 
