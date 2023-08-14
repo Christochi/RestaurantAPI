@@ -12,6 +12,8 @@ import (
 
 func TestFileServer(t *testing.T) {
 
+	t.Parallel()
+
 	// returns a handler that serves HTTP request with file contents
 	fileHandler := http.FileServer(http.Dir("../static"))
 
@@ -60,6 +62,11 @@ func TestFileServer(t *testing.T) {
 		t.Errorf("want nil, got %v", string(body))
 	}
 
+}
+
+func TestHandlers(t *testing.T) {
+
+	t.Parallel()
 }
 
 // func TestChefHandler(t *testing.T) {
