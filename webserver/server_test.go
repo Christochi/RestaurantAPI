@@ -78,11 +78,11 @@ func TestHandlers(t *testing.T) {
 		// captures everything that is written with the ResponseWriter and returns ResponseRecorder
 		rec := httptest.NewRecorder()
 
-		// creates a request to query the server
-		req, err := http.NewRequest(http.MethodGet, endpoint, nil)
-		if err != nil {
-			t.Error(err)
-		}
+		// returns an incoming server request
+		req := httptest.NewRequest(http.MethodGet, endpoint, nil)
+		// if err != nil {
+		// 	t.Error(err)
+		// }
 
 		handlerfunc(rec, req) // call endpoint handler
 
@@ -91,10 +91,15 @@ func TestHandlers(t *testing.T) {
 			t.Errorf("want %d, got %d", code, rec.Result().StatusCode)
 		}
 
+		// type A struct {
+		// 	data string
+		// }
+		// a := A{data: ""}
 		// defer rec.Result().Body.Close()
-		// body, err := io.ReadAll(rec.Result().Body) // get the response body
-		// if err != nil {
-		// 	t.Fatal(err)
+		// errBody := json.NewDecoder(rec.Result().Body).Decode(&a)
+		// // get the response body
+		// if errBody != nil {
+		// 	t.Error(errBody)
 		// }
 
 		// if body != nil {
