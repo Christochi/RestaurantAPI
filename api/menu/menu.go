@@ -119,14 +119,8 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 		return // exit function call
 	}
 
-	// encode to json and rw sends the json
-	err := json.NewEncoder(rw).Encode(meal)
-
-	// error handling
-	if err != nil {
-		// 422 Unprocessable Entity
-		http.Error(rw, "error encoding into json", http.StatusUnprocessableEntity)
-	}
+	// read and encode to json
+	utils.Get(rw, meal)
 
 }
 
