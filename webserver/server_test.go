@@ -46,11 +46,16 @@ func TestNoCache(t *testing.T) {
 	// test headers
 	for key, expectedValue := range expectedHeader {
 
-		actual := resp.Header.Values(key)
+		// run subtests
+		t.Run(key, func(t *testing.T) {
 
-		if !reflect.DeepEqual(actual, expectedValue) {
-			t.Errorf("want %v, got %v", expectedValue, actual)
-		}
+			actual := resp.Header.Values(key)
+
+			if !reflect.DeepEqual(actual, expectedValue) {
+				t.Errorf("want %v, got %v", expectedValue, actual)
+			}
+
+		})
 
 	}
 
