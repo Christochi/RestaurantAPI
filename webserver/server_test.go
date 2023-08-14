@@ -80,9 +80,6 @@ func TestHandlers(t *testing.T) {
 
 		// returns an incoming server request
 		req := httptest.NewRequest(http.MethodGet, endpoint, nil)
-		// if err != nil {
-		// 	t.Error(err)
-		// }
 
 		handlerfunc(rec, req) // call endpoint handler
 
