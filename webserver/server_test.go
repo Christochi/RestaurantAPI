@@ -19,7 +19,8 @@ func TestFileServer(t *testing.T) {
 	// returns a handler that serves HTTP request with file contents
 	fileHandler := http.FileServer(http.Dir("../static"))
 
-	//starts and returns a server
+	//starts and returns a test server
+	//automatically chooses a port to connect to
 	server := httptest.NewServer(noCache(http.StripPrefix("/", fileHandler)))
 	defer server.Close() // close server after all requests have been completed
 
