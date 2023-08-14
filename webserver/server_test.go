@@ -49,7 +49,7 @@ func TestNoCache(t *testing.T) {
 		// run subtests
 		t.Run(key, func(t *testing.T) {
 
-			actual := resp.Header.Values(key)
+			actual := resp.Header.Values(key) // return slice of values associated with the key
 
 			if !reflect.DeepEqual(actual, expectedValue) {
 				t.Errorf("want %v, got %v", expectedValue, actual)
