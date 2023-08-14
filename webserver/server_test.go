@@ -3,6 +3,7 @@
 package webserver
 
 import (
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
@@ -46,6 +47,16 @@ func TestFileServer(t *testing.T) {
 			t.Errorf("want %v, got %v", expectedValue, actual)
 		}
 
+	}
+
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body) // get the response body
+	if err != nil {
+		t.Error(err)
+	}
+
+	if body == nil {
+		t.Errorf("want nil, got %v", string(body))
 	}
 
 }
