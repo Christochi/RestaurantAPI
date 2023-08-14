@@ -3,9 +3,9 @@
 package webserver
 
 import (
-	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"testing"
 )
 
@@ -16,7 +16,7 @@ func TestFileServer(t *testing.T) {
 
 	//starts and returns a server
 	server := httptest.NewServer(noCache(http.StripPrefix("/", fileHandler)))
-	defer server.Close()
+	defer server.Close() // close server after all requests have been completed
 
 	// sends a request to the URL
 	resp, err := http.Get(server.URL)
@@ -24,22 +24,29 @@ func TestFileServer(t *testing.T) {
 		t.Error(err)
 	}
 
+	// test status code
 	statusCode := resp.StatusCode
 	if expectedStatusCode := http.StatusOK; statusCode != expectedStatusCode {
 		t.Errorf("want %d, got %d", expectedStatusCode, statusCode)
 	}
 
-	fmt.Printf("%#v\n", resp)
+	// map of expected headers
+	expectedHeader := map[string][]string{
+		"pragma":                 {"no-cache"},
+		"X-Content-Type-Options": {"nosniff"},
+		"Cache-Control":          {"no-cache, no-store, must-revalidate"},
+	}
 
-	// defer resp.Body.Close()
-	// body, err := io.ReadAll(resp.Body) // get the response body
-	// if err != nil {
-	// 	t.Error(err)
-	// }
+	// test headers
+	for key, expectedValue := range expectedHeader {
 
-	// if body == nil {
-	// 	t.Errorf("want nil, got %v", string(body))
-	// }
+		actual := resp.Header.Values(key)
+
+		if !reflect.DeepEqual(actual, expectedValue) {
+			t.Errorf("want %v, got %v", expectedValue, actual)
+		}
+
+	}
 
 }
 
