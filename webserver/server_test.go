@@ -96,15 +96,15 @@ func TestHandlers(t *testing.T) {
 		// 	data string
 		// }
 		// a := A{data: ""}
-		// defer rec.Result().Body.Close()
-		// errBody := json.NewDecoder(rec.Result().Body).Decode(&a)
+		// defer resp.Body.Close()
+		// errBody := json.NewDecoder(resp.Body).Decode(&a)
 		// // get the response body
 		// if errBody != nil {
 		// 	t.Error(errBody)
 		// }
 
-		// if body != nil {
-		// 	t.Errorf("want nil, got %v", string(body))
+		// if a.data != "" {
+		// 	t.Errorf("want nil, got %v", a)
 		// }
 
 	}
