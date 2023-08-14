@@ -55,6 +55,7 @@ func TestFileServer(t *testing.T) {
 		t.Error(err)
 	}
 
+	// test body of response
 	if body == nil {
 		t.Errorf("want nil, got %v", string(body))
 	}
