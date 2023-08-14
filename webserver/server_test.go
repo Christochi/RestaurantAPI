@@ -20,7 +20,7 @@ func TestNoCache(t *testing.T) {
 	fileHandler := http.FileServer(http.Dir("../static"))
 
 	//starts and returns a test server
-	//automatically chooses a port to connect to
+	//automatically chooses an available port to connect to
 	server := httptest.NewServer(noCache(http.StripPrefix("/", fileHandler)))
 	defer server.Close() // close server after all requests have been completed
 
