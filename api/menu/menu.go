@@ -1,7 +1,6 @@
 package menu
 
 import (
-	"encoding/json"
 	"net/http"
 	"regexp"
 	"restaurantapi/utils"
@@ -158,13 +157,8 @@ func (m *menu) getMeal(rw http.ResponseWriter, req *http.Request) {
 		return // exit function call
 	}
 
-	// encode to json and rw sends the json
-	err := json.NewEncoder(rw).Encode(meal)
-
-	// error handling
-	if err != nil {
-		http.Error(rw, "error encoding into json", http.StatusUnprocessableEntity) // 422 Unprocessable Entity
-	}
+	// read and encode to json
+	utils.Get(rw, meal)
 
 }
 
