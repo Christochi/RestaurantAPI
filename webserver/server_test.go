@@ -78,8 +78,6 @@ func TestHandlers(t *testing.T) {
 
 	testHandlers := func(t testing.TB, handlerfunc func(rw http.ResponseWriter, req *http.Request), endpoint string, code int) {
 
-		t.Helper() // prints the line number of the function call (testHandlers)
-
 		// captures everything that is written with the ResponseWriter and returns ResponseRecorder
 		rec := httptest.NewRecorder()
 
