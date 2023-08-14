@@ -12,7 +12,7 @@ import (
 	"testing"
 )
 
-func TestFileServer(t *testing.T) {
+func TestNoCache(t *testing.T) {
 
 	t.Parallel()
 
