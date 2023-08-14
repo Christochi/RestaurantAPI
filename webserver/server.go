@@ -48,7 +48,7 @@ func noCache(h http.Handler) http.Handler {
 	// the ResponseWriter is what the server will respond with or send the client
 	// Request is what the client sends to the server
 	handlerFunc := func(rw http.ResponseWriter, req *http.Request) {
-		rw.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate;")
+		rw.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 		rw.Header().Set("pragma", "no-cache")
 		rw.Header().Set("X-Content-Type-Options", "nosniff")
 
