@@ -71,7 +71,11 @@ func Delete(rw http.ResponseWriter, a any) {
 // server's response
 func ServerMessage(rw http.ResponseWriter, msg string, code int) {
 
-	rw.WriteHeader(code)  // HTTP Status Code
-	rw.Write([]byte(msg)) // response body
+	rw.WriteHeader(code) // HTTP Status Code
+
+	_, err := rw.Write([]byte(msg)) // response body
+	if err != nil {
+		http.Error(rw, "Write could not write data to the connection", http.StatusInternalServerError) // 500 Internal Server Error
+	}
 
 }
