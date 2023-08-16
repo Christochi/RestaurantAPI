@@ -75,7 +75,7 @@ func ServerMessage(rw http.ResponseWriter, msg string, code int) {
 
 	_, err := rw.Write([]byte(msg)) // response body
 	if err != nil {
-		http.Error(rw, "Write could not write data to the connection", http.StatusInternalServerError) // 500 Internal Server Error
+		http.Error(rw, "Could not write data to the connection", http.StatusInternalServerError) // 500 Internal Server Error
 	}
 
 }
