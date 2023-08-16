@@ -11,7 +11,7 @@ on:
   
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - name: Check out repository or project source code to the hosted machine
         uses: actions/checkout@v3
