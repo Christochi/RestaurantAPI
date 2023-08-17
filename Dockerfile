@@ -8,4 +8,4 @@ WORKDIR /app
 
 RUN go build -o restaurantapi
 
-CMD["/app/restaurantapi"]
+CMD ["/app/restaurantapi"]
