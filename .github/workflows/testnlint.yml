@@ -10,7 +10,7 @@ on:
       - main
   
 jobs:
-  Testnlint:
+  Test-and-lint:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository or project source code to the hosted machine
