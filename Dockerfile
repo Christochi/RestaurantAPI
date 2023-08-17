@@ -6,6 +6,6 @@ COPY . /app
 
 WORKDIR /app
 
-RUN go build -o restaurantapi
+RUN go build -o restaurantapi .
 
 CMD ["/app/restaurantapi"]
