@@ -10,7 +10,7 @@ on:
       - main
   
 jobs:
-  lint:
+  Testnlint:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository or project source code to the hosted machine
@@ -29,3 +29,6 @@ jobs:
         uses: golangci/golangci-lint-action@v3
         with:
           version: v1.53
+      
+      - name: Test
+        run: go test ./...
