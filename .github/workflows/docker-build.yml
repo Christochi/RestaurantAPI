@@ -26,5 +26,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: ${{ github.event_name != 'pull_request' }}
+          file: ./Dockerfile
+          push: true
           tags: restaurantapi:v1
