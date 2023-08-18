@@ -27,5 +27,5 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          push: true
-          tags: restaurantapi:v1
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: user/app:latest
