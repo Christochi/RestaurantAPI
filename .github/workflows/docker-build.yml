@@ -22,8 +22,8 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          username: christochi
+          password: Godblessm0mmy!
 
       - name: Build and push
         uses: docker/build-push-action@v4
