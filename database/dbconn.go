@@ -28,7 +28,7 @@ func conn() *sql.DB {
 	}
 
 	urlValues := dsn.Query()                       //Query parses RawQuery and returns the corresponding values
-	urlValues.Add(os.Getenv("SSLMODE"), "disable") // disbale sslmode and add to the map of Values
+	urlValues.Add("sslmode", os.Getenv("SSLMODE")) // disbale sslmode and add to the map of Values
 
 	// database url = URL_SCHEME://POSTGRES_USER:POSTGRES_PASSWORD@HOST:PORT/POSTGRES_DB?sslmode=SSLMODE
 	dsn.RawQuery = urlValues.Encode()
