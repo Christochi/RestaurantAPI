@@ -11,11 +11,14 @@ import (
 
 func conn() *sql.DB {
 
+	// returns hostname and port as a string
+	host := fmt.Sprintf("%s:%s", os.Getenv("HOST"), os.Getenv("PORT"))
+
 	// construct db url
 	dsn := url.URL{
 		Scheme: os.Getenv("URL_SCHEME"),
 		User:   url.UserPassword(os.Getenv("POSTGRES_USER"), os.Getenv("POSTGRES_PASSWORD")),
-		Host:   "postgres-db:5432",
+		Host:   host,
 		Path:   os.Getenv("POSTGRES_DB"),
 	}
 
