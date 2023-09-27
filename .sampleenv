@@ -3,7 +3,7 @@
 POSTGRES_PASSWORD=password
 POSTGRES_USER=postgres
 POSTGRES_DB=postgres
-HOST=localhost
+HOST=postgres-db # Hostname or Host IP
 PORT=5432
 SSLMODE=disable
 URL_SCHEME=postgres
