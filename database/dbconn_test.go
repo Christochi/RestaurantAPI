@@ -12,13 +12,12 @@ import (
 func TestConn(t *testing.T) {
 
 	// load environment variables
-	err := godotenv.Load("../.env")
-	if err != nil {
+	if err := godotenv.Load("../.env"); err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
-	connTest := conn()    // returns the database
-	err = connTest.Ping() // ping db
+	connTest := conn()     // returns the database
+	err := connTest.Ping() // ping db
 	if err != nil {
 		fmt.Println("test conn", err)
 	}
