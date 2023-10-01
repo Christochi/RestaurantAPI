@@ -20,6 +20,7 @@ type chefJson struct {
 	Name  string `json:"name"`
 	About string `json:"about"`
 	Image string `json:"image"`
+	Age   int    `json:"-"`
 }
 
 type chef []chefJson // slice type to be used as a receiver for methods
