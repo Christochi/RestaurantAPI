@@ -16,7 +16,7 @@ func TestConn(t *testing.T) {
 		log.Fatal("Error loading .env file")
 	}
 
-	connTest := conn()     // returns the database
+	connTest := Conn()     // returns the database
 	err := connTest.Ping() // ping db
 	if err != nil {
 		fmt.Println("test conn", err)
