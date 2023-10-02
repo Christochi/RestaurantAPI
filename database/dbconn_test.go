@@ -1,7 +1,6 @@
 package database
 
 import (
-	"fmt"
 	"log"
 	"testing"
 
@@ -19,7 +18,7 @@ func TestConn(t *testing.T) {
 	connTest := Conn()     // returns the database
 	err := connTest.Ping() // ping db
 	if err != nil {
-		fmt.Println("test conn", err)
+		log.Fatal(err)
 	}
 
 	defer connTest.Close() // close db
