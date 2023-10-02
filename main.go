@@ -31,4 +31,5 @@ func dbConn() {
 
 	db := database.Conn()                   // establish db connections and return the database
 	utils.OpenFile("create_tables.sql", db) // read and create SQL table
+
 }
