@@ -2,34 +2,21 @@ package utils
 
 import (
 	"database/sql"
-	"fmt"
-	"io"
+	"log"
 	"os"
 )
 
 // open and execute SQL script
-func OpenFile(filename string, db *sql.DB) {
+func CreateTables(filename string, db *sql.DB) {
 
-	file, err := os.Open(filename)
-	if err == nil {
-		panic(err)
+	contents, err := os.ReadFile(filename)
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	content, err := io.ReadAll(file)
+	_, err = db.Exec(string(contents))
 	if err != nil {
-		fmt.Println(err)
-	}
-
-	execSQLScript(content, db)
-
-}
-
-func execSQLScript(content []byte, db *sql.DB) {
-
-	_, err := db.Exec(string(content))
-	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatal(err)
 	}
 
 }
