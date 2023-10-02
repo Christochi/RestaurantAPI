@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"net/url"
 	"os"
 
@@ -31,7 +32,7 @@ func Conn() *sql.DB {
 	// create db connection
 	db, err := sql.Open("pgx", dsn.String())
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	return db
