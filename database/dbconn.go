@@ -31,8 +31,9 @@ func Conn() *sql.DB {
 	// create db connection
 	db, err := sql.Open("pgx", dsn.String())
 	if err != nil {
-		fmt.Println("sql open", err)
+		panic(err)
 	}
 
 	return db
+
 }
