@@ -1,6 +1,7 @@
 package chef
 
 import (
+	"log"
 	"net/http"
 	"regexp"
 	"restaurantapi/utils"
@@ -21,7 +22,7 @@ type chefJson struct {
 	About  string `json:"about"`
 	Image  string `json:"image"`
 	Gender string `json:"gender"`
-	Age    int    `json:"-"`
+	Age    int    `json:"age"`
 }
 
 type chef []chefJson // slice type to be used as a receiver for methods
@@ -71,6 +72,18 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 
 	// read and decode to struct
 	utils.Post(rw, req, c)
+
+	query := `INSERT INTO chef (full_name, about, image_name, gender, age) VALUES ($1, $2, $3, $4, $5);`
+
+	// Insert into the chef table
+	for _, elem := range *c {
+
+		_, err := utils.Database.Exec(query, elem.Name, elem.About, elem.Image, elem.Gender, elem.Age)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+	}
 
 }
 
@@ -134,6 +147,13 @@ func (c *chef) deleteChef(rw http.ResponseWriter) {
 	*c = nil
 
 	utils.Delete(rw, c)
+
+	// Delete all rows from the chef table
+	query := `DELETE FROM chef;`
+	_, err := utils.Database.Exec(query)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 }
 
