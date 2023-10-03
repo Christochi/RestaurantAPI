@@ -73,9 +73,10 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 	// read and decode to struct
 	utils.Post(rw, req, c)
 
-	query := `INSERT INTO chef (full_name, about, image_name, gender, age) VALUES ($1, $2, $3, $4, $5);`
+	query := `INSERT INTO chef (full_name, about, image_name, gender, age) 
+					VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING;`
 
-	// Insert into the chef table
+	// Insert into the chef table unique values (no duplicates)
 	for _, elem := range *c {
 
 		_, err := utils.Database.Exec(query, elem.Name, elem.About, elem.Image, elem.Gender, elem.Age)
