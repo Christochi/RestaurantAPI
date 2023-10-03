@@ -9,5 +9,6 @@ CREATE TABLE Chef (
    about VARCHAR(255),
    image_name VARCHAR(50),
    gender VARCHAR(1), -- "M"/"F" (male/female)
-   age INT
+   age INT,
+   UNIQUE (about, image_name) -- unique constraint to avoide duplicate data
 );
