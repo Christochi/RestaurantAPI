@@ -6,6 +6,8 @@ import (
 	"os"
 )
 
+var Database *sql.DB // place holder for the database
+
 // open and execute SQL script
 func CreateTables(filename string, db *sql.DB) {
 
