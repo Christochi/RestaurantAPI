@@ -29,7 +29,7 @@ func dbConn() {
 		log.Fatal("Error loading .env file")
 	}
 
-	db := database.Conn()                                // establish db connections and return the database
-	utils.CreateTables("database/create_tables.sql", db) // read sql script and create db tables
+	utils.Database = database.Conn()                                 // establish db connections and return the database
+	utils.CreateTables("database/create_tables.sql", utils.Database) // read sql script and create db tables
 
 }
