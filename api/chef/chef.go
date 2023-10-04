@@ -81,7 +81,7 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 
 		_, err := utils.Database.Exec(query, elem.Name, elem.About, elem.Image, elem.Gender, elem.Age)
 		if err != nil {
-			log.Fatal(err)
+			log.Fatal("Exec, ", err)
 		}
 
 	}
@@ -149,8 +149,10 @@ func (c *chef) deleteChef(rw http.ResponseWriter) {
 
 	utils.Delete(rw, c)
 
-	// Delete all rows from the chef table
-	query := `DELETE FROM chef;`
+	// Delete all rows from the chef table and reset PK to 1
+	query := `DELETE FROM chef;
+	 			ALTER SEQUENCE chef_id_seq RESTART WITH 1;`
+
 	_, err := utils.Database.Exec(query)
 	if err != nil {
 		log.Fatal(err)
