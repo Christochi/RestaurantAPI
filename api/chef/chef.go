@@ -183,6 +183,17 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 
 			utils.ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
 
+			// Delete all rows from the chef table and reset PK to 1
+			// query := `DELETE FROM chef;
+			// 			 ALTER SEQUENCE chef_id_seq RESTART WITH 1;`
+
+			// _, err := utils.Database.Exec(query)
+			// if err != nil {
+			// 	log.Fatal(err)
+			// }
+
+			// c.postChef(rw, req)
+
 			return // exit function call
 		}
 
