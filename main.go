@@ -26,7 +26,7 @@ func dbConn() {
 
 	// load environment variables
 	if err := godotenv.Load(".env"); err != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal("Error loading .env file, ", err)
 	}
 
 	utils.Database = database.Conn()                                 // establish db connections and return the database
