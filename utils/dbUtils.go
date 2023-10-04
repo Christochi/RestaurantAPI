@@ -13,12 +13,12 @@ func CreateTables(filename string, db *sql.DB) {
 
 	contents, err := os.ReadFile(filename)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("ReadFile error, ", err)
 	}
 
 	_, err = db.Exec(string(contents))
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Exec, ", err)
 	}
 
 }
