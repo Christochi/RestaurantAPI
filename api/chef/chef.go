@@ -1,6 +1,7 @@
 package chef
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -65,6 +66,20 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 
 }
 
+// Insert into the chef table unique values (no duplicates)
+func (c *chef) bulkInsert(query string, db *sql.DB) {
+
+	for _, elem := range *c {
+
+		_, err := utils.Database.Exec(query, elem.Name, elem.About, elem.Image, elem.Gender, elem.Age)
+		if err != nil {
+			log.Fatal("Exec, ", err)
+		}
+
+	}
+
+}
+
 // client send chef data using POST Method
 func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 
@@ -74,18 +89,11 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 	// read and decode to struct
 	utils.Post(rw, req, c)
 
-	query := `INSERT INTO chef (full_name, about, image_name, gender, age) 
-					VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING;`
+	// Delete all rows from the chef table and reset PK to 1
+	utils.ExecuteQueries(utils.ChefRowsDeleteQuery, utils.Database)
 
 	// Insert into the chef table unique values (no duplicates)
-	for _, elem := range *c {
-
-		_, err := utils.Database.Exec(query, elem.Name, elem.About, elem.Image, elem.Gender, elem.Age)
-		if err != nil {
-			log.Fatal("Exec, ", err)
-		}
-
-	}
+	c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database)
 
 }
 
@@ -148,8 +156,6 @@ func (c *chef) deleteChef(rw http.ResponseWriter) {
 	// delete all element by re-initializing to nil
 	*c = nil
 
-	//utils.Delete(rw, c)
-
 	// Delete all rows from the chef table and reset PK to 1
 	utils.ExecuteQueries(utils.ChefRowsDeleteQuery, utils.Database)
 
@@ -183,9 +189,9 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 			// Delete all rows from the chef table and reset PK to 1
 			utils.ExecuteQueries(utils.ChefRowsDeleteQuery, utils.Database)
 
-			c.postChef(rw, req)
+			c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database) // bulk insert into db
 
-			fmt.Fprint(rw, " db rows") // 200 OK
+			fmt.Fprint(rw, "created db rows") // 200 OK
 
 			return // exit function call
 		}
