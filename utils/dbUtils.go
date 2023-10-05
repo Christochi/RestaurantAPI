@@ -8,17 +8,32 @@ import (
 
 var Database *sql.DB // place holder for the database
 
-// open and execute SQL script
-func CreateTables(filename string, db *sql.DB) {
+const (
+	ChefRowsDeleteQuery = `DELETE FROM chef; 
+   	ALTER SEQUENCE chef_id_seq RESTART WITH 1;`
+
+	ChefBulkInsertQuery = `INSERT INTO chef (full_name, about, image_name, gender, age) 
+		VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING;`
+)
+
+// open and read SQL script
+func ReadSQLScript(filename string) []byte {
 
 	contents, err := os.ReadFile(filename)
 	if err != nil {
 		log.Fatal("ReadFile error, ", err)
 	}
 
-	_, err = db.Exec(string(contents))
+	return contents
+
+}
+
+// execute SQL queries
+func ExecuteQueries(query string, db *sql.DB) {
+
+	_, err := db.Exec(query)
 	if err != nil {
-		log.Fatal("Exec, ", err)
+		log.Fatal("Exec Queries, ", err)
 	}
 
 }
