@@ -1,6 +1,7 @@
 package chef
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"regexp"
@@ -147,16 +148,12 @@ func (c *chef) deleteChef(rw http.ResponseWriter) {
 	// delete all element by re-initializing to nil
 	*c = nil
 
-	utils.Delete(rw, c)
+	//utils.Delete(rw, c)
 
 	// Delete all rows from the chef table and reset PK to 1
-	query := `DELETE FROM chef;
-	 			ALTER SEQUENCE chef_id_seq RESTART WITH 1;`
+	utils.ExecuteQueries(utils.ChefRowsDeleteQuery, utils.Database)
 
-	_, err := utils.Database.Exec(query)
-	if err != nil {
-		log.Fatal(err)
-	}
+	utils.ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
 
 }
 
@@ -181,18 +178,14 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 			(*c)[index] = (*c)[len(*c)-1] // replace the element with the last element
 			*c = (*c)[:len(*c)-1]         // reinitialize the array with all the elements excluding last element
 
-			utils.ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
+			utils.ServerMessage(rw, "resource deleted successfully\n", http.StatusOK) // 200 OK
 
 			// Delete all rows from the chef table and reset PK to 1
-			// query := `DELETE FROM chef;
-			// 			 ALTER SEQUENCE chef_id_seq RESTART WITH 1;`
+			utils.ExecuteQueries(utils.ChefRowsDeleteQuery, utils.Database)
 
-			// _, err := utils.Database.Exec(query)
-			// if err != nil {
-			// 	log.Fatal(err)
-			// }
+			c.postChef(rw, req)
 
-			// c.postChef(rw, req)
+			fmt.Fprint(rw, " db rows") // 200 OK
 
 			return // exit function call
 		}
