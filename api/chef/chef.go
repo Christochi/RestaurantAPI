@@ -89,7 +89,8 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 	// read and decode to struct
 	utils.Post(rw, req, c)
 
-	// Delete all rows from the chef table and reset PK to 1
+	// Delete all rows from the chef table since it is a POST request
+	// and reset PK to 1
 	utils.ExecuteQueries(utils.ChefRowsDeleteQuery, utils.Database)
 
 	// Insert into the chef table unique values (no duplicates)
@@ -103,8 +104,24 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 	// log for informational purpose
 	requestLogger.Println("GET chef request at /chef endpoint")
 
+	var column chefJson // placeholder for column values
+	var chefs chef      // slice variable for db rows
+
+	// get the rows from db
+	rows := utils.BulkSelect(utils.ChefBulkSelectQuery, utils.Database)
+	defer rows.Close()
+	for rows.Next() {
+		if err := rows.Scan(&column.Name, &column.About, &column.Image, &column.Gender, &column.Age); err != nil {
+			log.Fatal("Scan error, ", err)
+		}
+
+		chefs = *c                    // store the value of the dereferenced pointer
+		chefs = append(chefs, column) // append to chefs slice
+
+	}
+
 	// read and encode to json
-	utils.Get(rw, c)
+	utils.Get(rw, chefs)
 
 }
 
