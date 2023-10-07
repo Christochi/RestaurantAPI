@@ -110,7 +110,7 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 	var column chefJson // placeholder for column values
 
 	// get the rows from db
-	rows := utils.BulkSelect(utils.SelectAllChefRowsQuery, utils.Database)
+	rows := utils.SelectRows(utils.SelectAllChefRowsQuery, utils.Database)
 	defer rows.Close()
 	for rows.Next() {
 		if err := rows.Scan(&column.Name, &column.About, &column.Image, &column.Gender, &column.Age); err != nil {
