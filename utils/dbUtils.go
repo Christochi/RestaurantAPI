@@ -10,13 +10,13 @@ var Database *sql.DB // place holder for the database
 
 // SQL Queries
 const (
-	ChefRowsDeleteQuery = `DELETE FROM chef; 
+	DeleteChefRowsQuery = `DELETE FROM chef; 
    	ALTER SEQUENCE chef_id_seq RESTART WITH 1;`
 
 	ChefBulkInsertQuery = `INSERT INTO chef (full_name, about, image_name, gender, age) 
 		VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING;`
 
-	ChefBulkSelectQuery = `SELECT full_name, about, image_name, gender, age FROM chef;`
+	SelectAllChefRowsQuery = `SELECT full_name, about, image_name, gender, age FROM chef;`
 )
 
 // open and read SQL script
