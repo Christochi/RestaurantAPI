@@ -101,11 +101,13 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 // client requests for chef data using GET Method
 func (c *chef) getChefs(rw http.ResponseWriter) {
 
+	// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
+	*c = nil
+
 	// log for informational purpose
 	requestLogger.Println("GET chef request at /chef endpoint")
 
 	var column chefJson // placeholder for column values
-	var chefs chef      // slice variable for db rows
 
 	// get the rows from db
 	rows := utils.BulkSelect(utils.ChefBulkSelectQuery, utils.Database)
@@ -115,13 +117,12 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 			log.Fatal("Scan error, ", err)
 		}
 
-		chefs = *c                    // store the value of the dereferenced pointer
-		chefs = append(chefs, column) // append to chefs slice
+		*c = append(*c, column)
 
 	}
 
 	// read and encode to json
-	utils.Get(rw, chefs)
+	utils.Get(rw, c)
 
 }
 
