@@ -17,6 +17,8 @@ const (
 		VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING;`
 
 	SelectAllChefRowsQuery = `SELECT full_name, about, image_name, gender, age FROM chef;`
+
+	SelectAnyChefRowsQuery = `SELECT full_name, about, image_name, gender, age FROM chef WHERE full_name LIKE $1%;`
 )
 
 // open and read SQL script
