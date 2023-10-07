@@ -91,7 +91,7 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 
 	// Delete all rows from the chef table since it is a POST request
 	// and reset PK to 1
-	utils.ExecuteQueries(utils.ChefRowsDeleteQuery, utils.Database)
+	utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
 
 	// Insert into the chef table unique values (no duplicates)
 	c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database)
@@ -110,7 +110,7 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 	var column chefJson // placeholder for column values
 
 	// get the rows from db
-	rows := utils.BulkSelect(utils.ChefBulkSelectQuery, utils.Database)
+	rows := utils.BulkSelect(utils.SelectAllChefRowsQuery, utils.Database)
 	defer rows.Close()
 	for rows.Next() {
 		if err := rows.Scan(&column.Name, &column.About, &column.Image, &column.Gender, &column.Age); err != nil {
@@ -175,7 +175,7 @@ func (c *chef) deleteChef(rw http.ResponseWriter) {
 	*c = nil
 
 	// Delete all rows from the chef table and reset PK to 1
-	utils.ExecuteQueries(utils.ChefRowsDeleteQuery, utils.Database)
+	utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
 
 	utils.ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
 
@@ -205,7 +205,7 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 			utils.ServerMessage(rw, "resource deleted successfully\n", http.StatusOK) // 200 OK
 
 			// Delete all rows from the chef table and reset PK to 1
-			utils.ExecuteQueries(utils.ChefRowsDeleteQuery, utils.Database)
+			utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
 
 			c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database) // bulk insert into db
 
