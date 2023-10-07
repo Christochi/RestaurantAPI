@@ -43,8 +43,8 @@ func ExecuteQueries(query string, db *sql.DB) {
 
 }
 
-// BULK SELECTION
-func BulkSelect(query string, db *sql.DB) *sql.Rows {
+// Return atleast 1 row
+func SelectRows(query string, db *sql.DB) *sql.Rows {
 
 	rows, err := db.Query(query)
 	if err != nil {
