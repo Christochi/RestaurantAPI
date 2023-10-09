@@ -12,9 +12,13 @@ var Database *sql.DB // place holder for the database
 const (
 	DeleteChefRowsQuery = `DELETE FROM chef; 
    	ALTER SEQUENCE chef_id_seq RESTART WITH 1;`
+	DeleteMenuRowsQuery = `DELETE FROM menu; 
+	ALTER SEQUENCE menu_id_seq RESTART WITH 1;`
 
 	ChefBulkInsertQuery = `INSERT INTO chef (full_name, about, image_name, gender, age) 
 		VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING;`
+	MenuBulkInsertQuery = `INSERT INTO menu (meal_type, meal_name, price, about, image_name) 
+	VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING;`
 
 	SelectAllChefRowsQuery = `SELECT full_name, about, image_name, gender, age FROM chef;`
 
