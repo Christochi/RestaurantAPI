@@ -83,6 +83,21 @@ func (m *menu) bulkInsert(query string, db *sql.DB) {
 
 }
 
+// traverse the db rows
+func (m *menu) iterDBRows(rows *sql.Rows, column menuJson) {
+
+	defer rows.Close()
+	for rows.Next() {
+		if err := rows.Scan(&column.Type, &column.Meal, &column.Price, &column.Desc, &column.Image); err != nil {
+			log.Fatal("Scan error, ", err)
+		}
+
+		*m = append(*m, column)
+
+	}
+
+}
+
 // client send menu data using POST Method
 func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 
@@ -104,8 +119,17 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 // client requests for menu data using GET Method
 func (m *menu) getMenu(rw http.ResponseWriter) {
 
+	// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
+	*m = nil
+
 	// log for informational purpose
 	requestLogger.Println("GET menu request at /menu endpoint")
+
+	var column menuJson // placeholder for column values
+
+	// get the rows from db
+	rows := utils.SelectRows(utils.SelectAllMenuRowsQuery, utils.Database)
+	m.iterDBRows(rows, column)
 
 	// read and encode to json
 	utils.Get(rw, m)
