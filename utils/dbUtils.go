@@ -18,7 +18,7 @@ const (
 
 	SelectAllChefRowsQuery = `SELECT full_name, about, image_name, gender, age FROM chef;`
 
-	SelectAnyChefRowsQuery = `SELECT full_name, about, image_name, gender, age FROM chef WHERE full_name LIKE $1%;`
+	SelectAnyChefRowsQuery = `SELECT full_name, about, image_name, gender, age FROM chef WHERE full_name LIKE $1;`
 )
 
 // open and read SQL script
@@ -43,14 +43,43 @@ func ExecuteQueries(query string, db *sql.DB) {
 
 }
 
-// Return atleast 1 row
-func SelectRows(query string, db *sql.DB) *sql.Rows {
+// Return DB rows
+func SelectRows(query string, db *sql.DB, args ...string) *sql.Rows {
 
-	rows, err := db.Query(query)
-	if err != nil {
-		log.Fatal("Select error, ", err)
+	// accepts no SQL placeholder argument
+	noArgs := func() *sql.Rows {
+
+		rows, err := db.Query(query)
+		if err != nil {
+			log.Fatal("Select error, ", err)
+		}
+
+		return rows
+
 	}
 
-	return rows
+	// accepts SQL placeholder arguments
+	argsExist := func() *sql.Rows {
+
+		var rows *sql.Rows
+
+		for _, arg := range args {
+			var err error
+
+			rows, err = db.Query(query, arg)
+			if err != nil {
+				log.Fatal("Select2 error, ", err)
+			}
+
+		}
+		return rows
+
+	}
+
+	if len(args) >= 1 {
+		return argsExist()
+	} else {
+		return noArgs()
+	}
 
 }
