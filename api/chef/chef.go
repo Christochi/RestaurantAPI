@@ -69,12 +69,27 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 // Insert into the chef table unique values (no duplicates)
 func (c *chef) bulkInsert(query string, db *sql.DB) {
 
-	for _, elem := range *c {
+	for _, column := range *c {
 
-		_, err := utils.Database.Exec(query, elem.Name, elem.About, elem.Image, elem.Gender, elem.Age)
+		_, err := utils.Database.Exec(query, column.Name, column.About, column.Image, column.Gender, column.Age)
 		if err != nil {
 			log.Fatal("Exec, ", err)
 		}
+
+	}
+
+}
+
+// traverse the db rows
+func (c *chef) iterDBRows(rows *sql.Rows, column chefJson) {
+
+	defer rows.Close()
+	for rows.Next() {
+		if err := rows.Scan(&column.Name, &column.About, &column.Image, &column.Gender, &column.Age); err != nil {
+			log.Fatal("Scan error, ", err)
+		}
+
+		*c = append(*c, column)
 
 	}
 
@@ -111,15 +126,7 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 
 	// get the rows from db
 	rows := utils.SelectRows(utils.SelectAllChefRowsQuery, utils.Database)
-	defer rows.Close()
-	for rows.Next() {
-		if err := rows.Scan(&column.Name, &column.About, &column.Image, &column.Gender, &column.Age); err != nil {
-			log.Fatal("Scan error, ", err)
-		}
-
-		*c = append(*c, column)
-
-	}
+	c.iterDBRows(rows, column)
 
 	// read and encode to json
 	utils.Get(rw, c)
@@ -140,6 +147,12 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 	requestLogger.Printf("GET chef name request at /chef/%s endpoint", name)
 
 	var chefNames []chefJson // new slice to hold the filtered data
+
+	var column chefJson // placeholder for column values
+
+	// Retrieve data that matches the substring from the db
+	rows := utils.SelectRows(utils.SelectAnyChefRowsQuery, utils.Database, name+"%")
+	c.iterDBRows(rows, column)
 
 	for _, value := range *c {
 
