@@ -12,3 +12,14 @@ CREATE TABLE Chef (
    age INT,
    UNIQUE (about, image_name) -- unique constraint to avoide duplicate data
 );
+
+-- CREATE Menu Table
+CREATE TABLE Menu (
+   id SERIAL PRIMARY KEY,
+   meal_type  VARCHAR(50),
+   meal_name VARCHAR(50),
+   price VARCHAR(50),
+   about VARCHAR(255),
+   image_name VARCHAR(50),
+   UNIQUE (meal_name, image_name) -- unique constraint to avoide duplicate data
+);
