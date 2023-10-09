@@ -1,6 +1,8 @@
 package menu
 
 import (
+	"database/sql"
+	"log"
 	"net/http"
 	"regexp"
 	"restaurantapi/utils"
@@ -67,6 +69,20 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 
 }
 
+// Insert into the chef table unique values (no duplicates)
+func (m *menu) bulkInsert(query string, db *sql.DB) {
+
+	for _, column := range *m {
+
+		_, err := utils.Database.Exec(query, column.Type, column.Meal, column.Price, column.Desc, column.Image)
+		if err != nil {
+			log.Fatal("Exec, ", err)
+		}
+
+	}
+
+}
+
 // client send menu data using POST Method
 func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 
@@ -75,6 +91,13 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// read and decode to struct
 	utils.Post(rw, req, m)
+
+	// Delete all rows from the menu table since it is a POST request
+	// and reset PK to 1
+	utils.ExecuteQueries(utils.DeleteMenuRowsQuery, utils.Database)
+
+	// Insert into the chef table unique values (no duplicates)
+	m.bulkInsert(utils.MenuBulkInsertQuery, utils.Database)
 
 }
 
@@ -171,7 +194,7 @@ func (m *menu) deleteMenu(rw http.ResponseWriter) {
 	// delete all element by re-initializing to nil
 	*m = nil
 
-	utils.Delete(rw, m)
+	//utils.Delete(rw, m)
 
 }
 
