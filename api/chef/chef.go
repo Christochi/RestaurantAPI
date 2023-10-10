@@ -148,7 +148,6 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 	// log for informational purpose
 	requestLogger.Printf("GET chef name request at /chef/%s endpoint", name)
 
-	//var chefNames []chefJson // new slice to hold the filtered data
 	var column chefJson // placeholder for column values
 
 	// Retrieve data that matches the substring from the db
