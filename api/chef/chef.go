@@ -201,6 +201,7 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 		log.Fatal("Exec err, ", err)
 	}
 
+	// return number of rows deleted
 	numOfRoles, err := result.RowsAffected()
 	if err != nil {
 		log.Fatal("Result err, ", err)
@@ -211,27 +212,5 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 	} else {
 		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 	}
-
-	// for index, value := range *c {
-
-	// 	// remove whitespaces and returns lower case of the string
-	// 	if strings.ToLower(strings.ReplaceAll(value.Name, " ", "")) == name {
-	// 		// delete an element
-	// 		(*c)[index] = (*c)[len(*c)-1] // replace the element with the last element
-	// 		*c = (*c)[:len(*c)-1]         // reinitialize the array with all the elements excluding last element
-
-	// 		utils.ServerMessage(rw, "resource deleted successfully\n", http.StatusOK) // 200 OK
-
-	// 		// Delete all rows from the chef table and reset PK to 1
-	// 		utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
-
-	// 		c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database) // bulk insert into db
-
-	// 		fmt.Fprint(rw, "created db rows") // 200 OK
-
-	// 		return // exit function call
-	// 	}
-
-	// }
 
 }
