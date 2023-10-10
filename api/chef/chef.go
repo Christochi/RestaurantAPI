@@ -2,7 +2,6 @@ package chef
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 	"regexp"
@@ -125,7 +124,7 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 	var column chefJson // placeholder for column values
 
 	// get the rows from db
-	rows := utils.SelectRows(utils.SelectAllChefRowsQuery, utils.Database)
+	rows := utils.SelectRows(utils.SelectAllChefsQuery, utils.Database)
 	c.iterDBRows(rows, column)
 
 	// read and encode to json
@@ -135,6 +134,9 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 
 // client requests for specific chef
 func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
+
+	// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
+	*c = nil
 
 	// returns slice of substrings that matches subexpressions in the url
 	urlSubPaths := chefNameRegex.FindStringSubmatch(req.URL.Path)
@@ -146,27 +148,26 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 	// log for informational purpose
 	requestLogger.Printf("GET chef name request at /chef/%s endpoint", name)
 
-	var chefNames []chefJson // new slice to hold the filtered data
-
+	//var chefNames []chefJson // new slice to hold the filtered data
 	var column chefJson // placeholder for column values
 
 	// Retrieve data that matches the substring from the db
-	rows := utils.SelectRows(utils.SelectAnyChefRowsQuery, utils.Database, name+"%")
+	rows := utils.SelectRows(utils.SelectChefByNameQuery, utils.Database, name+"%")
 	c.iterDBRows(rows, column)
 
-	for _, value := range *c {
+	// for _, value := range *c {
 
-		// remove whitespaces and returns lower case of the string
-		subPath := strings.ToLower(strings.ReplaceAll(value.Name, " ", ""))
+	// 	// remove whitespaces and returns lower case of the string
+	// 	subPath := strings.ToLower(strings.ReplaceAll(value.Name, " ", ""))
 
-		// compares if 2 strings have the same string literal or a substring
-		if subPath == name || strings.Contains(subPath, name) {
-			chefNames = append(chefNames, value) // append to new slice
-		}
+	// 	// compares if 2 strings have the same string literal or a substring
+	// 	if subPath == name || strings.Contains(subPath, name) {
+	// 		chefNames = append(chefNames, value) // append to new slice
+	// 	}
 
-	}
+	// }
 
-	if chefNames == nil {
+	if *c == nil {
 		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 
 		return // exit function call
@@ -174,7 +175,7 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	// read and encode to json
-	utils.Get(rw, chefNames)
+	utils.Get(rw, c)
 
 }
 
@@ -207,27 +208,43 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 	// log for informational purpose
 	requestLogger.Printf("DELETE chef name request at /chef/%s endpoint", name)
 
-	for index, value := range *c {
-
-		// remove whitespaces and returns lower case of the string
-		if strings.ToLower(strings.ReplaceAll(value.Name, " ", "")) == name {
-			// delete an element
-			(*c)[index] = (*c)[len(*c)-1] // replace the element with the last element
-			*c = (*c)[:len(*c)-1]         // reinitialize the array with all the elements excluding last element
-
-			utils.ServerMessage(rw, "resource deleted successfully\n", http.StatusOK) // 200 OK
-
-			// Delete all rows from the chef table and reset PK to 1
-			utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
-
-			c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database) // bulk insert into db
-
-			fmt.Fprint(rw, "created db rows") // 200 OK
-
-			return // exit function call
-		}
-
+	// Delete a row from the chef table
+	result, err := utils.Database.Exec(utils.DeleteAChefQuery, name)
+	if err != nil {
+		log.Fatal("Exec err, ", err)
 	}
 
-	utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+	numOfRoles, err := result.RowsAffected()
+	if err != nil {
+		log.Fatal("Result err, ", err)
+	}
+
+	if numOfRoles > 0 {
+		utils.ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
+	} else {
+		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+	}
+
+	// for index, value := range *c {
+
+	// 	// remove whitespaces and returns lower case of the string
+	// 	if strings.ToLower(strings.ReplaceAll(value.Name, " ", "")) == name {
+	// 		// delete an element
+	// 		(*c)[index] = (*c)[len(*c)-1] // replace the element with the last element
+	// 		*c = (*c)[:len(*c)-1]         // reinitialize the array with all the elements excluding last element
+
+	// 		utils.ServerMessage(rw, "resource deleted successfully\n", http.StatusOK) // 200 OK
+
+	// 		// Delete all rows from the chef table and reset PK to 1
+	// 		utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
+
+	// 		c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database) // bulk insert into db
+
+	// 		fmt.Fprint(rw, "created db rows") // 200 OK
+
+	// 		return // exit function call
+	// 	}
+
+	// }
+
 }
