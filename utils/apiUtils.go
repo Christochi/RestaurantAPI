@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"reflect"
 )
 
 // Logger Struct
@@ -51,19 +50,6 @@ func Get(rw http.ResponseWriter, a any) {
 	// error handling
 	if err != nil {
 		http.Error(rw, "error encoding into json", http.StatusUnprocessableEntity) // 422 Unprocessable Entity
-	}
-
-}
-
-// logic for HTTP DELETE Method
-func Delete(rw http.ResponseWriter, a any) {
-
-	// returns the value that the interface points to
-	object := reflect.Indirect(reflect.ValueOf(a))
-
-	// check if value is nil
-	if object.IsNil() {
-		ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
 	}
 
 }
