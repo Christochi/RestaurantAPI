@@ -155,18 +155,6 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 	rows := utils.SelectRows(utils.SelectChefByNameQuery, utils.Database, name+"%")
 	c.iterDBRows(rows, column)
 
-	// for _, value := range *c {
-
-	// 	// remove whitespaces and returns lower case of the string
-	// 	subPath := strings.ToLower(strings.ReplaceAll(value.Name, " ", ""))
-
-	// 	// compares if 2 strings have the same string literal or a substring
-	// 	if subPath == name || strings.Contains(subPath, name) {
-	// 		chefNames = append(chefNames, value) // append to new slice
-	// 	}
-
-	// }
-
 	if *c == nil {
 		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 
