@@ -13,9 +13,9 @@ var requestLogger = utils.InfoLog() // return info field
 
 // pathnames for subroot in url endpoint
 var (
-	allMenuRegex  = regexp.MustCompile(`^\/menu[\/]?$`)                                          // /menu or /menu/
-	mealTypeRegex = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner)$`)              // /menu/<anymealtype> = /menu/dinner
-	mealRegex     = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner)\/([A-Za-z]+)$`) // /menu/<anymealtype>/burger
+	allMenuRegex  = regexp.MustCompile(`^\/menu[\/]?$`)                             // /menu or /menu/
+	mealTypeRegex = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner)$`) // /menu/<anymealtype> = /menu/dinner
+	//mealRegex     = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner)\/([A-Za-z]+)$`) // /menu/<anymealtype>/burger
 )
 
 // Menu json Object
