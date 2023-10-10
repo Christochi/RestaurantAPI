@@ -13,17 +13,21 @@ const (
 	DeleteChefRowsQuery = `DELETE FROM chef; 
    	ALTER SEQUENCE chef_id_seq RESTART WITH 1;`
 	DeleteMenuRowsQuery = `DELETE FROM menu; 
-	ALTER SEQUENCE menu_id_seq RESTART WITH 1;`
+		ALTER SEQUENCE menu_id_seq RESTART WITH 1;`
+
+	DeleteAChefQuery = `DELETE FROM chef WHERE LOWER(REPLACE(full_name, ' ', '')) = $1`
 
 	ChefBulkInsertQuery = `INSERT INTO chef (full_name, about, image_name, gender, age) 
 		VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING;`
 	MenuBulkInsertQuery = `INSERT INTO menu (meal_type, meal_name, price, about, image_name) 
-	VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING;`
+		VALUES ($1, $2, $3, $4, $5) ON CONFLICT DO NOTHING;`
 
-	SelectAllChefRowsQuery = `SELECT full_name, about, image_name, gender, age FROM chef;`
-	SelectAllMenuRowsQuery = `SELECT meal_type, meal_name, price, about, image_name FROM menu;`
+	SelectAllChefsQuery = `SELECT full_name, about, image_name, gender, age FROM chef;`
+	SelectAllMenuQuery  = `SELECT meal_type, meal_name, price, about, image_name FROM menu;`
 
-	SelectAnyChefRowsQuery = `SELECT full_name, about, image_name, gender, age FROM chef WHERE full_name LIKE $1;`
+	SelectChefByNameQuery = `SELECT full_name, about, image_name, gender, age FROM chef WHERE full_name LIKE INITCAP($1);`
+	SelectMealTypeQuery   = `SELECT meal_type, meal_name, price, about, image_name FROM menu WHERE meal_type = INITCAP($1);`
+	//SelectMealQuery       = `SELECT meal_type, meal_name, price, about, image_name FROM menu WHERE lower(meal_name) LIKE $1;`
 )
 
 // open and read SQL script
