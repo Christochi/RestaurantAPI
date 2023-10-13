@@ -146,7 +146,7 @@ func (m *menu) getMenu(rw http.ResponseWriter) {
 
 	var column menuJson // placeholder for column values
 
-	// get the rows from db
+	// get the rows from table
 	rows := utils.SelectRows(utils.SelectAllMenuQuery, utils.Database)
 	m.iterDBRows(rows, column)
 
@@ -173,7 +173,7 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 
 	var column menuJson // placeholder for column values
 
-	// Retrieve data that matches the substring from the db
+	// Retrieve data from the table that matches the substring
 	rows := utils.SelectRows(utils.SelectMealTypeQuery, utils.Database, mealTypeName)
 	m.iterDBRows(rows, column)
 
