@@ -227,7 +227,7 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	if numOfRoles > 0 {
-		utils.ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
+		utils.ServerMessage(rw, "table row(s) deleted successfully", http.StatusOK) // 200 OK
 	} else {
 		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 	}
