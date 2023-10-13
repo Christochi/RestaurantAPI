@@ -4,7 +4,6 @@ package utils
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -30,13 +29,8 @@ func Post(rw http.ResponseWriter, req *http.Request, a any) {
 
 	// read response body and decode json to struct
 	err := json.NewDecoder(req.Body).Decode(&a)
-
-	// error handling
 	if err != nil {
 		http.Error(rw, "error decoding into struct", http.StatusUnprocessableEntity) // 422 Unprocessable Entity
-	} else {
-		// server's response to client
-		fmt.Fprintf(rw, "%s\n", http.StatusText(http.StatusCreated)) // 201 Created
 	}
 
 }
