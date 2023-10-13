@@ -197,7 +197,7 @@ func (c *chef) deleteChef(rw http.ResponseWriter) {
 	// Delete all rows from the chef table and reset PK to 1
 	utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
 
-	utils.ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
+	utils.ServerMessage(rw, "table row(s) deleted successfully", http.StatusOK) // 200 OK
 
 }
 
