@@ -55,8 +55,8 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	case req.Method == http.MethodGet && mealTypeRegex.MatchString(req.URL.Path):
 		m.getMealType(rw, req)
 
-	// case req.Method == http.MethodGet && mealRegex.MatchString(req.URL.Path):
-	// 	m.getMeal(rw, req)
+	case req.Method == http.MethodGet && mealRegex.MatchString(req.URL.Path):
+		m.getMeal(rw, req)
 
 	case req.Method == http.MethodDelete && allMenuRegex.MatchString(req.URL.Path):
 		m.deleteMenu(rw)
@@ -173,7 +173,7 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 
 	var column menuJson // placeholder for column values
 
-	// Retrieve data from the table that matches the substring
+	// Retrieve data from the table that matches the substring and append to menu struct
 	rows := utils.SelectRows(utils.SelectMealTypeQuery, utils.Database, mealTypeName)
 	m.iterDBRows(rows, column)
 
@@ -189,50 +189,43 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 }
 
 // gets a specific meal
-// func (m *menu) getMeal(rw http.ResponseWriter, req *http.Request) {
+func (m *menu) getMeal(rw http.ResponseWriter, req *http.Request) {
 
-// 	// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
-// 	*m = nil
+	// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
+	*m = nil
 
-// 	// returns slice of substrings that matches subexpressions in the url
-// 	urlSubPaths := mealRegex.FindStringSubmatch(req.URL.Path)
+	// returns slice of substrings that matches subexpressions in the url
+	urlSubPaths := mealRegex.FindStringSubmatch(req.URL.Path)
 
-// 	// since the order of the slice is known, store the second index
-// 	// example: /menu/<mealtype>/<mealname> = ["/menu/drinks/mangolasse", "drinks", "mangolasse"]
-// 	mealTypeName := strings.ToLower(urlSubPaths[1])
-// 	mealName := strings.ToLower(urlSubPaths[2])
+	// since the order of the slice is known, store the second index
+	// example: /menu/<mealtype>/<mealname> = ["/menu/drinks/mangolasse", "drinks", "mangolasse"]
+	mealTypeName := strings.ToLower(urlSubPaths[1])
+	mealName := strings.ToLower(urlSubPaths[2])
 
-// 	// log for informational purpose
-// 	requestLogger.Printf("GET meal request at /menu/%s/%s endpoint", mealTypeName, mealName)
+	// log for informational purpose
+	requestLogger.Printf("GET meal request at /menu/%s/%s endpoint", mealTypeName, mealName)
 
-// 	// var meal []menuJson // new slice to hold the filtered data
-// 	var column menuJson // placeholder for column values
+	// var meal []menuJson // new slice to hold the filtered data
+	var column menuJson // placeholder for column values
 
-// 	// Retrieve data that matches the substring from the db
-// 	rows := utils.SelectRows(utils.SelectMealQuery, utils.Database, "%"+mealName+"%")
-// 	m.iterDBRows(rows, column)
-// 	// for _, value := range *m {
+	// Retrieve data from the table that matches the substring
+	rows, err := utils.Database.Query(utils.SelectMealQuery, mealTypeName, "%"+mealName+"%")
+	if err != nil {
+		log.Fatal("Select error, ", err)
+	}
 
-// 	// 	// remove whitespaces and returns lower case of the string
-// 	// 	name := strings.ToLower(strings.ReplaceAll(value.Meal, " ", ""))
+	m.iterDBRows(rows, column) // traverse the db rows and append to menu struct
 
-// 	// 	// compares if 2 strings have the same string literal or a substring
-// 	// 	if name == mealName || strings.Contains(name, mealName) {
-// 	// 		meal = append(meal, value) // append to new slice
-// 	// 	}
+	if *m == nil {
+		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 
-// 	// }
+		return // exit function call
+	}
 
-// 	if *m == nil {
-// 		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+	// read and encode to json
+	utils.Get(rw, m)
 
-// 		return // exit function call
-// 	}
-
-// 	// read and encode to json
-// 	utils.Get(rw, m)
-
-// }
+}
 
 // client deletes all menu data
 func (m *menu) deleteMenu(rw http.ResponseWriter) {
