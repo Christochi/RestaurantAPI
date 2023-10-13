@@ -2,6 +2,7 @@ package menu
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"regexp"
@@ -13,9 +14,9 @@ var requestLogger = utils.InfoLog() // return info field
 
 // pathnames for subroot in url endpoint
 var (
-	allMenuRegex  = regexp.MustCompile(`^\/menu[\/]?$`)                             // /menu or /menu/
-	mealTypeRegex = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner)$`) // /menu/<anymealtype> = /menu/dinner
-	//mealRegex     = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner)\/([A-Za-z]+)$`) // /menu/<anymealtype>/burger
+	allMenuRegex  = regexp.MustCompile(`^\/menu[\/]?$`)                                          // /menu or /menu/
+	mealTypeRegex = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner)$`)              // /menu/<anymealtype> = /menu/dinner
+	mealRegex     = regexp.MustCompile(`^\/menu\/(breakfast|lunch|drinks|dinner)\/([A-Za-z]+)$`) // /menu/<anymealtype>/burger
 )
 
 // Menu json Object
@@ -60,8 +61,8 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 	case req.Method == http.MethodDelete && allMenuRegex.MatchString(req.URL.Path):
 		m.deleteMenu(rw)
 
-	// case req.Method == http.MethodDelete && mealRegex.MatchString(req.URL.Path):
-	// 	m.deleteMeal(rw, req)
+	case req.Method == http.MethodDelete && mealRegex.MatchString(req.URL.Path):
+		m.deleteMeal(rw, req)
 
 	default:
 		utils.ServerMessage(rw, http.StatusText(http.StatusNotImplemented), http.StatusNotImplemented) // returns 501 Not Implemented
@@ -69,17 +70,32 @@ func (m *menu) MenuHandler(rw http.ResponseWriter, req *http.Request) {
 
 }
 
-// Insert into the chef table unique values (no duplicates)
-func (m *menu) bulkInsert(query string, db *sql.DB) {
+// Insert into the menu table unique values (no duplicates)
+func (m *menu) bulkInsert(query string, db *sql.DB) int64 {
 
+	var row, numOfRows int64 //  db row affected and the total number of rows affected
+	var result sql.Result    // interface for invoking RowsAffected()
+	var err error
+
+	// insert into table
 	for _, column := range *m {
 
-		_, err := utils.Database.Exec(query, column.Type, column.Meal, column.Price, column.Desc, column.Image)
+		result, err = utils.Database.Exec(query, column.Type, column.Meal, column.Price, column.Desc, column.Image)
 		if err != nil {
 			log.Fatal("Exec, ", err)
 		}
 
+		// return number of table rows with inserted data
+		row, err = result.RowsAffected()
+		if err != nil {
+			log.Fatal("Result err, ", err)
+		}
+
+		numOfRows += row // increment
+
 	}
+
+	return numOfRows
 
 }
 
@@ -111,8 +127,11 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 	// and reset PK to 1
 	utils.ExecuteQueries(utils.DeleteMenuRowsQuery, utils.Database)
 
-	// Insert into the chef table unique values (no duplicates)
-	m.bulkInsert(utils.MenuBulkInsertQuery, utils.Database)
+	// Insert into the menu table unique values (no duplicates) and store the number of table rows affected
+	numOfRows := m.bulkInsert(utils.MenuBulkInsertQuery, utils.Database)
+
+	message := fmt.Sprintf("%d row(s) in the table were created", numOfRows) // construct server message
+	utils.ServerMessage(rw, message, http.StatusCreated)                     // send server response
 
 }
 
@@ -173,7 +192,7 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 // func (m *menu) getMeal(rw http.ResponseWriter, req *http.Request) {
 
 // 	// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
-// 	//*m = nil
+// 	*m = nil
 
 // 	// returns slice of substrings that matches subexpressions in the url
 // 	urlSubPaths := mealRegex.FindStringSubmatch(req.URL.Path)
@@ -232,34 +251,35 @@ func (m *menu) deleteMenu(rw http.ResponseWriter) {
 }
 
 // deletes a specific meal
-// func (m *menu) deleteMeal(rw http.ResponseWriter, req *http.Request) {
+func (m *menu) deleteMeal(rw http.ResponseWriter, req *http.Request) {
 
-// 	// returns slice of substrings that matches subexpressions in the url
-// 	urlSubPaths := mealRegex.FindStringSubmatch(req.URL.Path)
+	// returns slice of substrings that matches subexpressions in the url
+	urlSubPaths := mealRegex.FindStringSubmatch(req.URL.Path)
 
-// 	// since the order of the slice is known, store the third index
-// 	// example: /menu/<mealtype>/<mealname> = ["/menu/lunch/burger", "lunch", "burger"]
-// 	mealTypeName := strings.ToLower(urlSubPaths[1])
-// 	meal := strings.ToLower(urlSubPaths[2])
+	// since the order of the slice is known, store the third index
+	// example: /menu/<mealtype>/<mealname> = ["/menu/lunch/burger", "lunch", "burger"]
+	mealTypeName := strings.ToLower(urlSubPaths[1])
+	meal := strings.ToLower(urlSubPaths[2])
 
-// 	// log for informational purpose
-// 	requestLogger.Printf("DELETE meal request at /menu/%s/%s endpoint", mealTypeName, meal)
+	// log for informational purpose
+	requestLogger.Printf("DELETE meal request at /menu/%s/%s endpoint", mealTypeName, meal)
 
-// 	// for index, value := range *m {
+	// Delete a row from the chef table
+	result, err := utils.Database.Exec(utils.DeleteAMealQuery, mealTypeName, "%"+meal+"%")
+	if err != nil {
+		log.Fatal("Exec err, ", err)
+	}
 
-// 	// 	// remove whitespaces and returns lower case of the string
-// 	// 	if strings.ToLower(strings.ReplaceAll(value.Meal, " ", "")) == meal {
-// 	// 		// delete an element
-// 	// 		(*m)[index] = (*m)[len(*m)-1] // replace the element with the last element
-// 	// 		*m = (*m)[:len(*m)-1]         // reinitialize the array with all the elements excluding last element
+	// return number of rows deleted
+	numOfRoles, err := result.RowsAffected()
+	if err != nil {
+		log.Fatal("Result err, ", err)
+	}
 
-// 	// 		utils.ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
+	if numOfRoles > 0 {
+		utils.ServerMessage(rw, "resource deleted successfully", http.StatusOK) // 200 OK
+	} else {
+		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+	}
 
-// 	// 		return // exit function call
-// 	// 	}
-
-// 	// }
-
-// 	utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
-
-// }
+}
