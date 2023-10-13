@@ -264,7 +264,7 @@ func (m *menu) deleteMeal(rw http.ResponseWriter, req *http.Request) {
 	// log for informational purpose
 	requestLogger.Printf("DELETE meal request at /menu/%s/%s endpoint", mealTypeName, meal)
 
-	// Delete a row from the chef table
+	// Delete a row from the menu table
 	result, err := utils.Database.Exec(utils.DeleteAMealQuery, mealTypeName, "%"+meal+"%")
 	if err != nil {
 		log.Fatal("Exec err, ", err)
