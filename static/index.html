@@ -123,6 +123,10 @@
 
                 let html = '';
                 for (let item of breakfastData) {
+                  if (item.available == false) {
+                    continue
+                  }
+
                   html += `<div class="menu-item">
                       <div class="menu-item-name"> <a href="img/portfolio/${item.image}-large.jpg" target="_blank">${item.meal}</a> </div>
                       <div class="menu-item-price"> ${item.price} </div>
@@ -167,6 +171,10 @@
 
                 let html = '';
                 for (let item of lunchData) {
+                  if (item.available == false) {
+                    continue
+                  }
+
                   html += `<div class="menu-item">
                       <div class="menu-item-name"> <a href="img/portfolio/${item.image}-large.jpg" target="_blank">${item.meal}</a> </div>
                       <div class="menu-item-price"> ${item.price} </div>
@@ -213,6 +221,10 @@
 
                 let html = '';
                 for (let item of dinnerData) {
+                  if (item.available == false) {
+                    continue
+                  }
+
                   html += `<div class="menu-item">
                       <div class="menu-item-name"> <a href="img/portfolio/${item.image}-large.jpg" target="_blank">${item.meal}</a> </div>
                       <div class="menu-item-price"> ${item.price} </div>
@@ -257,6 +269,10 @@
 
                 let html = '';
                 for (let item of drinksData) {
+                  if (item.available == false) {
+                    continue
+                  }
+
                   html += `<div class="menu-item">
                       <div class="menu-item-name"> <a href="img/portfolio/${item.image}-large.jpg" target="_blank">${item.meal}</a> </div>
                       <div class="menu-item-price"> ${item.price} </div>
@@ -328,6 +344,9 @@
 
             let html = '';
             for (let item of galleryData) {
+              if (item.available == false) {
+                continue
+              }
               let mealType = item.type
               let result = mealType.toLowerCase()
               html += `<div class="col-sm-6 col-md-4 col-lg-4 ${result}">
