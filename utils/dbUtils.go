@@ -54,7 +54,7 @@ func ExecuteQueries(query string, db *sql.DB) {
 
 }
 
-// Return DB rows
+// Return table rows
 func SelectRows(query string, db *sql.DB, args ...string) *sql.Rows {
 
 	// accepts no SQL placeholder argument
@@ -70,7 +70,7 @@ func SelectRows(query string, db *sql.DB, args ...string) *sql.Rows {
 	}
 
 	// accepts SQL placeholder arguments
-	argsExist := func() *sql.Rows {
+	withArgs := func() *sql.Rows {
 
 		var rows *sql.Rows
 
@@ -87,8 +87,8 @@ func SelectRows(query string, db *sql.DB, args ...string) *sql.Rows {
 
 	}
 
-	if len(args) >= 1 {
-		return argsExist()
+	if len(args) > 0 {
+		return withArgs()
 	} else {
 		return noArgs()
 	}
