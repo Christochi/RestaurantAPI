@@ -95,7 +95,7 @@ func (c *chef) bulkInsert(query string, db *sql.DB) int64 {
 
 }
 
-// traverse the db rows
+// traverse the table rows
 func (c *chef) iterDBRows(rows *sql.Rows, column chefJson) {
 
 	defer rows.Close()
