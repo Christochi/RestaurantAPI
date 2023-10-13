@@ -21,11 +21,12 @@ var (
 
 // Menu json Object
 type menuJson struct {
-	Type  string `json:"type"` // meal type
-	Meal  string `json:"meal"`
-	Price string `json:"price"`
-	Desc  string `json:"desc"`  // description
-	Image string `json:"image"` // image name
+	Type      string `json:"type"` // meal type
+	Meal      string `json:"meal"`
+	Price     string `json:"price"`
+	Desc      string `json:"desc"`  // description
+	Image     string `json:"image"` // image name
+	Available bool   `json:"available"`
 }
 
 type menu []menuJson // slice type to be used as a receiver for methods
@@ -80,7 +81,7 @@ func (m *menu) bulkInsert(query string, db *sql.DB) int64 {
 	// insert into table
 	for _, column := range *m {
 
-		result, err = utils.Database.Exec(query, column.Type, column.Meal, column.Price, column.Desc, column.Image)
+		result, err = utils.Database.Exec(query, column.Type, column.Meal, column.Price, column.Desc, column.Image, column.Available)
 		if err != nil {
 			log.Fatal("Exec, ", err)
 		}
@@ -104,7 +105,7 @@ func (m *menu) iterDBRows(rows *sql.Rows, column menuJson) {
 
 	defer rows.Close()
 	for rows.Next() {
-		if err := rows.Scan(&column.Type, &column.Meal, &column.Price, &column.Desc, &column.Image); err != nil {
+		if err := rows.Scan(&column.Type, &column.Meal, &column.Price, &column.Desc, &column.Image, &column.Available); err != nil {
 			log.Fatal("Scan error, ", err)
 		}
 
