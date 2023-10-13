@@ -169,7 +169,7 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	var column chefJson // placeholder for column values
 
-	// Retrieve data that matches the substring from the db
+	// Retrieve data from the table that matches the substring
 	rows := utils.SelectRows(utils.SelectChefByNameQuery, utils.Database, name+"%")
 	c.iterDBRows(rows, column)
 
