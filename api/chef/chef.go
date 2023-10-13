@@ -142,7 +142,7 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 
 	var column chefJson // placeholder for column values
 
-	// get the rows from db
+	// get the rows from table
 	rows := utils.SelectRows(utils.SelectAllChefsQuery, utils.Database)
 	c.iterDBRows(rows, column)
 
