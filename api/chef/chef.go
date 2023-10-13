@@ -2,6 +2,7 @@ package chef
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"regexp"
@@ -66,16 +67,31 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 }
 
 // Insert into the chef table unique values (no duplicates)
-func (c *chef) bulkInsert(query string, db *sql.DB) {
+func (c *chef) bulkInsert(query string, db *sql.DB) int64 {
+
+	var row, numOfRows int64 //  db row affected and the total number of rows affected
+	var result sql.Result    // interface for invoking RowsAffected()
+	var err error
 
 	for _, column := range *c {
 
-		_, err := utils.Database.Exec(query, column.Name, column.About, column.Image, column.Gender, column.Age)
+		// insert into table
+		result, err = utils.Database.Exec(query, column.Name, column.About, column.Image, column.Gender, column.Age)
 		if err != nil {
 			log.Fatal("Exec, ", err)
 		}
 
+		// return number of table rows with inserted data
+		row, err = result.RowsAffected()
+		if err != nil {
+			log.Fatal("Result err, ", err)
+		}
+
+		numOfRows += row // increment
+
 	}
+
+	return numOfRows
 
 }
 
@@ -107,8 +123,11 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 	// and reset PK to 1
 	utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
 
-	// Insert into the chef table unique values (no duplicates)
-	c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database)
+	// Insert into the chef table unique values (no duplicates) and store the number of table rows affected
+	numOfRows := c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database)
+
+	message := fmt.Sprintf("%d row(s) in the table were created", numOfRows) // construct server message
+	utils.ServerMessage(rw, message, http.StatusCreated)                     // send server response
 
 }
 
