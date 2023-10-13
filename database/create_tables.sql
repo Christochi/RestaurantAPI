@@ -21,5 +21,6 @@ CREATE TABLE Menu (
    price VARCHAR(50),
    about VARCHAR(255),
    image_name VARCHAR(50),
+   available BOOLEAN, -- true/false
    UNIQUE (meal_name, image_name) -- unique constraint to avoide duplicate data
 );
