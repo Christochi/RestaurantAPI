@@ -54,6 +54,9 @@ func (c *chef) ChefHandler(rw http.ResponseWriter, req *http.Request) {
 	case req.Method == http.MethodPost && allChefsRegex.MatchString(req.URL.Path):
 		c.postChef(rw, req)
 
+	case req.Method == http.MethodPut && chefNameRegex.MatchString(req.URL.Path):
+		c.putChef(rw, req)
+
 	case req.Method == http.MethodDelete && allChefsRegex.MatchString(req.URL.Path):
 		c.deleteChef(rw)
 
@@ -117,7 +120,7 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 	requestLogger.Println("POST chef request at /chef endpoint")
 
 	// read and decode to struct
-	utils.Post(rw, req, c)
+	utils.Create(rw, req, c)
 
 	// Delete all rows from the chef table since it is a POST request
 	// and reset PK to 1
@@ -182,6 +185,26 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 
 	// read and encode to json
 	utils.Get(rw, c)
+
+}
+
+// Update or create a chef
+func (c *chef) putChef(rw http.ResponseWriter, req *http.Request) {
+
+	*c = nil
+
+	// returns slice of substrings that matches subexpressions in the url
+	urlSubPaths := chefNameRegex.FindStringSubmatch(req.URL.Path)
+
+	// since the order of the slice is known, store the second index
+	// example: /chef/<name> = ["/chef/stevejobs", "stevejobs"]
+	name := strings.ToLower(urlSubPaths[1])
+
+	// log for informational purpose
+	requestLogger.Printf("PUT chef request at /chef/%s endpoint", name)
+
+	// read and decode to struct
+	utils.Create(rw, req, c)
 
 }
 

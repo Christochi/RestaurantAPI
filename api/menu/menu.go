@@ -122,7 +122,7 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 	requestLogger.Println("POST menu request at /menu endpoint")
 
 	// read and decode to struct
-	utils.Post(rw, req, m)
+	utils.Create(rw, req, m)
 
 	// Delete all rows from the menu table since it is a POST request
 	// and reset PK to 1
