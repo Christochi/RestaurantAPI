@@ -96,7 +96,7 @@ func TestHandlers(t *testing.T) {
 		defer resp.Body.Close()
 
 		// read and decode Response's body to struct
-		utils.Post(rec, req, jsonData)
+		utils.Create(rec, req, jsonData)
 
 		// test if the object is not nil
 		if !reflect.Indirect(reflect.ValueOf(jsonData)).IsNil() {
