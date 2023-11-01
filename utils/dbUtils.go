@@ -26,10 +26,13 @@ const (
 	SelectAllChefsQuery = `SELECT full_name, about, image_name, gender, age FROM chef;`
 	SelectAllMenuQuery  = `SELECT meal_type, meal_name, price, about, image_name, available FROM menu;`
 
-	SelectChefByNameQuery = `SELECT full_name, about, image_name, gender, age FROM chef WHERE full_name LIKE INITCAP($1);`
-	SelectMealTypeQuery   = `SELECT meal_type, meal_name, price, about, image_name, available FROM menu WHERE meal_type = INITCAP($1);`
-	SelectMealQuery       = `SELECT meal_type, meal_name, price, about, image_name, available FROM menu WHERE LOWER(meal_type) = $1 
+	SelectChefByNameQuery = `SELECT full_name, about, image_name, gender, age FROM chef 
+		WHERE LOWER(REPLACE(full_name, ' ', '')) LIKE $1;`
+	SelectMealTypeQuery = `SELECT meal_type, meal_name, price, about, image_name, available FROM menu WHERE meal_type = INITCAP($1);`
+	SelectMealQuery     = `SELECT meal_type, meal_name, price, about, image_name, available FROM menu WHERE LOWER(meal_type) = $1 
 		AND LOWER(REPLACE(meal_name, ' ', '')) LIKE $2;`
+
+	// UpdateAChef = `UPDATE chef set full_name = $1, about = $2, image_name = $3, gender = $4, age = $5 where image_name = $6;`
 )
 
 // open and read SQL script
