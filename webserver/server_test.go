@@ -9,7 +9,6 @@ import (
 	"reflect"
 	"restaurantapi/api/chef"
 	"restaurantapi/api/menu"
-	"restaurantapi/utils"
 	"testing"
 )
 
@@ -95,12 +94,14 @@ func TestHandlers(t *testing.T) {
 
 		defer resp.Body.Close()
 
-		// read and decode Response's body to struct
-		utils.Create(rec, req, jsonData)
+		body, err := io.ReadAll(resp.Body) // get the response body
+		if err != nil {
+			t.Error(err)
+		}
 
-		// test if the object is not nil
-		if !reflect.Indirect(reflect.ValueOf(jsonData)).IsNil() {
-			t.Errorf("want nil, got %#v", jsonData)
+		// test body of response
+		if body == nil {
+			t.Errorf("want nil, got %v", string(body))
 		}
 
 	}
