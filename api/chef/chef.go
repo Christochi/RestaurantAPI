@@ -122,15 +122,19 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 	// read and decode to struct
 	utils.Create(rw, req, c)
 
-	// Delete all rows from the chef table since it is a POST request
-	// and reset PK to 1
-	utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
+	if utils.Database != nil {
 
-	// Insert into the chef table unique values (no duplicates) and store the number of table rows affected
-	numOfRows := c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database)
+		// Delete all rows from the chef table since it is a POST request
+		// and reset PK to 1
+		utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
 
-	message := fmt.Sprintf("%d row(s) in the table were created", numOfRows) // construct server message
-	utils.ServerMessage(rw, message, http.StatusCreated)                     // send server response
+		// Insert into the chef table unique values (no duplicates) and store the number of table rows affected
+		numOfRows := c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database)
+
+		message := fmt.Sprintf("%d row(s) in the table were created", numOfRows) // construct server message
+		utils.ServerMessage(rw, message, http.StatusCreated)                     // send server response
+
+	}
 
 }
 
