@@ -76,7 +76,7 @@ func TestHandlers(t *testing.T) {
 
 	t.Parallel()
 
-	testHandlers := func(t testing.TB, handlerfunc func(rw http.ResponseWriter, req *http.Request), endpoint string, code int, jsonData any) {
+	testHandlers := func(t testing.TB, handlerfunc func(rw http.ResponseWriter, req *http.Request), endpoint string, code int) {
 
 		// captures everything that is written with the ResponseWriter and returns ResponseRecorder
 		rec := httptest.NewRecorder()
@@ -117,8 +117,8 @@ func TestHandlers(t *testing.T) {
 		statusCode  int
 		jsonData    any
 	}{
-		{handlerName: "ChefHandler", handlerfunc: chef.ChefHandler, endpoint: "/chef", statusCode: http.StatusOK, jsonData: chef},
-		{handlerName: "MenuHandler", handlerfunc: menu.MenuHandler, endpoint: "/menu", statusCode: http.StatusOK, jsonData: menu},
+		{handlerName: "ChefHandler", handlerfunc: chef.ChefHandler, endpoint: "/chef", statusCode: http.StatusOK},
+		{handlerName: "MenuHandler", handlerfunc: menu.MenuHandler, endpoint: "/menu", statusCode: http.StatusOK},
 	}
 
 	for _, testCase := range testCases {
@@ -128,7 +128,7 @@ func TestHandlers(t *testing.T) {
 		// run subtests
 		t.Run(testCase.handlerName, func(t *testing.T) {
 
-			testHandlers(t, testCase.handlerfunc, testCase.endpoint, testCase.statusCode, testCase.jsonData)
+			testHandlers(t, testCase.handlerfunc, testCase.endpoint, testCase.statusCode)
 
 		})
 
