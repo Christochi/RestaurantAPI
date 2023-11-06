@@ -145,14 +145,18 @@ func (m *menu) getMenu(rw http.ResponseWriter) {
 	// log for informational purpose
 	requestLogger.Println("GET menu request at /menu endpoint")
 
-	var column menuJson // placeholder for column values
+	if utils.Database != nil {
 
-	// get the rows from table
-	rows := utils.SelectRows(utils.SelectAllMenuQuery, utils.Database)
-	m.iterDBRows(rows, column)
+		var column menuJson // placeholder for column values
 
-	// read and encode to json
-	utils.Get(rw, m)
+		// get the rows from table
+		rows := utils.SelectRows(utils.SelectAllMenuQuery, utils.Database)
+		m.iterDBRows(rows, column)
+
+		// read and encode to json
+		utils.Get(rw, m)
+
+	}
 
 }
 
