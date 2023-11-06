@@ -153,6 +153,7 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 
 		// read and encode to json
 		utils.Get(rw, c)
+
 	}
 
 }
