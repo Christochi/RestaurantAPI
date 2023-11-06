@@ -34,9 +34,16 @@ func TestPostChef(t *testing.T) {
 			Gender: "M",
 			Age:    35,
 		},
+		{
+			Name:   "John Doe",
+			About:  "John Doe has 20 years experience cooking for famous restaurants in African and the Caribbean",
+			Image:  "johndoe.jpg",
+			Gender: "M",
+			Age:    50,
+		},
 	}
 
-	// encode to json
+	// encode to bytes, buffer of bytes implements io.Writer interface
 	_ = json.NewEncoder(b).Encode(testData)
 
 	// captures everything that is written with the ResponseWriter and returns ResponseRecorder
