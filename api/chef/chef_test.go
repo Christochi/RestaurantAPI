@@ -146,7 +146,7 @@ func TestGetChefByName(t *testing.T) {
 		// run subtests
 		t.Run(endpoint, func(t *testing.T) {
 
-			*chef = nil
+			*chef = nil // empty the object for the next interation
 
 			// append to chef
 			*chef = append(*chef, tt)
@@ -164,6 +164,7 @@ func TestGetChefByName(t *testing.T) {
 
 			cc := c[0]
 
+			// compare
 			if (reflect.DeepEqual(tt, cc)) == false {
 				t.Fail()
 			}
