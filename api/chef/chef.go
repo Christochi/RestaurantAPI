@@ -267,10 +267,12 @@ func (c *chef) deleteChef(rw http.ResponseWriter) {
 	// delete all element by re-initializing to nil
 	*c = nil
 
-	// Delete all rows from the chef table and reset PK to 1
-	utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
+	if utils.Database != nil {
+		// Delete all rows from the chef table and reset PK to 1
+		utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
 
-	utils.ServerMessage(rw, "table row(s) deleted successfully", http.StatusOK) // 200 OK
+		utils.ServerMessage(rw, "table row(s) deleted successfully", http.StatusOK) // 200 OK
+	}
 
 }
 
