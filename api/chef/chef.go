@@ -165,9 +165,6 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 // client requests for specific chef
 func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 
-	// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
-	*c = nil
-
 	// returns slice of substrings that matches subexpressions in the url
 	urlSubPaths := chefNameRegex.FindStringSubmatch(req.URL.Path)
 
@@ -178,17 +175,23 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 	// log for informational purpose
 	requestLogger.Printf("GET chef name request at /chef/%s endpoint", name)
 
-	var column chefJson // placeholder for column values
+	if utils.Database != nil {
 
-	// Retrieve data from the table that matches the substring
-	rows := utils.SelectRows(utils.SelectChefByNameQuery, utils.Database, name+"%")
-	c.iterDBRows(rows, column)
+		// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
+		*c = nil
 
-	if *c == nil {
-		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+		var column chefJson // placeholder for column values
 
-		return // exit function call
+		// Retrieve data from the table that matches the substring
+		rows := utils.SelectRows(utils.SelectChefByNameQuery, utils.Database, name+"%")
+		c.iterDBRows(rows, column)
 
+		if *c == nil {
+			utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+
+			return // exit function call
+
+		}
 	}
 
 	// read and encode to json
