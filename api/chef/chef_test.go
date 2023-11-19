@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-// Test POST Functionality: sends the encoded test data as the request body, decodes it to struct
+// Test POST Functionality: sends the encoded test data as the request body, decodes it to struct for the server
 func TestPostChef(t *testing.T) {
 
 	t.Parallel()
@@ -65,7 +65,7 @@ func TestPostChef(t *testing.T) {
 
 }
 
-// Test GET Functionality
+// Test GET Functionality: encodes test data to bytes and sends it to the client
 func TestGetChef(t *testing.T) {
 
 	t.Parallel()
