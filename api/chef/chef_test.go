@@ -43,7 +43,7 @@ func TestPostChef(t *testing.T) {
 		},
 	}
 
-	// encode to bytes, buffer of bytes implements io.Writer interface
+	// encode to bytes (buffer of bytes implements io.Writer interface)
 	_ = json.NewEncoder(b).Encode(testData)
 
 	// captures everything that is written with the ResponseWriter and returns ResponseRecorder
