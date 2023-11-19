@@ -107,13 +107,14 @@ func TestGetChef(t *testing.T) {
 	var c []chefJson
 	json.NewDecoder(rec.Body).Decode(&c) // decode to struct
 
+	// compare
 	if (reflect.DeepEqual(testData, c)) == false {
 		t.Fail()
 	}
 
 }
 
-// Test GET Functionality: encodes test data to bytes and sends it to the client
+// Test GET Functionality: test request for a specific data
 func TestGetChefByName(t *testing.T) {
 
 	t.Parallel()
@@ -171,6 +172,55 @@ func TestGetChefByName(t *testing.T) {
 
 		})
 
+	}
+
+}
+
+// Test DELETE Functionality: Delete the values in the Chef Object
+func TestDeleteChef(t *testing.T) {
+
+	t.Parallel()
+
+	chef := NewChef() // chef object
+
+	// test data
+	testData := []chefJson{
+		{
+			Name:   "Chocho Okoye",
+			About:  "Assistant Chef",
+			Image:  "chocho.jpg",
+			Gender: "M",
+			Age:    2,
+		},
+		{
+			Name:   "John Abraham",
+			About:  "John Abraham has 7 years experience making delicious meals for 5-star hotels and famous restaurants in North America",
+			Image:  "johnabraham.jpg",
+			Gender: "M",
+			Age:    35,
+		},
+		{
+			Name:   "John Doe",
+			About:  "John Doe has 20 years experience cooking for famous restaurants in African and the Caribbean",
+			Image:  "johndoe.jpg",
+			Gender: "M",
+			Age:    50,
+		},
+	}
+
+	// append to chef
+	*chef = append(*chef, testData...)
+
+	// captures everything that is written with the ResponseWriter and returns ResponseRecorder
+	rec := httptest.NewRecorder()
+
+	// creates a request
+	req := httptest.NewRequest(http.MethodDelete, "/chef", nil)
+
+	chef.ChefHandler(rec, req) // call deleteChef
+
+	if rec.Body.String() != "" {
+		t.Fail()
 	}
 
 }
