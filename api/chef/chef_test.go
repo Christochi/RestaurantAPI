@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"testing"
 )
 
@@ -71,7 +72,6 @@ func TestGetChef(t *testing.T) {
 	t.Parallel()
 
 	chef := NewChef() // chef object
-	//b := new(bytes.Buffer) // zero value of buffer of bytes
 
 	// test data
 	testData := []chefJson{
@@ -91,9 +91,7 @@ func TestGetChef(t *testing.T) {
 		},
 	}
 
-	// encode to bytes (buffer of bytes implements io.Writer interface)
-	//_ = json.NewEncoder(b).Encode(testData)
-
+	// append to chef
 	*chef = append(*chef, testData...)
 
 	// captures everything that is written with the ResponseWriter and returns ResponseRecorder
@@ -102,6 +100,12 @@ func TestGetChef(t *testing.T) {
 	// creates a request
 	req := httptest.NewRequest(http.MethodGet, "/chef", nil)
 
-	chef.ChefHandler(rec, req) // call postChef
+	chef.ChefHandler(rec, req) // call getChef
 
+	var a []chefJson
+	json.NewDecoder(rec.Body).Decode(&a) // decode to struct
+
+	if (reflect.DeepEqual(testData, a)) == false {
+		t.Fail()
+	}
 }
