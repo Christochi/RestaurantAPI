@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-// Test POST Functionality
+// Test POST Functionality: sends the encoded test data as the request body, decodes it to struct
 func TestPostChef(t *testing.T) {
 
 	t.Parallel()
@@ -62,5 +62,46 @@ func TestPostChef(t *testing.T) {
 			}
 		}
 	}
+
+}
+
+// Test GET Functionality
+func TestGetChef(t *testing.T) {
+
+	t.Parallel()
+
+	chef := NewChef() // chef object
+	//b := new(bytes.Buffer) // zero value of buffer of bytes
+
+	// test data
+	testData := []chefJson{
+		{
+			Name:   "Jonathan Gate",
+			About:  "Chef Apprentice",
+			Image:  "jona.jpg",
+			Gender: "M",
+			Age:    2,
+		},
+		{
+			Name:   "Rebekah Ezeh",
+			About:  "Chef General",
+			Image:  "rebeka.jpg",
+			Gender: "F",
+			Age:    35,
+		},
+	}
+
+	// encode to bytes (buffer of bytes implements io.Writer interface)
+	//_ = json.NewEncoder(b).Encode(testData)
+
+	*chef = append(*chef, testData...)
+
+	// captures everything that is written with the ResponseWriter and returns ResponseRecorder
+	rec := httptest.NewRecorder()
+
+	// creates a request
+	req := httptest.NewRequest(http.MethodGet, "/chef", nil)
+
+	chef.ChefHandler(rec, req) // call postChef
 
 }
