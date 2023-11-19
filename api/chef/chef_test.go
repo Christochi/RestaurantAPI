@@ -51,11 +51,12 @@ func TestPostChef(t *testing.T) {
 	// captures everything that is written with the ResponseWriter and returns ResponseRecorder
 	rec := httptest.NewRecorder()
 
-	// creates a request
+	// creates a request (buffer of bytes implements io.Reader interface)
 	req := httptest.NewRequest(http.MethodPost, "/chef", b)
 
 	chef.ChefHandler(rec, req) // call postChef
 
+	// compares chef value and testData
 	for i, c := range *chef {
 		for k, data := range testData {
 
