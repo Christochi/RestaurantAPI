@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -102,10 +103,72 @@ func TestGetChef(t *testing.T) {
 
 	chef.ChefHandler(rec, req) // call getChef
 
-	var a []chefJson
-	json.NewDecoder(rec.Body).Decode(&a) // decode to struct
+	var c []chefJson
+	json.NewDecoder(rec.Body).Decode(&c) // decode to struct
 
-	if (reflect.DeepEqual(testData, a)) == false {
+	if (reflect.DeepEqual(testData, c)) == false {
 		t.Fail()
 	}
+
+}
+
+// Test GET Functionality: encodes test data to bytes and sends it to the client
+func TestGetChefByName(t *testing.T) {
+
+	t.Parallel()
+
+	chef := NewChef() // chef object
+
+	// test data
+	testData := []chefJson{
+		{
+			Name:   "Jonathan Gate",
+			About:  "Chef Apprentice",
+			Image:  "jona.jpg",
+			Gender: "M",
+			Age:    2,
+		},
+		{
+			Name:   "Rebekah Ezeh",
+			About:  "Chef General",
+			Image:  "rebeka.jpg",
+			Gender: "F",
+			Age:    35,
+		},
+	}
+
+	for _, tt := range testData {
+
+		// remove white space
+		endpoint := "/chef/" + strings.Replace(tt.Name, " ", "", -1)
+
+		// run subtests
+		t.Run(endpoint, func(t *testing.T) {
+
+			*chef = nil
+
+			// append to chef
+			*chef = append(*chef, tt)
+
+			// captures everything that is written with the ResponseWriter and returns ResponseRecorder
+			rec := httptest.NewRecorder()
+
+			// creates a request
+			req := httptest.NewRequest(http.MethodGet, endpoint, nil)
+
+			chef.ChefHandler(rec, req) // call getChefByName
+
+			var c []chefJson
+			json.NewDecoder(rec.Body).Decode(&c) // decode to struct
+
+			cc := c[0]
+
+			if (reflect.DeepEqual(tt, cc)) == false {
+				t.Fail()
+			}
+
+		})
+
+	}
+
 }
