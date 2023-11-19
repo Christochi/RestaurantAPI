@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-// Test data is decoded to struct
+// Test POST Functionality
 func TestPostChef(t *testing.T) {
 
 	t.Parallel()
