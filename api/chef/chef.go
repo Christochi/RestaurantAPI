@@ -141,13 +141,13 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 // client requests for chef data using GET Method
 func (c *chef) getChefs(rw http.ResponseWriter) {
 
-	// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
-	*c = nil
-
 	// log for informational purpose
 	requestLogger.Println("GET chef request at /chef endpoint")
 
 	if utils.Database != nil {
+
+		// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
+		*c = nil
 
 		var column chefJson // placeholder for column values
 
@@ -155,10 +155,10 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 		rows := utils.SelectRows(utils.SelectAllChefsQuery, utils.Database)
 		c.iterDBRows(rows, column)
 
-		// read and encode to json
-		utils.Get(rw, c)
-
 	}
+
+	// read and encode to json
+	utils.Get(rw, c)
 
 }
 
