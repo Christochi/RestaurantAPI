@@ -94,7 +94,7 @@ func TestHandlers(t *testing.T) {
 
 		defer resp.Body.Close()
 
-		body, err := io.ReadAll(resp.Body) // get the response body
+		body, err := io.ReadAll(resp.Body) // get the response's body
 		if err != nil {
 			t.Error(err)
 		}
