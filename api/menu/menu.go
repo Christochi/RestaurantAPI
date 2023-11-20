@@ -124,15 +124,17 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 	// read and decode to struct
 	utils.Create(rw, req, m)
 
-	// Delete all rows from the menu table since it is a POST request
-	// and reset PK to 1
-	utils.ExecuteQueries(utils.DeleteMenuRowsQuery, utils.Database)
+	if utils.Database != nil {
+		// Delete all rows from the menu table since it is a POST request
+		// and reset PK to 1
+		utils.ExecuteQueries(utils.DeleteMenuRowsQuery, utils.Database)
 
-	// Insert into the menu table unique values (no duplicates) and store the number of table rows affected
-	numOfRows := m.bulkInsert(utils.MenuBulkInsertQuery, utils.Database)
+		// Insert into the menu table unique values (no duplicates) and store the number of table rows affected
+		numOfRows := m.bulkInsert(utils.MenuBulkInsertQuery, utils.Database)
 
-	message := fmt.Sprintf("%d row(s) in the table were created", numOfRows) // construct server message
-	utils.ServerMessage(rw, message, http.StatusCreated)                     // send server response
+		message := fmt.Sprintf("%d row(s) in the table were created", numOfRows) // construct server message
+		utils.ServerMessage(rw, message, http.StatusCreated)                     // send server response
+	}
 
 }
 
