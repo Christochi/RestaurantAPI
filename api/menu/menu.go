@@ -141,13 +141,13 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 // client requests for menu data using GET Method
 func (m *menu) getMenu(rw http.ResponseWriter) {
 
-	// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
-	*m = nil
-
 	// log for informational purpose
 	requestLogger.Println("GET menu request at /menu endpoint")
 
 	if utils.Database != nil {
+
+		// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
+		*m = nil
 
 		var column menuJson // placeholder for column values
 
@@ -155,10 +155,10 @@ func (m *menu) getMenu(rw http.ResponseWriter) {
 		rows := utils.SelectRows(utils.SelectAllMenuQuery, utils.Database)
 		m.iterDBRows(rows, column)
 
-		// read and encode to json
-		utils.Get(rw, m)
-
 	}
+
+	// read and encode to json
+	utils.Get(rw, m)
 
 }
 
