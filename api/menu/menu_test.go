@@ -113,3 +113,47 @@ func TestGetMenu(t *testing.T) {
 	}
 
 }
+
+func TestDeleteMenu(t *testing.T) {
+
+	t.Parallel()
+
+	menu := NewMenu() // chef object
+
+	// test data
+	testData := []menuJson{
+		{
+			Type:      "Breakfast",
+			Meal:      "Boli",
+			Price:     "$15",
+			Desc:      "Roasted Banana served with eggs and vegetables",
+			Image:     "boli",
+			Available: true,
+		},
+
+		{
+			Type:      "Dinner",
+			Meal:      "Peperoni Pizza",
+			Price:     "$20",
+			Desc:      "Small sized peperoni pizza",
+			Image:     "peperoni-pizza",
+			Available: true,
+		},
+	}
+
+	// append to menu
+	*menu = append(*menu, testData...)
+
+	// captures everything that is written with the ResponseWriter and returns ResponseRecorder
+	rec := httptest.NewRecorder()
+
+	// creates a request
+	req := httptest.NewRequest(http.MethodDelete, "/menu", nil)
+
+	menu.MenuHandler(rec, req) // call deleteMenu
+
+	if rec.Body.String() != "" {
+		t.Fail()
+	}
+
+}
