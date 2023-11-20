@@ -289,22 +289,24 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 	// log for informational purpose
 	requestLogger.Printf("DELETE chef name request at /chef/%s endpoint", name)
 
-	// Delete a row from the chef table
-	result, err := utils.Database.Exec(utils.DeleteAChefQuery, name)
-	if err != nil {
-		log.Fatal("Exec err, ", err)
-	}
+	if utils.Database != nil {
+		// Delete a row from the chef table
+		result, err := utils.Database.Exec(utils.DeleteAChefQuery, name)
+		if err != nil {
+			log.Fatal("Exec err, ", err)
+		}
 
-	// return number of rows deleted
-	numOfRoles, err := result.RowsAffected()
-	if err != nil {
-		log.Fatal("Result err, ", err)
-	}
+		// return number of rows deleted
+		numOfRoles, err := result.RowsAffected()
+		if err != nil {
+			log.Fatal("Result err, ", err)
+		}
 
-	if numOfRoles > 0 {
-		utils.ServerMessage(rw, "table row(s) deleted successfully", http.StatusOK) // 200 OK
-	} else {
-		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+		if numOfRoles > 0 {
+			utils.ServerMessage(rw, "table row(s) deleted successfully", http.StatusOK) // 200 OK
+		} else {
+			utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+		}
 	}
 
 }
