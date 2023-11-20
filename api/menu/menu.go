@@ -266,22 +266,25 @@ func (m *menu) deleteMeal(rw http.ResponseWriter, req *http.Request) {
 	// log for informational purpose
 	requestLogger.Printf("DELETE meal request at /menu/%s/%s endpoint", mealTypeName, meal)
 
-	// Delete a row from the menu table
-	result, err := utils.Database.Exec(utils.DeleteAMealQuery, mealTypeName, "%"+meal+"%")
-	if err != nil {
-		log.Fatal("Exec err, ", err)
-	}
+	if utils.Database != nil {
+		// Delete a row from the menu table
+		result, err := utils.Database.Exec(utils.DeleteAMealQuery, mealTypeName, "%"+meal+"%")
+		if err != nil {
+			log.Fatal("Exec err, ", err)
+		}
 
-	// return number of rows deleted
-	numOfRoles, err := result.RowsAffected()
-	if err != nil {
-		log.Fatal("Result err, ", err)
-	}
+		// return number of rows deleted
+		numOfRoles, err := result.RowsAffected()
+		if err != nil {
+			log.Fatal("Result err, ", err)
+		}
 
-	if numOfRoles > 0 {
-		utils.ServerMessage(rw, "table row deleted successfully", http.StatusOK) // 200 OK
-	} else {
-		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+		if numOfRoles > 0 {
+			utils.ServerMessage(rw, "table row deleted successfully", http.StatusOK) // 200 OK
+		} else {
+			utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+		}
+
 	}
 
 }
