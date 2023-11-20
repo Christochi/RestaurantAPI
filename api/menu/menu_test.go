@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"testing"
 )
 
@@ -63,4 +64,52 @@ func TestPostMenu(t *testing.T) {
 			}
 		}
 	}
+}
+
+func TestGetMenu(t *testing.T) {
+
+	t.Parallel()
+
+	menu := NewMenu() // chef object
+
+	// test data
+	testData := []menuJson{
+		{
+			Type:      "Drinks",
+			Meal:      "Coconut Smoothie",
+			Price:     "$7",
+			Desc:      "Coconut mixed yogurt drink",
+			Image:     "coconut-smoothie",
+			Available: true,
+		},
+
+		{
+			Type:      "Breakfast",
+			Meal:      "French Toast with Steak",
+			Price:     "$15",
+			Desc:      "Toasted wheat bread with deep fried steak",
+			Image:     "french-toast-with-steak",
+			Available: true,
+		},
+	}
+
+	// append to menu
+	*menu = append(*menu, testData...)
+
+	// captures everything that is written with the ResponseWriter and returns ResponseRecorder
+	rec := httptest.NewRecorder()
+
+	// creates a request
+	req := httptest.NewRequest(http.MethodGet, "/menu", nil)
+
+	menu.MenuHandler(rec, req) // call getMenu
+
+	var m []menuJson
+	json.NewDecoder(rec.Body).Decode(&m) // decode to struct
+
+	// compare
+	if (reflect.DeepEqual(testData, m)) == false {
+		t.Fail()
+	}
+
 }
