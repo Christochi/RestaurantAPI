@@ -243,10 +243,12 @@ func (m *menu) deleteMenu(rw http.ResponseWriter) {
 	// delete all element by re-initializing to nil
 	*m = nil
 
-	// Delete all rows from the menu table and reset PK to 1
-	utils.ExecuteQueries(utils.DeleteMenuRowsQuery, utils.Database)
+	if utils.Database != nil {
+		// Delete all rows from the menu table and reset PK to 1
+		utils.ExecuteQueries(utils.DeleteMenuRowsQuery, utils.Database)
 
-	utils.ServerMessage(rw, "table row(s) deleted successfully", http.StatusOK) // 200 OK
+		utils.ServerMessage(rw, "table row(s) deleted successfully", http.StatusOK) // 200 OK
+	}
 
 }
 
