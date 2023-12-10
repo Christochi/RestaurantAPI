@@ -7,6 +7,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/Christochi/error-handler/service"
 )
 
 // Logger Struct
@@ -25,13 +27,15 @@ func InfoLog() *log.Logger {
 
 // logic for HTTP POST Method
 // any is an interface for any type
-func Create(rw http.ResponseWriter, req *http.Request, a any) {
+func Create(rw http.ResponseWriter, req *http.Request, a any) error {
 
 	// read response body and decode json to struct
 	err := json.NewDecoder(req.Body).Decode(&a)
 	if err != nil {
-		http.Error(rw, "error decoding into struct", http.StatusUnprocessableEntity) // 422 Unprocessable Entity
+		return service.NewError(err, http.StatusUnprocessableEntity)
 	}
+
+	return nil
 
 }
 
