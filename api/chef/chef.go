@@ -207,8 +207,6 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 // Update or Create a chef and store in table
 func (c *chef) putChef(rw http.ResponseWriter, req *http.Request) {
 
-	*c = nil
-
 	// returns slice of substrings that matches subexpressions in the url
 	urlSubPaths := chefNameRegex.FindStringSubmatch(req.URL.Path)
 
@@ -219,47 +217,57 @@ func (c *chef) putChef(rw http.ResponseWriter, req *http.Request) {
 	// log for informational purpose
 	requestLogger.Printf("PUT chef request at /chef/%s endpoint", name)
 
-	var column chefJson // placeholder for column values
+	// if utils.Database != nil {
 
-	// fetch the value of image_name column since it is unique
-	query := `SELECT full_name, about, image_name, gender, age from chef where LOWER(REPLACE(full_name, ' ', '')) = $1;`
-	rows := utils.SelectRows(query, utils.Database, name)
-	c.iterDBRows(rows, column)
+	// 	*c = nil
 
-	// store image name
-	var imageName string
-	for _, col := range *c {
-		imageName = col.Image
-	}
+	// 	var column chefJson // placeholder for column values
 
-	// read and decode to struct
-	utils.Create(rw, req, c)
+	// 	// fetch the value of image_name column since it is unique
+	// 	query := `SELECT full_name, about, image_name, gender, age from chef where LOWER(REPLACE(full_name, ' ', '')) = $1;`
+	// 	rows := utils.SelectRows(query, utils.Database, name)
+	// 	c.iterDBRows(rows, column)
 
-	// Update row if it exist, else Create new row
-	var numOfRows int64   //  db row affected
-	var result sql.Result // interface for invoking RowsAffected()
-	var err error
+	// 	// store image name
+	// 	var imageName string
+	// 	for _, col := range *c {
+	// 		imageName = col.Image
+	// 	}
 
-	for _, column := range *c {
+	// 	// read and decode to struct
+	// 	apiErr := utils.Create(rw, req, c)
+	// 	if apiErr != nil {
+	// 		errs.RestError(rw, apiErr)
+	// 		return // exit method to avoid superflous call to response.WriteHeader
+	// 	}
 
-		// insert into table
-		result, err = utils.Database.Exec(utils.UpdateAChef, imageName, column.Name, column.About, column.Image, column.Gender, column.Age)
-		if err != nil {
-			log.Fatal("Exec, ", err)
-		}
+	// 	// Update row if it exist, else Create new row
+	// 	var numOfRows int64   //  db row affected
+	// 	var result sql.Result // interface for invoking RowsAffected()
+	// 	var err error
 
-		// return number of table rows with inserted data
-		numOfRows, err = result.RowsAffected()
-		if err != nil {
-			log.Fatal("Result err, ", err)
-		}
+	// 	for _, column := range *c {
 
-	}
-	// Insert into the chef table unique values (no duplicates) and store the number of table rows affected
-	// numOfRows := c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database)
+	// 		// insert into table
+	// 		result, err = utils.Database.Exec(utils.UpdateAChef, imageName, column.Name, column.About, column.Image, column.Gender, column.Age)
+	// 		if err != nil {
+	// 			log.Fatal("Exec, ", err)
+	// 		}
 
-	message := fmt.Sprintf("%d row(s) in the table have been updated or created", numOfRows) // construct server message
-	utils.ServerMessage(rw, message, http.StatusCreated)                                     // send server response
+	// 		// return number of table rows with inserted data
+	// 		numOfRows, err = result.RowsAffected()
+	// 		if err != nil {
+	// 			log.Fatal("Result err, ", err)
+	// 		}
+
+	// 	}
+	// 	// Insert into the chef table unique values (no duplicates) and store the number of table rows affected
+	// 	// numOfRows := c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database)
+
+	// 	message := fmt.Sprintf("%d row(s) in the table have been updated or created", numOfRows) // construct server message
+	// 	utils.ServerMessage(rw, message, http.StatusCreated)                                     // send server response}
+
+	// }
 
 }
 
