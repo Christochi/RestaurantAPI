@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	errs "restaurantapi/errors"
 	"restaurantapi/utils"
 	"strings"
 )
@@ -120,7 +121,11 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 	requestLogger.Println("POST chef request at /chef endpoint")
 
 	// read and decode to struct
-	utils.Create(rw, req, c)
+	err := utils.Create(rw, req, c)
+	if err != nil {
+		errs.RestError(rw, err)
+		return // exit method to avoid superflous call to response.WriteHeader
+	}
 
 	if utils.Database != nil {
 
