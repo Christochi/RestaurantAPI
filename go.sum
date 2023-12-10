@@ -1,3 +1,5 @@
+github.com/Christochi/error-handler v0.0.0-20231206170541-8ed406d513d2 h1:sRzuV+BXpMsIVWbXpkHA8+3JIo7rPXJNmu//u2ulOy8=
+github.com/Christochi/error-handler v0.0.0-20231206170541-8ed406d513d2/go.mod h1:AEkPY+AF+CqHoskMS0U1oaHAbR/eFcMJnJp1Ok0wnRQ=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/jackc/pgpassfile v1.0.0 h1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=
