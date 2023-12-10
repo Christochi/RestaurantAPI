@@ -40,15 +40,15 @@ func Create(rw http.ResponseWriter, req *http.Request, a any) error {
 }
 
 // logic for HTTP GET Method
-func Get(rw http.ResponseWriter, a any) {
+func Get(rw http.ResponseWriter, a any) error {
 
 	// encode to json and rw sends the json
 	err := json.NewEncoder(rw).Encode(&a)
-
-	// error handling
 	if err != nil {
-		http.Error(rw, "error encoding into json", http.StatusUnprocessableEntity) // 422 Unprocessable Entity
+		return service.NewError(err, http.StatusUnprocessableEntity)
 	}
+
+	return nil
 
 }
 
