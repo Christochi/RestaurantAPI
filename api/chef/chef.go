@@ -163,7 +163,10 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 	}
 
 	// read and encode to json
-	utils.Get(rw, c)
+	err := utils.Get(rw, c)
+	if err != nil {
+		errs.RestError(rw, err)
+	}
 
 }
 
@@ -200,7 +203,10 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	// read and encode to json
-	utils.Get(rw, c)
+	err := utils.Get(rw, c)
+	if err != nil {
+		errs.RestError(rw, err)
+	}
 
 }
 
