@@ -3,6 +3,7 @@ module restaurantapi
 go 1.20
 
 require (
+	github.com/Christochi/error-handler v0.0.0-20231206170541-8ed406d513d2
 	github.com/jackc/pgx/v5 v5.4.3
 	github.com/joho/godotenv v1.5.1
 )
