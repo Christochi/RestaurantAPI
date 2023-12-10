@@ -16,6 +16,7 @@ type apiError struct {
 	status int
 }
 
+// Custom API Error
 func RestError(rw http.ResponseWriter, err error) {
 	var apierr apiError
 	var svcErr *service.ServiceError
