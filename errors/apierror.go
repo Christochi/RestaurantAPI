@@ -17,11 +17,11 @@ type apiError struct {
 }
 
 // Custom API Error
-func RestError(rw http.ResponseWriter, err error) {
+func RestError(rw http.ResponseWriter, errs error) {
 	var apierr apiError
 	var svcErr *service.ServiceError
 
-	if errors.As(err, &svcErr) {
+	if errors.As(errs, &svcErr) {
 		apierr.err = svcErr.AppError().Error()
 		var atoiErr error
 		apierr.status, atoiErr = strconv.Atoi(svcErr.ErrDesc())
