@@ -3,14 +3,14 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	"net/url"
 	"os"
 
+	"github.com/Christochi/error-handler/service"
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
-func Conn() *sql.DB {
+func Conn() (*sql.DB, error) {
 
 	// returns hostname and port as a string
 	host := fmt.Sprintf("%s:%s", os.Getenv("HOST"), os.Getenv("PORT"))
@@ -32,9 +32,9 @@ func Conn() *sql.DB {
 	// create db connection
 	db, err := sql.Open("pgx", dsn.String())
 	if err != nil {
-		log.Fatal(err)
+		err = service.NewError(err, "can't connect to database")
 	}
 
-	return db
+	return db, err
 
 }
