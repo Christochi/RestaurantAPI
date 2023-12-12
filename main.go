@@ -26,6 +26,7 @@ func main() {
 func dbConn() {
 
 	var err error
+	errorLogger := utils.InfoLog()
 
 	// load environment variables
 	if err := godotenv.Load(".env"); err != nil {
@@ -40,11 +41,11 @@ func dbConn() {
 		log.Fatal(errs.DatabaseError(err))
 	}
 
-	// query, err := utils.ReadSQLScript("database/create_tables.sql") // read sql script
-	// if err != nil {
-	// 	errs.DatabaseError(err)
-	// }
+	query, err := utils.ReadSQLScript("database/create_tables.sql") // read sql script
+	if err != nil {
+		errorLogger.Println(errs.DatabaseError(err))
+	}
 
-	// utils.ExecuteQueries(string(query), utils.Database) // execute SQL queries
+	utils.ExecuteQueries(string(query), utils.Database) // execute SQL queries
 
 }
