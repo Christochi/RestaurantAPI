@@ -9,7 +9,7 @@ import (
 	"github.com/Christochi/error-handler/service"
 )
 
-var requestLogger = utils.InfoLog() // return info field
+var errorLogger = utils.InfoLog() // return info field
 
 type apiError struct {
 	err    string
@@ -26,7 +26,7 @@ func RestError(rw http.ResponseWriter, errs error) {
 		var atoiErr error
 		apierr.status, atoiErr = strconv.Atoi(svcErr.ErrDesc())
 		if atoiErr != nil {
-			requestLogger.Println(atoiErr)
+			errorLogger.Println(atoiErr)
 		}
 	}
 
