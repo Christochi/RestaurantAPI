@@ -20,7 +20,7 @@ type requestLogger struct {
 func InfoLog() *log.Logger {
 
 	// instantiate logger object
-	requestLogger := requestLogger{info: log.New(os.Stdout, "REQUEST INFO: ", log.Ltime)}
+	requestLogger := requestLogger{info: log.New(os.Stdout, "LOG INFO: ", log.Ltime)}
 	return requestLogger.info
 
 }
