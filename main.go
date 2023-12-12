@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"restaurantapi/database"
+	errs "restaurantapi/errors"
 	"restaurantapi/utils"
 	"restaurantapi/webserver"
 
@@ -24,13 +25,26 @@ func main() {
 
 func dbConn() {
 
+	var err error
+
 	// load environment variables
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("Error loading .env file, ", err)
 	}
 
-	utils.Database = database.Conn()                           // confirm db uri and return the database
-	query := utils.ReadSQLScript("database/create_tables.sql") // read sql script
-	utils.ExecuteQueries(string(query), utils.Database)        // execute SQL queries
+	// confirm db uri and return the database
+	utils.Database, err = database.Conn()
+
+	// validate if a db driver was supplied
+	if err != nil {
+		log.Fatal(errs.DatabaseError(err))
+	}
+
+	// query, err := utils.ReadSQLScript("database/create_tables.sql") // read sql script
+	// if err != nil {
+	// 	errs.DatabaseError(err)
+	// }
+
+	// utils.ExecuteQueries(string(query), utils.Database) // execute SQL queries
 
 }
