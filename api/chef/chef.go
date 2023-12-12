@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-var requestLogger = utils.InfoLog() // return info field
+var logger = utils.InfoLog() // return info field
 
 // pathnames for subroot in url endpoint
 var (
@@ -118,7 +118,7 @@ func (c *chef) iterDBRows(rows *sql.Rows, column chefJson) {
 func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 
 	// log for informational purpose
-	requestLogger.Println("POST chef request at /chef endpoint")
+	logger.Println("POST chef request at /chef endpoint")
 
 	// read and decode to struct
 	err := utils.Create(rw, req, c)
@@ -131,7 +131,10 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 
 		// Delete all rows from the chef table since it is a POST request
 		// and reset PK to 1
-		utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
+		err := utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
+		if err != nil {
+			logger.Println(errs.DatabaseError(err))
+		}
 
 		// Insert into the chef table unique values (no duplicates) and store the number of table rows affected
 		numOfRows := c.bulkInsert(utils.ChefBulkInsertQuery, utils.Database)
@@ -147,7 +150,7 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 func (c *chef) getChefs(rw http.ResponseWriter) {
 
 	// log for informational purpose
-	requestLogger.Println("GET chef request at /chef endpoint")
+	logger.Println("GET chef request at /chef endpoint")
 
 	if utils.Database != nil {
 
@@ -181,7 +184,7 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 	name := strings.ToLower(urlSubPaths[1])
 
 	// log for informational purpose
-	requestLogger.Printf("GET chef name request at /chef/%s endpoint", name)
+	logger.Printf("GET chef name request at /chef/%s endpoint", name)
 
 	if utils.Database != nil {
 
@@ -221,7 +224,7 @@ func (c *chef) putChef(rw http.ResponseWriter, req *http.Request) {
 	name := strings.ToLower(urlSubPaths[1])
 
 	// log for informational purpose
-	requestLogger.Printf("PUT chef request at /chef/%s endpoint", name)
+	logger.Printf("PUT chef request at /chef/%s endpoint", name)
 
 	// if utils.Database != nil {
 
@@ -281,14 +284,17 @@ func (c *chef) putChef(rw http.ResponseWriter, req *http.Request) {
 func (c *chef) deleteChef(rw http.ResponseWriter) {
 
 	// log for informational purpose
-	requestLogger.Println("DELETE chef request at /chef endpoint")
+	logger.Println("DELETE chef request at /chef endpoint")
 
 	// delete all element by re-initializing to nil
 	*c = nil
 
 	if utils.Database != nil {
 		// Delete all rows from the chef table and reset PK to 1
-		utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
+		err := utils.ExecuteQueries(utils.DeleteChefRowsQuery, utils.Database)
+		if err != nil {
+			logger.Println(errs.DatabaseError(err))
+		}
 
 		utils.ServerMessage(rw, "table row(s) deleted successfully", http.StatusOK) // 200 OK
 	}
@@ -306,7 +312,7 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 	name := strings.ToLower(urlSubPaths[1])
 
 	// log for informational purpose
-	requestLogger.Printf("DELETE chef name request at /chef/%s endpoint", name)
+	logger.Printf("DELETE chef name request at /chef/%s endpoint", name)
 
 	if utils.Database != nil {
 		// Delete a row from the chef table
