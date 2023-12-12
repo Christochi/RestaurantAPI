@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"log"
 	"os"
+
+	"github.com/Christochi/error-handler/service"
 )
 
 var Database *sql.DB // place holder for the database
@@ -32,18 +34,30 @@ const (
 	SelectMealQuery     = `SELECT meal_type, meal_name, price, about, image_name, available FROM menu WHERE LOWER(meal_type) = $1 
 		AND LOWER(REPLACE(meal_name, ' ', '')) LIKE $2;`
 
-	// UpdateAChef = `UPDATE chef set full_name = $1, about = $2, image_name = $3, gender = $4, age = $5 where image_name = $6;`
+	UpdateAChef = `DO $$
+		 BEGIN
+			IF EXISTS (SELECT FROM chef where image_name = $1) THEN
+			UPDATE chef SET full_name = $2, about = $3, image_name = $4, gender = $5, age = $6 WHERE image_name = $1;
+			ELSE
+			INSERT INTO chef (full_name, about, image_name, gender, age) VALUES ($2, $3, $4, $5, $6);
+			END IF;
+		 END $$`
+	// // UpdateAChef = `UPDATE chef CASE WHEN IF EXISTS (SELECT FROM chef where image_name = $1)
+	// // 	THEN SET full_name = $2, about = $3, image_name = $4, gender = $5, age = $6 WHERE image_name = $1
+	// // 	ELSE INSERT INTO chef (full_name, about, image_name, gender, age) VALUES ($2, $3, $4, $5, $6) END;`
+	// // UpdateAChef = `UPDATE chef SET full_name = $2, about = $3, image_name = $4, gender = $5, age = $6
+	// // 	WHERE EXISTS (SELECT FROM chef where image_name = $1)`
 )
 
 // open and read SQL script
-func ReadSQLScript(filename string) []byte {
+func ReadSQLScript(filename string) ([]byte, error) {
 
 	contents, err := os.ReadFile(filename)
 	if err != nil {
-		log.Fatal("ReadFile error, ", err)
+		err = service.NewError(err, "can't read file")
 	}
 
-	return contents
+	return contents, err
 
 }
 
