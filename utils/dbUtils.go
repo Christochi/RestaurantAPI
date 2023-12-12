@@ -62,13 +62,14 @@ func ReadSQLScript(filename string) ([]byte, error) {
 }
 
 // execute SQL queries - CREATE, INSERT, UPDATE & DELETE
-func ExecuteQueries(query string, db *sql.DB) {
+func ExecuteQueries(query string, db *sql.DB) error {
 
 	_, err := db.Exec(query)
 	if err != nil {
-		log.Fatal("Exec Queries, ", err)
+		return service.NewError(err, "error in sql query")
 	}
 
+	return nil
 }
 
 // Return table rows
