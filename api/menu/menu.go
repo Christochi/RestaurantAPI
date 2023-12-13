@@ -6,11 +6,12 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	errs "restaurantapi/errors"
 	"restaurantapi/utils"
 	"strings"
 )
 
-var requestLogger = utils.InfoLog() // return info field
+var logger = utils.InfoLog() // return info field
 
 // pathnames for subroot in url endpoint
 var (
@@ -119,7 +120,7 @@ func (m *menu) iterDBRows(rows *sql.Rows, column menuJson) {
 func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 
 	// log for informational purpose
-	requestLogger.Println("POST menu request at /menu endpoint")
+	logger.Println("POST menu request at /menu endpoint")
 
 	// read and decode to struct
 	utils.Create(rw, req, m)
@@ -127,7 +128,10 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 	if utils.Database != nil {
 		// Delete all rows from the menu table since it is a POST request
 		// and reset PK to 1
-		utils.ExecuteQueries(utils.DeleteMenuRowsQuery, utils.Database)
+		err := utils.ExecuteQueries(utils.DeleteMenuRowsQuery, utils.Database)
+		if err != nil {
+			logger.Println(errs.DatabaseError(err))
+		}
 
 		// Insert into the menu table unique values (no duplicates) and store the number of table rows affected
 		numOfRows := m.bulkInsert(utils.MenuBulkInsertQuery, utils.Database)
@@ -142,7 +146,7 @@ func (m *menu) postMenu(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) getMenu(rw http.ResponseWriter) {
 
 	// log for informational purpose
-	requestLogger.Println("GET menu request at /menu endpoint")
+	logger.Println("GET menu request at /menu endpoint")
 
 	if utils.Database != nil {
 
@@ -176,7 +180,7 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 	mealTypeName := strings.ToLower(urlSubPaths[1])
 
 	// log for informational purpose
-	requestLogger.Printf("GET meal type request at /menu/%s endpoint", mealTypeName)
+	logger.Printf("GET meal type request at /menu/%s endpoint", mealTypeName)
 
 	var column menuJson // placeholder for column values
 
@@ -210,7 +214,7 @@ func (m *menu) getMeal(rw http.ResponseWriter, req *http.Request) {
 	mealName := strings.ToLower(urlSubPaths[2])
 
 	// log for informational purpose
-	requestLogger.Printf("GET meal request at /menu/%s/%s endpoint", mealTypeName, mealName)
+	logger.Printf("GET meal request at /menu/%s/%s endpoint", mealTypeName, mealName)
 
 	// var meal []menuJson // new slice to hold the filtered data
 	var column menuJson // placeholder for column values
@@ -238,14 +242,17 @@ func (m *menu) getMeal(rw http.ResponseWriter, req *http.Request) {
 func (m *menu) deleteMenu(rw http.ResponseWriter) {
 
 	// log for informational purpose
-	requestLogger.Println("DELETE menu request at /menu endpoint")
+	logger.Println("DELETE menu request at /menu endpoint")
 
 	// delete all element by re-initializing to nil
 	*m = nil
 
 	if utils.Database != nil {
 		// Delete all rows from the menu table and reset PK to 1
-		utils.ExecuteQueries(utils.DeleteMenuRowsQuery, utils.Database)
+		err := utils.ExecuteQueries(utils.DeleteMenuRowsQuery, utils.Database)
+		if err != nil {
+			logger.Println(errs.DatabaseError(err))
+		}
 
 		utils.ServerMessage(rw, "table row(s) deleted successfully", http.StatusOK) // 200 OK
 	}
@@ -264,7 +271,7 @@ func (m *menu) deleteMeal(rw http.ResponseWriter, req *http.Request) {
 	meal := strings.ToLower(urlSubPaths[2])
 
 	// log for informational purpose
-	requestLogger.Printf("DELETE meal request at /menu/%s/%s endpoint", mealTypeName, meal)
+	logger.Printf("DELETE meal request at /menu/%s/%s endpoint", mealTypeName, meal)
 
 	if utils.Database != nil {
 		// Delete a row from the menu table
