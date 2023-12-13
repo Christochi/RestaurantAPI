@@ -2,6 +2,7 @@ package errors
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"restaurantapi/utils"
 	"strconv"
@@ -16,8 +17,12 @@ type apiError struct {
 	status int
 }
 
+func (a *apiError) Error() string {
+	return fmt.Sprintf("Error in JSON: %v -- %v", a.err, http.StatusText(a.status))
+}
+
 // Custom API Error
-func RestError(rw http.ResponseWriter, errs error) {
+func RestError(rw http.ResponseWriter, errs error) *apiError {
 	var apierr apiError
 	var svcErr *service.ServiceError
 
@@ -31,5 +36,7 @@ func RestError(rw http.ResponseWriter, errs error) {
 	}
 
 	http.Error(rw, apierr.err, apierr.status)
+
+	return &apierr
 
 }
