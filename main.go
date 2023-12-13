@@ -46,6 +46,7 @@ func dbConn() {
 		errorLogger.Println(errs.DatabaseError(err))
 	}
 
+	// Create Tables
 	err = utils.ExecuteQueries(string(query), utils.Database) // execute SQL queries
 	if err != nil {
 		errorLogger.Println(errs.DatabaseError(err))
