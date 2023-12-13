@@ -156,21 +156,25 @@ func (m *menu) getMenu(rw http.ResponseWriter) {
 		var column menuJson // placeholder for column values
 
 		// get the rows from table
-		rows := utils.SelectRows(utils.SelectAllMenuQuery, utils.Database)
+		rows, err := utils.SelectRows(utils.SelectAllMenuQuery, utils.Database)
+		if err != nil {
+			errs.DatabaseError(err)
+		}
+
 		m.iterDBRows(rows, column)
 
 	}
 
 	// read and encode to json
-	utils.Get(rw, m)
+	err := utils.Get(rw, m)
+	if err != nil {
+		errs.RestError(rw, err)
+	}
 
 }
 
 // gets the list of menu for a meal type
 func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
-
-	// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
-	*m = nil
 
 	// returns slice of substrings that matches subexpressions in the url
 	urlSubPaths := mealTypeRegex.FindStringSubmatch(req.URL.Path)
@@ -182,20 +186,33 @@ func (m *menu) getMealType(rw http.ResponseWriter, req *http.Request) {
 	// log for informational purpose
 	logger.Printf("GET meal type request at /menu/%s endpoint", mealTypeName)
 
-	var column menuJson // placeholder for column values
+	if utils.Database != nil {
 
-	// Retrieve data from the table that matches the substring and append to menu struct
-	rows := utils.SelectRows(utils.SelectMealTypeQuery, utils.Database, mealTypeName)
-	m.iterDBRows(rows, column)
+		// initialize to nil to clear any initial value so that fresh copy of the data in db can be stored
+		*m = nil
 
-	if *m == nil {
-		utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+		var column menuJson // placeholder for column values
 
-		return // exit function call
+		// Retrieve data from the table that matches the substring and append to menu struct
+		rows, err := utils.SelectRows(utils.SelectMealTypeQuery, utils.Database, mealTypeName)
+		if err != nil {
+			errs.DatabaseError(err)
+		}
+
+		m.iterDBRows(rows, column)
+
+		if *m == nil {
+			utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
+			return                                                                             // exit function call
+		}
+
 	}
 
 	// read and encode to json
-	utils.Get(rw, m)
+	err := utils.Get(rw, m)
+	if err != nil {
+		errs.RestError(rw, err)
+	}
 
 }
 
