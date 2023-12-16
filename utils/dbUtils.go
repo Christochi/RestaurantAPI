@@ -2,7 +2,6 @@ package utils
 
 import (
 	"database/sql"
-	"log"
 	"os"
 
 	"github.com/Christochi/error-handler/service"
@@ -73,35 +72,34 @@ func ExecuteQueries(query string, db *sql.DB) error {
 }
 
 // Return table rows
-func SelectRows(query string, db *sql.DB, args ...string) *sql.Rows {
+func SelectRows(query string, db *sql.DB, args ...string) (*sql.Rows, error) {
 
 	// accepts no SQL placeholder argument
-	noArgs := func() *sql.Rows {
+	noArgs := func() (*sql.Rows, error) {
 
 		rows, err := db.Query(query)
 		if err != nil {
-			log.Fatal("Select error, ", err)
+			err = service.NewError(err, "error in select statement with no args")
 		}
 
-		return rows
+		return rows, err
 
 	}
 
 	// accepts SQL placeholder arguments
-	withArgs := func() *sql.Rows {
+	withArgs := func() (*sql.Rows, error) {
 
 		var rows *sql.Rows
+		var err error
 
 		for _, arg := range args {
-			var err error
-
 			rows, err = db.Query(query, arg)
 			if err != nil {
-				log.Fatal("Select2 error, ", err)
+				err = service.NewError(err, "error in select statement with args")
 			}
 
 		}
-		return rows
+		return rows, err
 
 	}
 
