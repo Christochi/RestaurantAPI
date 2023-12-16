@@ -215,12 +215,17 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 			logger.Println(errs.DatabaseError(err))
 		}
 
-		c.iterDBRows(rows, column)
+		// iterate table
+		err = c.iterDBRows(rows, column)
+		if err != nil {
+			logger.Println(errs.DatabaseError(err))
+		}
 
 		if *c == nil {
 			utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
 			return                                                                             // exit function call
 		}
+
 	}
 
 	// read and encode to json
