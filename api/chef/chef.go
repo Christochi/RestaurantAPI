@@ -341,16 +341,18 @@ func (c *chef) deleteChefByName(rw http.ResponseWriter, req *http.Request) {
 		// Delete a row from the chef table
 		result, err := utils.Database.Exec(utils.DeleteAChefQuery, name)
 		if err != nil {
-			log.Fatal("Exec err, ", err)
+			err = service.NewError(err, "error in delete statement")
+			logger.Println(errs.DatabaseError(err))
 		}
 
 		// return number of rows deleted
-		numOfRoles, err := result.RowsAffected()
+		numOfRows, err := result.RowsAffected()
 		if err != nil {
-			log.Fatal("Result err, ", err)
+			err = service.NewError(err, "no rows found")
+			logger.Println(errs.DatabaseError(err))
 		}
 
-		if numOfRoles > 0 {
+		if numOfRows > 0 {
 			utils.ServerMessage(rw, "table row(s) deleted successfully", http.StatusOK) // 200 OK
 		} else {
 			utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
