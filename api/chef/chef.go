@@ -9,6 +9,8 @@ import (
 	errs "restaurantapi/errors"
 	"restaurantapi/utils"
 	"strings"
+
+	"github.com/Christochi/error-handler/service"
 )
 
 var logger = utils.InfoLog() // return info field
@@ -100,17 +102,23 @@ func (c *chef) bulkInsert(query string, db *sql.DB) int64 {
 }
 
 // traverse the table rows
-func (c *chef) iterDBRows(rows *sql.Rows, column chefJson) {
+func (c *chef) iterDBRows(rows *sql.Rows, column chefJson) error {
 
 	defer rows.Close()
+
 	for rows.Next() {
 		if err := rows.Scan(&column.Name, &column.About, &column.Image, &column.Gender, &column.Age); err != nil {
-			log.Fatal("Scan error, ", err)
+			return service.NewError(err, "could not fetch table rows")
 		}
 
 		*c = append(*c, column)
-
 	}
+
+	if err := rows.Err(); err != nil {
+		return service.NewError(err, "error occured during iteration")
+	}
+
+	return nil
 
 }
 
@@ -123,7 +131,7 @@ func (c *chef) postChef(rw http.ResponseWriter, req *http.Request) {
 	// read and decode to struct
 	err := utils.Create(rw, req, c)
 	if err != nil {
-		errs.RestError(rw, err)
+		logger.Println(errs.RestError(rw, err))
 		return // exit method to avoid superflous call to response.WriteHeader
 	}
 
@@ -160,15 +168,23 @@ func (c *chef) getChefs(rw http.ResponseWriter) {
 		var column chefJson // placeholder for column values
 
 		// get the rows from table
-		rows := utils.SelectRows(utils.SelectAllChefsQuery, utils.Database)
-		c.iterDBRows(rows, column)
+		rows, err := utils.SelectRows(utils.SelectAllChefsQuery, utils.Database)
+		if err != nil {
+			logger.Println(errs.DatabaseError(err))
+		}
+
+		// iterate table
+		err = c.iterDBRows(rows, column)
+		if err != nil {
+			logger.Println(errs.DatabaseError(err))
+		}
 
 	}
 
 	// read and encode to json
 	err := utils.Get(rw, c)
 	if err != nil {
-		errs.RestError(rw, err)
+		logger.Println(errs.RestError(rw, err))
 	}
 
 }
@@ -194,21 +210,23 @@ func (c *chef) getChefByName(rw http.ResponseWriter, req *http.Request) {
 		var column chefJson // placeholder for column values
 
 		// Retrieve data from the table that matches the substring
-		rows := utils.SelectRows(utils.SelectChefByNameQuery, utils.Database, name+"%")
+		rows, err := utils.SelectRows(utils.SelectChefByNameQuery, utils.Database, name+"%")
+		if err != nil {
+			logger.Println(errs.DatabaseError(err))
+		}
+
 		c.iterDBRows(rows, column)
 
 		if *c == nil {
 			utils.ServerMessage(rw, http.StatusText(http.StatusNotFound), http.StatusNotFound) // 404 Not Found
-
-			return // exit function call
-
+			return                                                                             // exit function call
 		}
 	}
 
 	// read and encode to json
 	err := utils.Get(rw, c)
 	if err != nil {
-		errs.RestError(rw, err)
+		logger.Println(errs.RestError(rw, err))
 	}
 
 }
